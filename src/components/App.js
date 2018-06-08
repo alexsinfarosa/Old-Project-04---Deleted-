@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 
+// components
+import StationsMap from "./StationsMap";
+
 class App extends Component {
   render() {
-    return <div>test...</div>;
+    return (
+      <div>
+        <StationsMap />
+      </div>
+    );
   }
 }
 
