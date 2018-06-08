@@ -1,0 +1,26 @@
+{
+  "name": "nrcc-temperature-widget",
+  "version": "0.1.0",
+  "author": "alexsinfarosa <as898@cornell.edu>",
+  "homepage": "https://alexsinfarosa.github.io/nrcc-temperature-widget/",
+  "description": "NRCC Temperature Widget",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "date-fns": "^2.0.0-alpha.10",
+    "gh-pages": "^1.2.0",
+    "mobx": "^5.0.0",
+    "mobx-react": "^5.2.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
+}
