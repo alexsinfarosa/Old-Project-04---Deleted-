@@ -6,6 +6,8 @@
   "description": "NRCC Temperature Widget",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0",
     "axios": "^0.18.0",
     "date-fns": "^2.0.0-alpha.10",
     "gh-pages": "^1.2.0",
@@ -13,7 +15,8 @@
     "mobx-react": "^5.2.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-spinners": "^0.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
