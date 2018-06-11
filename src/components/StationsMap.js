@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
-import { Map, TileLayer, Marker, Tooltip, Popup } from "react-leaflet";
+import { Map, TileLayer, CircleMarker, Tooltip, Popup } from "react-leaflet";
 
 // material-ui
 import { withStyles } from "@material-ui/core/styles";
@@ -12,40 +12,35 @@ import { stations } from "../assets/stationList";
 // styles
 const styles = theme => ({
   root: {
-    height: 300,
-    width: 450
+    height: 500,
+    maxWidth: 500
   }
 });
 
 class StationsMap extends Component {
-  state = {
-    lat: 51.505,
-    lng: -0.09,
-    zoom: 6
-  };
-
   render() {
-    // const position = [this.state.lat, this.state.lng];
     const { classes } = this.props;
+    const { setStation } = this.props.appStore.paramsStore;
 
     const stationList = stations.map(stn => (
-      <Marker key={stn.name} position={[stn.lat, stn.lon]}>
-        <Popup>Popup for Marker</Popup>
-      </Marker>
+      <CircleMarker
+        key={stn.name}
+        center={[stn.lat, stn.lon]}
+        radius={stn.sid === "nycthr" ? 10 : 6}
+        // color="red"
+        onClick={() => setStation(stn)}
+      />
     ));
 
     return (
       <div className={classes.root}>
         <Map
-          // center={position}
-          bounds={[
-            [39.6599749572, -76.054674387],
-            [42.8735898535, -70.7215416431]
-          ]}
-          // zoom={this.state.zoom}
+          // bounds={[[49, -87], [43, -69]]}
+          bounds={[[39, -75], [43, -71]]}
           style={{ width: "100%", height: "100%" }}
+          zoomControl={false}
         >
-          <TileLayer url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png" />
+          <TileLayer url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}{r}.png" />
           {stationList}
         </Map>
       </div>
