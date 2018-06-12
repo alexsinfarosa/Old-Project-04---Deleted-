@@ -20,23 +20,63 @@ const styles = theme => ({
 });
 
 const marks = {
-  80: "80°C",
-  85: "85°C",
-  90: "90°C",
-  95: "95°C",
+  80: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "80 °C"
+  },
+  85: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "85 °C"
+  },
+  90: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "90 °C"
+  },
+  95: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "95 °C"
+  },
   100: {
     style: {
-      color: "red"
+      whiteSpace: "nowrap"
     },
-    label: <strong>100°C</strong>
+    label: "100 °C"
   }
 };
 
 const marks2 = {
-  1: "1",
-  2: "2",
-  3: "3",
-  4: "4"
+  1: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "1 in"
+  },
+  2: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "2 in"
+  },
+  3: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "3 in"
+  },
+  4: {
+    style: {
+      whiteSpace: "nowrap"
+    },
+    label: "4 in"
+  }
 };
 
 class App extends Component {
