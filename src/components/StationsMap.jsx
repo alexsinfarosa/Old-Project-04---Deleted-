@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
-import { Map, TileLayer, CircleMarker, Tooltip, Popup } from "react-leaflet";
+import { Map, TileLayer, CircleMarker } from "react-leaflet";
 
 // material-ui
 import { withStyles } from "@material-ui/core/styles";
