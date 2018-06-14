@@ -2,12 +2,14 @@ import { decorate, observable, action, computed, when, reaction } from "mobx";
 import axios from "axios";
 import { stations } from "../assets/stationList";
 
+import { determineQuantiles, index, arcData } from "../utils/utils";
 import { format, getMonth } from "date-fns/esm";
 
 export default class ParamsStore {
   constructor() {
     when(() => !this.data, () => this.loadObservedData(this.params));
     reaction(() => this.params, () => this.loadObservedData(this.params));
+    when(() => this.data, () => console.log(this.asJson));
   }
 
   isLoading = false;
@@ -159,6 +161,58 @@ export default class ParamsStore {
         console.log("Failed to load observed data ", err);
       });
   };
+
+  get asJson() {
+    return {
+      daysAboveThresholdThisYear: this.daysAboveThresholdThisYear,
+      avgTemps: this.avgTemps,
+      avgPcpns: this.avgPcpns
+    };
+  }
+
+  get daysAboveThresholdThisYear() {
+    return this.data ? this.data.slice(-1).map(arr => Number(arr[1]))[0] : [];
+  }
+
+  gaugeType = ["month", "season", "year"];
+
+  get avgTemps() {
+    let results = [];
+    if (this.data) {
+      this.gaugeType.forEach((type, i) => {
+        let p = {};
+        const values = this.data.map(arr => Number(arr[i + 1]));
+        const quantiles = determineQuantiles(values);
+        const idx = index(
+          this.daysAboveThresholdThisYear,
+          Object.values(quantiles)
+        );
+        const gaugeData = arcData(quantiles, this.daysAboveThresholdThisYear);
+        p = { type, values, quantiles, idx, gaugeData, label: "Temperature" };
+        results.push(p);
+      });
+      return results;
+    }
+  }
+
+  get avgPcpns() {
+    let results = [];
+    if (this.data) {
+      this.gaugeType.forEach((type, i) => {
+        let p = {};
+        const values = this.data.map(arr => Number(arr[i + 4]));
+        const quantiles = determineQuantiles(values);
+        const idx = index(
+          this.daysAboveThresholdThisYear,
+          Object.values(quantiles)
+        );
+        const gaugeData = arcData(quantiles, this.daysAboveThresholdThisYear);
+        p = { type, values, quantiles, idx, gaugeData, label: "Precipitation" };
+        results.push(p);
+      });
+      return results;
+    }
+  }
 }
 
 decorate(ParamsStore, {
@@ -175,5 +229,9 @@ decorate(ParamsStore, {
   seasonalExtreme: computed,
   params: computed,
   data: observable,
-  setData: action
+  setData: action,
+  asJson: computed,
+  daysAboveThresholdThisYear: computed,
+  avgTemps: computed,
+  avgPcpns: computed
 });

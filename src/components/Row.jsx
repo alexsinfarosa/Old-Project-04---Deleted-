@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { inject, observer } from "mobx-react";
 import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
@@ -14,19 +14,26 @@ const styles = theme => ({
 
 class Rows extends Component {
   render() {
+    const { row } = this.props;
     return (
-      <Grid container spacing={24} direction="column">
-        <Grid item>
-          <Typography variant="display1" gutterBottom>
-            Temperature
-          </Typography>
-        </Grid>
-        <Grid container justify="center">
-          <Gauge />
-          <Gauge />
-          <Gauge />
-        </Grid>
-      </Grid>
+      <Fragment>
+        {row ? (
+          <Grid container spacing={24} direction="column">
+            <Grid item>
+              <Typography variant="display1">{row[0].label}</Typography>
+            </Grid>
+            <Grid container justify="center">
+              {row.map(gauge => (
+                <Gauge
+                  key={gauge.type}
+                  idx={gauge.idx}
+                  gaugeData={gauge.gaugeData}
+                />
+              ))}
+            </Grid>
+          </Grid>
+        ) : null}
+      </Fragment>
     );
   }
 }

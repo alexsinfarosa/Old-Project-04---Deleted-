@@ -21,7 +21,7 @@ const styles = theme => ({
 class App extends Component {
   render() {
     const { classes } = this.props;
-    const { station } = this.props.appStore.paramsStore;
+    const { station, avgTemps, avgPcpns } = this.props.appStore.paramsStore;
     return (
       <div className={classes.root}>
         <Grid container className={classes.root} spacing={24}>
@@ -44,8 +44,9 @@ class App extends Component {
               consequatur quis doloribus facere?
             </div>
           </Grid>
-          <Grid item xs={12} sm={8} style={{ background: "orange" }}>
-            <Row />
+          <Grid item xs={12} sm={8}>
+            <Row row={avgTemps} />
+            <Row row={avgPcpns} />
           </Grid>
         </Grid>
       </div>
