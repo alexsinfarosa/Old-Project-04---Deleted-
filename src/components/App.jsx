@@ -9,12 +9,20 @@ import Typography from "@material-ui/core/Typography";
 // components
 import StationsMap from "./StationsMap";
 import Row from "./Row";
+import { RingLoader } from "react-spinners";
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing.unit * 2
     // background: "#e8ecf0"
+  },
+  centered: {
+    display: "flex",
+    flex: 1,
+    height: 300,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
@@ -22,6 +30,7 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     const { station, avgTemps, avgPcpns } = this.props.appStore.paramsStore;
+    console.log(avgTemps);
     return (
       <div className={classes.root}>
         <Grid container className={classes.root} spacing={24}>
@@ -45,8 +54,20 @@ class App extends Component {
             </div>
           </Grid>
           <Grid item xs={12} sm={8}>
-            <Row row={avgTemps} />
-            <Row row={avgPcpns} />
+            {avgTemps ? (
+              <Row row={avgTemps} />
+            ) : (
+              <div className={classes.centered}>
+                <RingLoader color={"#843EA4"} loading={!avgTemps} />
+              </div>
+            )}
+            {avgPcpns ? (
+              <Row row={avgPcpns} />
+            ) : (
+              <div className={classes.centered}>
+                <RingLoader color={"#843EA4"} loading={!avgTemps} />
+              </div>
+            )}
           </Grid>
         </Grid>
       </div>

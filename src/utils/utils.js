@@ -177,348 +177,15 @@ export const arcData = (q, days, temp, darkArcLabel) => {
   const values = Object.values(q);
   // console.log(keys, values);
   if (values.length === 5) {
-    // return [
-    //   {
-    //     name: "Min",
-    //     startArcQuantile: values[0],
-    //     endArcQuantile: values[0],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 0
-    //   },
-    //   {
-    //     name: "Below",
-    //     startArcQuantile: values[0],
-    //     endArcQuantile: values[1],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 1
-    //   },
-    //   {
-    //     name: "25%",
-    //     startArcQuantile: values[1],
-    //     endArcQuantile: values[1],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 0
-    //   },
-    //   {
-    //     name: "Slightly Below",
-    //     startArcQuantile: values[1],
-    //     endArcQuantile: values[2],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 1
-    //   },
-    //   {
-    //     name: "Mean",
-    //     startArcQuantile: values[2],
-    //     endArcQuantile: values[2],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 0
-    //   },
-    //   {
-    //     name: "Slightly Above",
-    //     startArcQuantile: values[2],
-    //     endArcQuantile: values[3],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 1
-    //   },
-    //   {
-    //     name: "75%",
-    //     startArcQuantile: values[3],
-    //     endArcQuantile: values[3],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 0
-    //   },
-    //   {
-    //     name: "Above",
-    //     startArcQuantile: values[3],
-    //     endArcQuantile: values[4],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 1
-    //   },
-    //   {
-    //     name: "Max",
-    //     startArcQuantile: values[4],
-    //     endArcQuantile: values[4],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 0
-    //   },
-    //   {
-    //     name: darkArcLabel,
-    //     startArcQuantile: values[4],
-    //     endArcQuantile: values[0],
-    //     daysAbove: days,
-    //     t: temp,
-    //     value: 1
-    //   }
-    // ];
     return [
       {
         name: "New Record",
-        startArcQuantile: 40,
-        endArcQuantile: 40,
-        sector: 2,
+        startArcQuantile: null,
+        endArcQuantile: values[0],
         daysAbove: days,
-        value: 1
+        t: temp,
+        value: 2
       },
-      {
-        name: "Below",
-        startArcQuantile: values[0],
-        endArcQuantile: values[1],
-        sector: 4,
-        daysAbove: days,
-        value: 1
-      },
-      {
-        name: "Slightly Below",
-        startArcQuantile: values[1],
-        endArcQuantile: values[2],
-        sector: 4,
-        daysAbove: days,
-        value: 1
-      },
-      {
-        name: "Slightly Above",
-        startArcQuantile: values[2],
-        endArcQuantile: values[3],
-        sector: 4,
-        daysAbove: days,
-        value: 1
-      },
-      {
-        name: "Above",
-        startArcQuantile: values[3],
-        endArcQuantile: values[4],
-        sector: 4,
-        daysAbove: days,
-        value: 1
-      },
-      {
-        name: "New Record",
-        startArcQuantile: 40,
-        endArcQuantile: null,
-        sector: 2,
-        daysAbove: days,
-        value: 1
-      }
-    ];
-  }
-
-  if (values.length === 4) {
-    if (isEqual(keys, ["0", "50", "75", "100"])) {
-      return [
-        {
-          name: "Min",
-          startArcQuantile: values[0],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Below",
-          startArcQuantile: values[0],
-          endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "Mean",
-          startArcQuantile: values[1],
-          endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Slightly Above",
-          startArcQuantile: values[1],
-          endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "75%",
-          startArcQuantile: values[2],
-          endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Above",
-          startArcQuantile: values[2],
-          endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "Max",
-          startArcQuantile: values[3],
-          endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: darkArcLabel,
-          startArcQuantile: values[3],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        }
-      ];
-    }
-    if (isEqual(keys, ["0", "25", "50", "100"])) {
-      return [
-        {
-          name: "Min",
-          startArcQuantile: values[0],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Below",
-          startArcQuantile: values[0],
-          endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "25%",
-          startArcQuantile: values[1],
-          endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Slightly Below",
-          startArcQuantile: values[1],
-          endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "Mean",
-          startArcQuantile: values[2],
-          endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Above",
-          startArcQuantile: values[2],
-          endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "Max",
-          startArcQuantile: values[3],
-          endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: darkArcLabel,
-          startArcQuantile: values[3],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        }
-      ];
-    }
-    if (isEqual(keys, ["25", "50", "75", "100"])) {
-      return [
-        {
-          name: "25%",
-          startArcQuantile: values[0],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Slightly Below",
-          startArcQuantile: values[0],
-          endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "Mean",
-          startArcQuantile: values[1],
-          endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Slightly Above",
-          startArcQuantile: values[1],
-          endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "75%",
-          startArcQuantile: values[2],
-          endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: "Above",
-          startArcQuantile: values[2],
-          endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        },
-        {
-          name: "Max",
-          startArcQuantile: values[3],
-          endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
-          value: 0
-        },
-        {
-          name: darkArcLabel,
-          startArcQuantile: values[3],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 1
-        }
-      ];
-    }
-  }
-  if (isEqual(keys, ["0", "25", "75", "100"])) {
-    return [
       {
         name: "Min",
         startArcQuantile: values[0],
@@ -533,7 +200,7 @@ export const arcData = (q, days, temp, darkArcLabel) => {
         endArcQuantile: values[1],
         daysAbove: days,
         t: temp,
-        value: 1
+        value: 4
       },
       {
         name: "25%",
@@ -549,7 +216,330 @@ export const arcData = (q, days, temp, darkArcLabel) => {
         endArcQuantile: values[2],
         daysAbove: days,
         t: temp,
-        value: 1
+        value: 4
+      },
+      {
+        name: "Mean",
+        startArcQuantile: values[2],
+        endArcQuantile: values[2],
+        daysAbove: days,
+        t: temp,
+        value: 0
+      },
+      {
+        name: "Slightly Above",
+        startArcQuantile: values[2],
+        endArcQuantile: values[3],
+        daysAbove: days,
+        t: temp,
+        value: 4
+      },
+      {
+        name: "75%",
+        startArcQuantile: values[3],
+        endArcQuantile: values[3],
+        daysAbove: days,
+        t: temp,
+        value: 0
+      },
+      {
+        name: "Above",
+        startArcQuantile: values[3],
+        endArcQuantile: values[4],
+        daysAbove: days,
+        t: temp,
+        value: 4
+      },
+      {
+        name: "Max",
+        startArcQuantile: values[4],
+        endArcQuantile: values[4],
+        daysAbove: days,
+        t: temp,
+        value: 0
+      },
+      {
+        name: "New Record",
+        startArcQuantile: values[4],
+        endArcQuantile: null,
+        daysAbove: days,
+        t: temp,
+        value: 2
+      }
+    ];
+  }
+
+  if (values.length === 4) {
+    if (isEqual(keys, ["0", "50", "75", "100"])) {
+      return [
+        {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 2
+        },
+        {
+          name: "Min",
+          startArcQuantile: values[0],
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Below",
+          startArcQuantile: values[0],
+          endArcQuantile: values[1],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "Mean",
+          startArcQuantile: values[1],
+          endArcQuantile: values[1],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Slightly Above",
+          startArcQuantile: values[1],
+          endArcQuantile: values[2],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "75%",
+          startArcQuantile: values[2],
+          endArcQuantile: values[2],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Above",
+          startArcQuantile: values[2],
+          endArcQuantile: values[3],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "Max",
+          startArcQuantile: values[3],
+          endArcQuantile: values[3],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "New Record",
+          startArcQuantile: values[3],
+          endArcQuantile: null,
+          daysAbove: days,
+          t: temp,
+          value: 2
+        }
+      ];
+    }
+    if (isEqual(keys, ["0", "25", "50", "100"])) {
+      return [
+        {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 2
+        },
+        {
+          name: "Min",
+          startArcQuantile: values[0],
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Below",
+          startArcQuantile: values[0],
+          endArcQuantile: values[1],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "25%",
+          startArcQuantile: values[1],
+          endArcQuantile: values[1],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Slightly Below",
+          startArcQuantile: values[1],
+          endArcQuantile: values[2],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "Mean",
+          startArcQuantile: values[2],
+          endArcQuantile: values[2],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Above",
+          startArcQuantile: values[2],
+          endArcQuantile: values[3],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "Max",
+          startArcQuantile: values[3],
+          endArcQuantile: values[3],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "New Record",
+          startArcQuantile: values[3],
+          endArcQuantile: null,
+          daysAbove: days,
+          t: temp,
+          value: 2
+        }
+      ];
+    }
+    if (isEqual(keys, ["25", "50", "75", "100"])) {
+      return [
+        {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 2
+        },
+        {
+          name: "25%",
+          startArcQuantile: values[0],
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Slightly Below",
+          startArcQuantile: values[0],
+          endArcQuantile: values[1],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "Mean",
+          startArcQuantile: values[1],
+          endArcQuantile: values[1],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Slightly Above",
+          startArcQuantile: values[1],
+          endArcQuantile: values[2],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "75%",
+          startArcQuantile: values[2],
+          endArcQuantile: values[2],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "Above",
+          startArcQuantile: values[2],
+          endArcQuantile: values[3],
+          daysAbove: days,
+          t: temp,
+          value: 4
+        },
+        {
+          name: "Max",
+          startArcQuantile: values[3],
+          endArcQuantile: values[3],
+          daysAbove: days,
+          t: temp,
+          value: 0
+        },
+        {
+          name: "New record",
+          startArcQuantile: values[3],
+          endArcQuantile: null,
+          daysAbove: days,
+          t: temp,
+          value: 2
+        }
+      ];
+    }
+  }
+  if (isEqual(keys, ["0", "25", "75", "100"])) {
+    return [
+      {
+        name: "New Record",
+        startArcQuantile: null,
+        endArcQuantile: values[0],
+        daysAbove: days,
+        t: temp,
+        value: 2
+      },
+      {
+        name: "Min",
+        startArcQuantile: values[0],
+        endArcQuantile: values[0],
+        daysAbove: days,
+        t: temp,
+        value: 0
+      },
+      {
+        name: "Below",
+        startArcQuantile: values[0],
+        endArcQuantile: values[1],
+        daysAbove: days,
+        t: temp,
+        value: 4
+      },
+      {
+        name: "25%",
+        startArcQuantile: values[1],
+        endArcQuantile: values[1],
+        daysAbove: days,
+        t: temp,
+        value: 0
+      },
+      {
+        name: "Slightly Below",
+        startArcQuantile: values[1],
+        endArcQuantile: values[2],
+        daysAbove: days,
+        t: temp,
+        value: 4
       },
       {
         name: "Mean",
@@ -565,7 +555,7 @@ export const arcData = (q, days, temp, darkArcLabel) => {
         endArcQuantile: values[3],
         daysAbove: days,
         t: temp,
-        value: 1
+        value: 4
       },
       {
         name: "Max",
@@ -576,18 +566,26 @@ export const arcData = (q, days, temp, darkArcLabel) => {
         value: 0
       },
       {
-        name: darkArcLabel,
+        name: "New Record",
         startArcQuantile: values[3],
-        endArcQuantile: values[0],
+        endArcQuantile: null,
         daysAbove: days,
         t: temp,
-        value: 1
+        value: 4
       }
     ];
   }
   if (values.length === 3) {
     if (isEqual(keys, ["50", "75", "100"])) {
       return [
+        {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 2
+        },
         {
           name: "Mean",
           startArcQuantile: values[0],
@@ -602,7 +600,7 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           endArcQuantile: values[1],
           daysAbove: days,
           t: temp,
-          value: 1
+          value: 4
         },
         {
           name: "75%",
@@ -618,7 +616,7 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           endArcQuantile: values[2],
           daysAbove: days,
           t: temp,
-          value: 1
+          value: 4
         },
         {
           name: "Max",
@@ -629,18 +627,26 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           value: 0
         },
         {
-          name: darkArcLabel,
+          name: "New Record",
           startArcQuantile: values[2],
-          endArcQuantile: values[0],
+          endArcQuantile: null,
           daysAbove: days,
           t: temp,
-          value: 1
+          value: 2
         }
       ];
     }
 
     if (isEqual(keys, ["25", "50", "100"])) {
       return [
+        {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAbove: days,
+          t: temp,
+          value: 2
+        },
         {
           name: "25%",
           startArcQuantile: values[0],
@@ -655,7 +661,7 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           endArcQuantile: values[1],
           daysAbove: days,
           t: temp,
-          value: 1
+          value: 4
         },
         {
           name: "Mean",
@@ -671,7 +677,7 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           endArcQuantile: values[2],
           daysAbove: days,
           t: temp,
-          value: 1
+          value: 4
         },
         {
           name: "Max",
@@ -682,12 +688,12 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           value: 0
         },
         {
-          name: darkArcLabel,
+          name: "New Record",
           startArcQuantile: values[2],
-          endArcQuantile: values[0],
+          endArcQuantile: null,
           daysAbove: days,
           t: temp,
-          value: 1
+          value: 2
         }
       ];
     }

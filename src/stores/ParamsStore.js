@@ -181,14 +181,21 @@ export default class ParamsStore {
     if (this.data) {
       this.gaugeType.forEach((type, i) => {
         let p = {};
+        const daysAboveThisYearALL = this.data.slice(-1)[0];
+        const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 1}`);
         const values = this.data.map(arr => Number(arr[i + 1]));
         const quantiles = determineQuantiles(values);
-        const idx = index(
-          this.daysAboveThresholdThisYear,
-          Object.values(quantiles)
-        );
-        const gaugeData = arcData(quantiles, this.daysAboveThresholdThisYear);
-        p = { type, values, quantiles, idx, gaugeData, label: "Temperature" };
+        const idx = index(daysAboveThisYear, Object.values(quantiles));
+        const gaugeData = arcData(quantiles, daysAboveThisYear);
+        p = {
+          daysAboveThisYear,
+          type,
+          values,
+          quantiles,
+          idx,
+          gaugeData,
+          label: "Temperature"
+        };
         results.push(p);
       });
       return results;

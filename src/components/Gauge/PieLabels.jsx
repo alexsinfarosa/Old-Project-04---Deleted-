@@ -45,14 +45,15 @@ const PieLabels = ({
         name === "25%" ||
         name === "Mean" ||
         name === "75%" ||
-        name === "Max") && <circle cx={xL} cy={yL} r={14} fill="#565656" />}
+        name === "Max") && <circle cx={xL} cy={yL} r={14} fill="#fff" />}
       <text
-        fill="#FBF5F3"
         textAnchor="middle"
         x={xL}
         y={yL}
         dy=".33em"
         fontSize={9}
+        fill={name === "New Record" ? "white" : "black"}
+        fontWeight="bold"
       >
         {payload.name}
       </text>
