@@ -149,7 +149,6 @@ export default class ParamsStore {
 
   loadObservedData = params => {
     this.setIsLoading(true);
-    console.log(params);
     return axios
       .post(`${window.location.protocol}//data.rcc-acis.org/StnData`, params)
       .then(res => {
@@ -164,14 +163,9 @@ export default class ParamsStore {
 
   get asJson() {
     return {
-      daysAboveThresholdThisYear: this.daysAboveThresholdThisYear,
       avgTemps: this.avgTemps,
       avgPcpns: this.avgPcpns
     };
-  }
-
-  get daysAboveThresholdThisYear() {
-    return this.data ? this.data.slice(-1).map(arr => Number(arr[1]))[0] : [];
   }
 
   gaugeType = ["month", "season", "year"];
@@ -186,10 +180,21 @@ export default class ParamsStore {
         const values = this.data.map(arr => Number(arr[i + 1]));
         const quantiles = determineQuantiles(values);
         const idx = index(daysAboveThisYear, Object.values(quantiles));
-        const gaugeData = arcData(quantiles, daysAboveThisYear);
+        let gaugeTitle = "";
+        if (type === "month") gaugeTitle = format(new Date(), "MMMM");
+        if (type === "season") gaugeTitle = this.season.label;
+        if (type === "year") gaugeTitle = "This Year";
+        const gaugeData = arcData(
+          quantiles,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle
+        );
+
         p = {
           daysAboveThisYear,
           type,
+          gaugeTitle,
           values,
           quantiles,
           idx,
@@ -207,14 +212,32 @@ export default class ParamsStore {
     if (this.data) {
       this.gaugeType.forEach((type, i) => {
         let p = {};
+        const daysAboveThisYearALL = this.data.slice(-1)[0];
+        const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 4}`);
         const values = this.data.map(arr => Number(arr[i + 4]));
         const quantiles = determineQuantiles(values);
-        const idx = index(
-          this.daysAboveThresholdThisYear,
-          Object.values(quantiles)
+        const idx = index(daysAboveThisYear, Object.values(quantiles));
+        let gaugeTitle = "";
+        if (type === "month") gaugeTitle = format(new Date(), "MMMM");
+        if (type === "season") gaugeTitle = this.season.label;
+        if (type === "year") gaugeTitle = "This Year";
+        const gaugeData = arcData(
+          quantiles,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle
         );
-        const gaugeData = arcData(quantiles, this.daysAboveThresholdThisYear);
-        p = { type, values, quantiles, idx, gaugeData, label: "Precipitation" };
+
+        p = {
+          daysAboveThisYear,
+          type,
+          gaugeTitle,
+          values,
+          quantiles,
+          idx,
+          gaugeData,
+          label: "Precipitation"
+        };
         results.push(p);
       });
       return results;
@@ -238,7 +261,6 @@ decorate(ParamsStore, {
   data: observable,
   setData: action,
   asJson: computed,
-  daysAboveThresholdThisYear: computed,
   avgTemps: computed,
   avgPcpns: computed
 });

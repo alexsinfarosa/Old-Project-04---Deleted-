@@ -26,7 +26,7 @@ class Rows extends Component {
               {row.map(gauge => (
                 <Gauge
                   key={gauge.type}
-                  idx={gauge.idx}
+                  index={gauge.idx}
                   gaugeData={gauge.gaugeData}
                 />
               ))}

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../../withRoot";
@@ -19,7 +19,7 @@ let width = 360;
 
 class Gauge extends Component {
   render() {
-    const { idx, gaugeData } = this.props;
+    const { index, gaugeData } = this.props;
 
     let cell;
     if (gaugeData) {
@@ -32,8 +32,8 @@ class Gauge extends Component {
       <Grid item>
         <PieChart width={width} height={height}>
           <Pie
-            activeIndex={idx}
-            // activeShape={<InnerCircle type="Observed Data" />}
+            activeIndex={index}
+            activeShape={<InnerCircle />}
             startAngle={240}
             endAngle={-60}
             dataKey="value"

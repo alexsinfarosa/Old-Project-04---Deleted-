@@ -28,7 +28,7 @@ const PieLabels = ({
   const yL = cy + (innerRadius + (outerRadius - innerRadius) / 2) * sinL;
 
   const { name } = payload;
-
+  // console.log(payload.payload);
   return (
     <g>
       <text
@@ -41,11 +41,13 @@ const PieLabels = ({
       >
         {payload.endArcQuantile}
       </text>
+
       {(name === "Min" ||
         name === "25%" ||
         name === "Mean" ||
         name === "75%" ||
         name === "Max") && <circle cx={xL} cy={yL} r={14} fill="#fff" />}
+
       <text
         textAnchor="middle"
         x={xL}

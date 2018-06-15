@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     const { station, avgTemps, avgPcpns } = this.props.appStore.paramsStore;
-    console.log(avgTemps);
+
     return (
       <div className={classes.root}>
         <Grid container className={classes.root} spacing={24}>

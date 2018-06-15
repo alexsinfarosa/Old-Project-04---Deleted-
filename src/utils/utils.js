@@ -57,8 +57,8 @@ export const determineQuantiles = data => {
   return results;
 };
 
-export const index = (daysAbovethreshold, quantiles) => {
-  const d = Math.round(daysAbovethreshold); // ex: 13
+export const index = (threshold, quantiles) => {
+  const d = Number(threshold); // ex: 13
   const q = quantiles; // ex: [3,11,23,66]
 
   if (q.length === 5) {
@@ -172,9 +172,9 @@ export const projectionHeaderMessage = name => {
   if (name === "Max") return "the maximum value";
 };
 
-export const arcData = (q, days, temp, darkArcLabel) => {
-  const keys = Object.keys(q);
-  const values = Object.values(q);
+export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
+  const keys = Object.keys(quantiles);
+  const values = Object.values(quantiles);
   // console.log(keys, values);
   if (values.length === 5) {
     return [
@@ -182,88 +182,99 @@ export const arcData = (q, days, temp, darkArcLabel) => {
         name: "New Record",
         startArcQuantile: null,
         endArcQuantile: values[0],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 2
       },
       {
         name: "Min",
         startArcQuantile: values[0],
         endArcQuantile: values[0],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Below",
         startArcQuantile: values[0],
         endArcQuantile: values[1],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       },
       {
         name: "25%",
         startArcQuantile: values[1],
         endArcQuantile: values[1],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Slightly Below",
         startArcQuantile: values[1],
         endArcQuantile: values[2],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       },
       {
         name: "Mean",
         startArcQuantile: values[2],
         endArcQuantile: values[2],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Slightly Above",
         startArcQuantile: values[2],
         endArcQuantile: values[3],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       },
       {
         name: "75%",
         startArcQuantile: values[3],
         endArcQuantile: values[3],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Above",
         startArcQuantile: values[3],
         endArcQuantile: values[4],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       },
       {
         name: "Max",
         startArcQuantile: values[4],
         endArcQuantile: values[4],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "New Record",
         startArcQuantile: values[4],
         endArcQuantile: null,
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 2
       }
     ];
@@ -276,72 +287,81 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           name: "New Record",
           startArcQuantile: null,
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         },
         {
           name: "Min",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Below",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Mean",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Slightly Above",
           startArcQuantile: values[1],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "75%",
           startArcQuantile: values[2],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[2],
           endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[3],
           endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "New Record",
           startArcQuantile: values[3],
           endArcQuantile: null,
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         }
       ];
@@ -352,72 +372,81 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           name: "New Record",
           startArcQuantile: null,
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         },
         {
           name: "Min",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Below",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "25%",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Slightly Below",
           startArcQuantile: values[1],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Mean",
           startArcQuantile: values[2],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[2],
           endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[3],
           endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "New Record",
           startArcQuantile: values[3],
           endArcQuantile: null,
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         }
       ];
@@ -428,72 +457,81 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           name: "New Record",
           startArcQuantile: null,
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         },
         {
           name: "25%",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Slightly Below",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Mean",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Slightly Above",
           startArcQuantile: values[1],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "75%",
           startArcQuantile: values[2],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[2],
           endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[3],
           endArcQuantile: values[3],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "New record",
           startArcQuantile: values[3],
           endArcQuantile: null,
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         }
       ];
@@ -505,72 +543,81 @@ export const arcData = (q, days, temp, darkArcLabel) => {
         name: "New Record",
         startArcQuantile: null,
         endArcQuantile: values[0],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 2
       },
       {
         name: "Min",
         startArcQuantile: values[0],
         endArcQuantile: values[0],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Below",
         startArcQuantile: values[0],
         endArcQuantile: values[1],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       },
       {
         name: "25%",
         startArcQuantile: values[1],
         endArcQuantile: values[1],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Slightly Below",
         startArcQuantile: values[1],
         endArcQuantile: values[2],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       },
       {
         name: "Mean",
         startArcQuantile: values[2],
         endArcQuantile: values[2],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Above",
         startArcQuantile: values[2],
         endArcQuantile: values[3],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       },
       {
         name: "Max",
         startArcQuantile: values[3],
         endArcQuantile: values[3],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "New Record",
         startArcQuantile: values[3],
         endArcQuantile: null,
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 4
       }
     ];
@@ -582,56 +629,63 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           name: "New Record",
           startArcQuantile: null,
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         },
         {
           name: "Mean",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Slightly Above",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "75%",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[1],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[2],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "New Record",
           startArcQuantile: values[2],
           endArcQuantile: null,
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         }
       ];
@@ -643,56 +697,63 @@ export const arcData = (q, days, temp, darkArcLabel) => {
           name: "New Record",
           startArcQuantile: null,
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         },
         {
           name: "25%",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Slightly Below",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Mean",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[1],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[2],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "New Record",
           startArcQuantile: values[2],
           endArcQuantile: null,
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 2
         }
       ];
@@ -704,52 +765,67 @@ export const arcData = (q, days, temp, darkArcLabel) => {
     ) {
       return [
         {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 2
+        },
+        {
           name: "Min",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Below",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 4
         },
         {
           name: "Mean",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[1],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[2],
           endArcQuantile: values[2],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
-          name: darkArcLabel,
+          name: "New Record",
           startArcQuantile: values[2],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          endArcQuantile: null,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 2
         }
       ];
     }
@@ -757,52 +833,67 @@ export const arcData = (q, days, temp, darkArcLabel) => {
   if (isEqual(keys, ["0", "25", "100"])) {
     return [
       {
+        name: "New Record",
+        startArcQuantile: null,
+        endArcQuantile: values[0],
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
+        value: 2
+      },
+      {
         name: "Min",
         startArcQuantile: values[0],
         endArcQuantile: values[0],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Below",
         startArcQuantile: values[0],
         endArcQuantile: values[1],
-        daysAbove: days,
-        t: temp,
-        value: 1
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
+        value: 4
       },
       {
         name: "25%",
         startArcQuantile: values[1],
         endArcQuantile: values[1],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
         name: "Slightly Below",
         startArcQuantile: values[1],
         endArcQuantile: values[2],
-        daysAbove: days,
-        t: temp,
-        value: 1
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
+        value: 4
       },
       {
         name: "Mean",
         startArcQuantile: values[2],
         endArcQuantile: values[2],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 0
       },
       {
-        name: darkArcLabel,
+        name: "New Record",
         startArcQuantile: values[2],
-        endArcQuantile: values[0],
-        daysAbove: days,
-        t: temp,
-        value: 1
+        endArcQuantile: null,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
+        value: 2
       }
     ];
   }
@@ -811,36 +902,49 @@ export const arcData = (q, days, temp, darkArcLabel) => {
     if (isEqual(keys, ["50", "100"])) {
       return [
         {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 2
+        },
+        {
           name: "Mean",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
-          name: darkArcLabel,
+          name: "New Record",
           startArcQuantile: values[1],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          endArcQuantile: null,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 2
         }
       ];
     }
@@ -848,36 +952,49 @@ export const arcData = (q, days, temp, darkArcLabel) => {
     if (isEqual(keys, ["0", "50"])) {
       return [
         {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 2
+        },
+        {
           name: "Min",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Below",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 4
         },
         {
           name: "Mean",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
-          name: darkArcLabel,
+          name: "New Record",
           startArcQuantile: values[1],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          endArcQuantile: null,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 2
         }
       ];
     }
@@ -885,35 +1002,48 @@ export const arcData = (q, days, temp, darkArcLabel) => {
     if (isEqual(keys, ["75", "100"])) {
       return [
         {
+          name: "New Record",
+          startArcQuantile: null,
+          endArcQuantile: values[0],
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 2
+        },
+        {
           name: "Mean",
           startArcQuantile: values[0],
           endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
           name: "Above",
           startArcQuantile: values[0],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
-          value: 1
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
+          value: 4
         },
         {
           name: "Max",
           startArcQuantile: values[1],
           endArcQuantile: values[1],
-          daysAbove: days,
-          t: temp,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 0
         },
         {
-          name: darkArcLabel,
+          name: "New Record",
           startArcQuantile: values[1],
-          endArcQuantile: values[0],
-          daysAbove: days,
-          t: temp,
+          endArcQuantile: null,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle,
           value: 1
         }
       ];
@@ -925,8 +1055,9 @@ export const arcData = (q, days, temp, darkArcLabel) => {
         name: "Always Observed",
         startArcQuantile: values[0],
         endArcQuantile: values[0],
-        daysAbove: days,
-        t: temp,
+        daysAboveThisYear,
+        idx,
+        gaugeTitle,
         value: 1
       }
     ];
