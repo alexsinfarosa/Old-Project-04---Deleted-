@@ -15,6 +15,7 @@ const styles = theme => ({
 class Rows extends Component {
   render() {
     const { row } = this.props;
+
     return (
       <Fragment>
         {row ? (
@@ -25,6 +26,7 @@ class Rows extends Component {
             <Grid container justify="center">
               {row.map(gauge => (
                 <Gauge
+                  elem={gauge.elem}
                   key={gauge.type}
                   index={gauge.idx}
                   gaugeData={gauge.gaugeData}

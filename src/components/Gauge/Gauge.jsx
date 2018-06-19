@@ -19,7 +19,7 @@ let width = 360;
 
 class Gauge extends Component {
   render() {
-    const { index, gaugeData } = this.props;
+    const { index, gaugeData, elem } = this.props;
     // console.log(index);
     let cell;
     if (gaugeData) {
@@ -34,7 +34,7 @@ class Gauge extends Component {
           <Pie
             opacity={0.5}
             activeIndex={index}
-            activeShape={<InnerCircle />}
+            activeShape={<InnerCircle elem={elem} />}
             startAngle={250}
             endAngle={-70}
             dataKey="value"

@@ -60,7 +60,7 @@ export const determineQuantiles = data => {
 export const index = (threshold, quantiles) => {
   const d = Number(threshold); // ex: 13
   const q = quantiles; // ex: [3,11,23,66]
-  console.log(d, q);
+
   if (q.length === 5) {
     // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
 

@@ -9,10 +9,20 @@ const InnerCircle = ({
   startAngle,
   endAngle,
   fill,
-  payload
+  payload,
+  elem
 }) => {
   const { daysAboveThisYear, gaugeTitle } = payload;
-  // console.log(payload);
+
+  let isSeasonal = false;
+  if (
+    gaugeTitle === "Days >" ||
+    gaugeTitle === "Nights >" ||
+    gaugeTitle === "Rainfall >" ||
+    gaugeTitle === "Snowfall >"
+  )
+    isSeasonal = true;
+
   return (
     <g>
       <text
@@ -24,7 +34,7 @@ const InnerCircle = ({
         fontSize={16}
         fontWeight="bold"
       >
-        {gaugeTitle}
+        {isSeasonal ? `${gaugeTitle} ${elem}` : gaugeTitle}
       </text>
 
       <text

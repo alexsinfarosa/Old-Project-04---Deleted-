@@ -18,14 +18,17 @@ export default class ParamsStore {
   station = stations[0];
   setStation = d => (this.station = d);
 
-  maxt = 80;
+  maxt = this.seasonalType[0].range[0];
   setMaxt = d => (this.maxt = d);
 
-  mint = 60;
+  mint = this.seasonalType[1].range[0];
   setMint = d => (this.mint = d);
 
-  pcpn = 1;
+  pcpn = this.seasonalType[2].range[0];
   setPcpn = d => (this.pcpn = d);
+
+  snow = this.seasonalType[2].range[0];
+  setSnow = d => (this.snow = d);
 
   rows = ["Temperature", "Precipitation", "Seasonal Extreme"];
 
@@ -105,6 +108,13 @@ export default class ParamsStore {
           duration: "std",
           season_start: "01-01",
           reduce: `cnt_ge_${this.pcpn}`
+        },
+        {
+          name: "snow",
+          interval: [1, 0, 0],
+          duration: "std",
+          season_start: "01-01",
+          reduce: `cnt_ge_${this.snow}`
         }
       ]
     };
@@ -219,29 +229,35 @@ export default class ParamsStore {
       ? [
           {
             label: "Days >",
-            range: [80, 90, 100]
+            range: [80, 90, 100],
+            elem: this.maxt
           },
           {
             label: "Nights >",
-            range: [65, 70, 75]
+            range: [65, 70, 75],
+            elem: this.mint
           },
           {
             label: "Rainfall >",
-            range: [1, 2, 3]
+            range: [1, 2, 3],
+            elem: this.pcpn
           }
         ]
       : [
           {
             label: "Days >",
-            range: [32, 40, 45]
+            range: [32, 40, 45],
+            elem: this.maxt
           },
           {
             label: "Nights <",
-            range: [10, 15, 20]
+            range: [10, 15, 20],
+            elem: this.mint
           },
           {
-            label: "Rainfall >",
-            range: [2, 4, 6]
+            label: "Snowfall >",
+            range: [2, 4, 6],
+            elem: this.snow
           }
         ];
   }
@@ -257,6 +273,7 @@ export default class ParamsStore {
         const quantiles = determineQuantiles(values);
         const idx = index(daysAboveThisYear, Object.values(quantiles));
         const gaugeTitle = type.label;
+        const elem = type.elem;
 
         const gaugeData = arcData(
           quantiles,
@@ -266,6 +283,7 @@ export default class ParamsStore {
         );
 
         p = {
+          elem,
           daysAboveThisYear,
           type,
           gaugeTitle,
@@ -300,5 +318,7 @@ decorate(ParamsStore, {
   setData: action,
   asJson: computed,
   avgTemps: computed,
-  avgPcpns: computed
+  avgPcpns: computed,
+  snow: observable,
+  setSnow: action
 });

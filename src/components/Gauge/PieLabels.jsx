@@ -30,7 +30,6 @@ const PieLabels = ({
 
   const { name, daysAboveThisYear, endArcQuantile } = payload;
 
-  // console.log(payload, selectedIdx);
   return (
     <g>
       <text
@@ -55,6 +54,7 @@ const PieLabels = ({
           cy={yL}
           r={selectedIdx === index ? 17 : 14}
           fill="#fff"
+          stroke={selectedIdx === index ? "black" : null}
           opacity={selectedIdx === index ? 1 : 0.5}
         />
       )}
