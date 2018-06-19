@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 import Gauge from "./Gauge/Gauge";
+import MySlider from "./MySlider";
 
 const styles = theme => ({
   root: {}
@@ -14,8 +15,7 @@ const styles = theme => ({
 
 class Rows extends Component {
   render() {
-    const { row } = this.props;
-
+    const { row, isSlider } = this.props;
     return (
       <Fragment>
         {row ? (
@@ -23,16 +23,31 @@ class Rows extends Component {
             <Grid item>
               <Typography variant="display1">{row[0].label}</Typography>
             </Grid>
-            <Grid container justify="center">
-              {row.map(gauge => (
-                <Gauge
-                  elem={gauge.elem}
-                  key={gauge.type}
-                  index={gauge.idx}
-                  gaugeData={gauge.gaugeData}
-                />
-              ))}
-            </Grid>
+            {false ? (
+              <Grid container justify="center">
+                {row.map((gauge, i) => (
+                  <Fragment key={i}>
+                    <MySlider marks={gauge.type.marks} />
+                    <Gauge
+                      index={gauge.idx}
+                      gaugeData={gauge.gaugeData}
+                      elem={gauge.elem}
+                    />
+                  </Fragment>
+                ))}
+              </Grid>
+            ) : (
+              <Grid container justify="center">
+                {row.map((gauge, i) => (
+                  <Gauge
+                    key={i}
+                    index={gauge.idx}
+                    gaugeData={gauge.gaugeData}
+                    elem={gauge.elem}
+                  />
+                ))}
+              </Grid>
+            )}
           </Grid>
         ) : null}
       </Fragment>

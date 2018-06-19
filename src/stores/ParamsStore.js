@@ -230,34 +230,154 @@ export default class ParamsStore {
           {
             label: "Days >",
             range: [80, 90, 100],
-            elem: this.maxt
+            elem: this.maxt,
+            marks: {
+              80: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "80 °C"
+              },
+              90: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "90 °C"
+              },
+              100: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "100 °C"
+              }
+            }
           },
           {
             label: "Nights >",
             range: [65, 70, 75],
-            elem: this.mint
+            elem: this.mint,
+            marks: {
+              65: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "65 °C"
+              },
+              70: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "70 °C"
+              },
+              75: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "75 °C"
+              }
+            }
           },
           {
             label: "Rainfall >",
             range: [1, 2, 3],
-            elem: this.pcpn
+            elem: this.pcpn,
+            marks: {
+              1: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "1 in"
+              },
+              2: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "2 in"
+              },
+              3: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "3 in"
+              }
+            }
           }
         ]
       : [
           {
             label: "Days >",
             range: [32, 40, 45],
-            elem: this.maxt
+            elem: this.maxt,
+            marks: {
+              32: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "32 °C"
+              },
+              40: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "40 °C"
+              },
+              45: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "45 °C"
+              }
+            }
           },
           {
             label: "Nights <",
             range: [10, 15, 20],
-            elem: this.mint
+            elem: this.mint,
+            marks: {
+              10: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "10 °C"
+              },
+              15: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "15 °C"
+              },
+              20: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "20 °C"
+              }
+            }
           },
           {
             label: "Snowfall >",
             range: [2, 4, 6],
-            elem: this.snow
+            elem: this.snow,
+            marks: {
+              2: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "2 in"
+              },
+              4: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "4 in"
+              },
+              6: {
+                style: {
+                  whiteSpace: "nowrap"
+                },
+                label: "6 in"
+              }
+            }
           }
         ];
   }

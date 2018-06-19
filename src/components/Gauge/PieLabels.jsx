@@ -37,7 +37,7 @@ const PieLabels = ({
         x={x}
         y={y}
         fill="black"
-        opacity={daysAboveThisYear === endArcQuantile ? 1 : 0.5}
+        opacity={Number(daysAboveThisYear) === endArcQuantile ? 1 : 0.3}
         textAnchor={x > cx ? "middle" : "middle"}
         dominantBaseline="central"
       >

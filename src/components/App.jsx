@@ -60,21 +60,21 @@ class App extends Component {
           </Grid>
           <Grid item xs={12} sm={8}>
             {avgTemps ? (
-              <Row row={avgTemps} />
+              <Row row={avgTemps} isSlider={false} />
             ) : (
               <div className={classes.centered}>
                 <RingLoader color={"#843EA4"} loading={!avgTemps} />
               </div>
             )}
             {avgPcpns ? (
-              <Row row={avgPcpns} />
+              <Row row={avgPcpns} isSlider={false} />
             ) : (
               <div className={classes.centered}>
-                <RingLoader color={"#843EA4"} loading={!avgTemps} />
+                <RingLoader color={"#843EA4"} loading={!avgPcpns} />
               </div>
             )}
             {seasonalExtreme ? (
-              <Row row={seasonalExtreme} />
+              <Row row={seasonalExtreme} isSlider={true} />
             ) : (
               <div className={classes.centered}>
                 <RingLoader color={"#843EA4"} loading={!seasonalExtreme} />
