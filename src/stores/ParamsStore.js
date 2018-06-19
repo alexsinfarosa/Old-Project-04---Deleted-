@@ -41,40 +41,6 @@ export default class ParamsStore {
       return { label: "Winter", season_start: "12-01" };
   }
 
-  get seasonalExtreme() {
-    const month = getMonth(new Date()) + 1;
-    const season = month >= 4 && month <= 10 ? "Hot" : "Cold";
-    return season === "Hot"
-      ? [
-          {
-            label: "Days >",
-            range: [80, 90, 100]
-          },
-          {
-            label: "Nights >",
-            range: [65, 70, 75]
-          },
-          {
-            label: "Rainfall >",
-            range: [1, 2, 3]
-          }
-        ]
-      : [
-          {
-            label: "Days >",
-            range: [32, 40, 45]
-          },
-          {
-            label: "Nights <",
-            range: [10, 15, 20]
-          },
-          {
-            label: "Rainfall >",
-            range: [2, 4, 6]
-          }
-        ];
-  }
-
   get params() {
     return {
       sid: this.station.sid,
@@ -148,6 +114,7 @@ export default class ParamsStore {
   setData = d => (this.data = d);
 
   loadObservedData = params => {
+    this.setData(undefined);
     this.setIsLoading(true);
     return axios
       .post(`${window.location.protocol}//data.rcc-acis.org/StnData`, params)
@@ -164,7 +131,8 @@ export default class ParamsStore {
   get asJson() {
     return {
       avgTemps: this.avgTemps,
-      avgPcpns: this.avgPcpns
+      avgPcpns: this.avgPcpns,
+      seasonalExtreme: this.seasonalExtreme
     };
   }
 
@@ -243,6 +211,75 @@ export default class ParamsStore {
       return results;
     }
   }
+
+  get seasonalType() {
+    const month = getMonth(new Date()) + 1;
+    const season = month >= 4 && month <= 10 ? "Hot" : "Cold";
+    return season === "Hot"
+      ? [
+          {
+            label: "Days >",
+            range: [80, 90, 100]
+          },
+          {
+            label: "Nights >",
+            range: [65, 70, 75]
+          },
+          {
+            label: "Rainfall >",
+            range: [1, 2, 3]
+          }
+        ]
+      : [
+          {
+            label: "Days >",
+            range: [32, 40, 45]
+          },
+          {
+            label: "Nights <",
+            range: [10, 15, 20]
+          },
+          {
+            label: "Rainfall >",
+            range: [2, 4, 6]
+          }
+        ];
+  }
+
+  get seasonalExtreme() {
+    let results = [];
+    if (this.data) {
+      this.seasonalType.forEach((type, i) => {
+        let p = {};
+        const daysAboveThisYearALL = this.data.slice(-1)[0];
+        const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 7}`);
+        const values = this.data.map(arr => Number(arr[i + 7]));
+        const quantiles = determineQuantiles(values);
+        const idx = index(daysAboveThisYear, Object.values(quantiles));
+        const gaugeTitle = type.label;
+
+        const gaugeData = arcData(
+          quantiles,
+          daysAboveThisYear,
+          idx,
+          gaugeTitle
+        );
+
+        p = {
+          daysAboveThisYear,
+          type,
+          gaugeTitle,
+          values,
+          quantiles,
+          idx,
+          gaugeData,
+          label: "Seasonal Extreme"
+        };
+        results.push(p);
+      });
+      return results;
+    }
+  }
 }
 
 decorate(ParamsStore, {
@@ -256,6 +293,7 @@ decorate(ParamsStore, {
   setMint: action,
   pcpn: observable,
   setPcpn: action,
+  seasonalType: computed,
   seasonalExtreme: computed,
   params: computed,
   data: observable,

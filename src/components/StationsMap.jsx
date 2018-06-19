@@ -35,7 +35,6 @@ class StationsMap extends Component {
     return (
       <div className={classes.root}>
         <Map
-          // bounds={[[49, -87], [43, -69]]}
           bounds={[[39, -75], [43, -71]]}
           style={{ width: "100%", height: "100%" }}
           zoomControl={false}

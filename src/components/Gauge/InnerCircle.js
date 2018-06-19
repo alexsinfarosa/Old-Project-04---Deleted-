@@ -12,7 +12,7 @@ const InnerCircle = ({
   payload
 }) => {
   const { daysAboveThisYear, gaugeTitle } = payload;
-
+  // console.log(payload);
   return (
     <g>
       <text
@@ -56,6 +56,16 @@ const InnerCircle = ({
         endAngle={endAngle}
         innerRadius={outerRadius - 1}
         outerRadius={outerRadius + 15}
+        fill={fill}
+      />
+
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={innerRadius - 3}
+        outerRadius={innerRadius + 1}
         fill={fill}
       />
     </g>

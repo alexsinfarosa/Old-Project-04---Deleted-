@@ -60,29 +60,32 @@ export const determineQuantiles = data => {
 export const index = (threshold, quantiles) => {
   const d = Number(threshold); // ex: 13
   const q = quantiles; // ex: [3,11,23,66]
-
+  console.log(d, q);
   if (q.length === 5) {
     // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
+
+    // less then min (new record)
+    if (d < q[0]) return 0;
     // is the min
-    if (d === q[0]) return 0;
+    if (d === q[0]) return 1;
     // is below
-    if (d > q[0] && d < q[1]) return 1;
+    if (d > q[0] && d < q[1]) return 2;
     // is the 25th percentile
-    if (d === q[1]) return 2;
+    if (d === q[1]) return 3;
     // is slightly below
-    if (d > q[1] && d < q[2]) return 3;
+    if (d > q[1] && d < q[2]) return 4;
     // is the mean
-    if (d === q[2]) return 4;
+    if (d === q[2]) return 5;
     // is slightly above
-    if (d > q[2] && d < q[3]) return 5;
+    if (d > q[2] && d < q[3]) return 6;
     // is the 75% percentile
-    if (d === q[3]) return 6;
+    if (d === q[3]) return 7;
     // is above
-    if (d > q[3] && d < q[4]) return 7;
+    if (d > q[3] && d < q[4]) return 8;
     // is equal to max
-    if (d === q[4]) return 8;
+    if (d === q[4]) return 9;
     // new record
-    if (d < q[0] || d > q[4]) return 9;
+    if (d > q[4]) return 10;
   }
 
   if (q.length === 4) {
@@ -156,7 +159,8 @@ export const arcColoring = name => {
   if (name === "75%") return "#565656";
   if (name === "Above") return "#E63B2E";
   if (name === "Max") return "#565656";
-  if (name === "New Record" || name === "Not Expected") return "#292F36";
+  // if (name === "New Record") return "#292F36";
+  if (name === "New") return "#BEBEBE";
   if (name === "Always Observed") return "#565656";
 };
 
@@ -179,7 +183,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
   if (values.length === 5) {
     return [
       {
-        name: "New Record",
+        name: "New",
         startArcQuantile: null,
         endArcQuantile: values[0],
         daysAboveThisYear,
@@ -269,7 +273,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         value: 0
       },
       {
-        name: "New Record",
+        name: "New",
         startArcQuantile: values[4],
         endArcQuantile: null,
         daysAboveThisYear,
@@ -284,7 +288,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["0", "50", "75", "100"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -356,7 +360,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[3],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -369,7 +373,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["0", "25", "50", "100"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -441,7 +445,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[3],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -454,7 +458,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["25", "50", "75", "100"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -526,7 +530,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New record",
+          name: "New",
           startArcQuantile: values[3],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -540,7 +544,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
   if (isEqual(keys, ["0", "25", "75", "100"])) {
     return [
       {
-        name: "New Record",
+        name: "New",
         startArcQuantile: null,
         endArcQuantile: values[0],
         daysAboveThisYear,
@@ -612,7 +616,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         value: 0
       },
       {
-        name: "New Record",
+        name: "New",
         startArcQuantile: values[3],
         endArcQuantile: null,
         daysAboveThisYear,
@@ -626,7 +630,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["50", "75", "100"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -680,7 +684,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[2],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -694,7 +698,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["25", "50", "100"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -748,7 +752,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[2],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -765,7 +769,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     ) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -819,7 +823,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[2],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -833,7 +837,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
   if (isEqual(keys, ["0", "25", "100"])) {
     return [
       {
-        name: "New Record",
+        name: "New",
         startArcQuantile: null,
         endArcQuantile: values[0],
         daysAboveThisYear,
@@ -887,7 +891,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         value: 0
       },
       {
-        name: "New Record",
+        name: "New",
         startArcQuantile: values[2],
         endArcQuantile: null,
         daysAboveThisYear,
@@ -902,7 +906,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["50", "100"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -938,7 +942,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[1],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -952,7 +956,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["0", "50"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -988,7 +992,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[1],
           endArcQuantile: null,
           daysAboveThisYear,
@@ -1002,7 +1006,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
     if (isEqual(keys, ["75", "100"])) {
       return [
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: null,
           endArcQuantile: values[0],
           daysAboveThisYear,
@@ -1038,7 +1042,7 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           value: 0
         },
         {
-          name: "New Record",
+          name: "New",
           startArcQuantile: values[1],
           endArcQuantile: null,
           daysAboveThisYear,

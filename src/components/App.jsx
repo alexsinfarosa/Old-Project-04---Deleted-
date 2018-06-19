@@ -29,7 +29,12 @@ const styles = theme => ({
 class App extends Component {
   render() {
     const { classes } = this.props;
-    const { station, avgTemps, avgPcpns } = this.props.appStore.paramsStore;
+    const {
+      station,
+      avgTemps,
+      avgPcpns,
+      seasonalExtreme
+    } = this.props.appStore.paramsStore;
 
     return (
       <div className={classes.root}>
@@ -66,6 +71,13 @@ class App extends Component {
             ) : (
               <div className={classes.centered}>
                 <RingLoader color={"#843EA4"} loading={!avgTemps} />
+              </div>
+            )}
+            {seasonalExtreme ? (
+              <Row row={seasonalExtreme} />
+            ) : (
+              <div className={classes.centered}>
+                <RingLoader color={"#843EA4"} loading={!seasonalExtreme} />
               </div>
             )}
           </Grid>

@@ -20,7 +20,7 @@ let width = 360;
 class Gauge extends Component {
   render() {
     const { index, gaugeData } = this.props;
-
+    // console.log(index);
     let cell;
     if (gaugeData) {
       cell = gaugeData.map((arc, index) => {
@@ -32,18 +32,19 @@ class Gauge extends Component {
       <Grid item>
         <PieChart width={width} height={height}>
           <Pie
+            opacity={0.5}
             activeIndex={index}
             activeShape={<InnerCircle />}
-            startAngle={240}
-            endAngle={-60}
+            startAngle={250}
+            endAngle={-70}
             dataKey="value"
             data={gaugeData}
             cx={width / 2}
             cy={height / 1.95}
             labelLine={false}
-            label={PieLabels}
-            innerRadius={80}
-            outerRadius={130}
+            label={<PieLabels selectedIdx={index} />}
+            innerRadius={60}
+            outerRadius={110}
           >
             {cell}
           </Pie>

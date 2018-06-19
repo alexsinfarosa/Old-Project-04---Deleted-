@@ -11,7 +11,8 @@ const PieLabels = ({
   percent,
   index,
   payload,
-  fill
+  fill,
+  selectedIdx
 }) => {
   const RADIAN = Math.PI / 180;
 
@@ -27,8 +28,9 @@ const PieLabels = ({
   const xL = cx + (innerRadius + (outerRadius - innerRadius) / 2) * cosL;
   const yL = cy + (innerRadius + (outerRadius - innerRadius) / 2) * sinL;
 
-  const { name } = payload;
-  // console.log(payload.payload);
+  const { name, daysAboveThisYear, endArcQuantile } = payload;
+
+  // console.log(payload, selectedIdx);
   return (
     <g>
       <text
@@ -36,6 +38,7 @@ const PieLabels = ({
         x={x}
         y={y}
         fill="black"
+        opacity={daysAboveThisYear === endArcQuantile ? 1 : 0.5}
         textAnchor={x > cx ? "middle" : "middle"}
         dominantBaseline="central"
       >
@@ -46,16 +49,35 @@ const PieLabels = ({
         name === "25%" ||
         name === "Mean" ||
         name === "75%" ||
-        name === "Max") && <circle cx={xL} cy={yL} r={14} fill="#fff" />}
+        name === "Max") && (
+        <circle
+          cx={xL}
+          cy={yL}
+          r={selectedIdx === index ? 17 : 14}
+          fill="#fff"
+          opacity={selectedIdx === index ? 1 : 0.5}
+        />
+      )}
 
       <text
         textAnchor="middle"
         x={xL}
         y={yL}
         dy=".33em"
-        fontSize={9}
-        fill={name === "New Record" ? "white" : "black"}
+        fill={
+          selectedIdx === index
+            ? index === 1 ||
+              index === 3 ||
+              index === 5 ||
+              index === 7 ||
+              index === 9
+              ? "black"
+              : "white"
+            : "black"
+        }
+        fontSize={selectedIdx === index ? 10 : 9}
         fontWeight="bold"
+        opacity={selectedIdx === index ? 1 : 0.5}
       >
         {payload.name}
       </text>
