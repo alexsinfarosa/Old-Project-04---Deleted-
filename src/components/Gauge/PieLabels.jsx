@@ -79,7 +79,13 @@ const PieLabels = ({
         fontWeight="bold"
         opacity={selectedIdx === index ? 1 : 0.5}
       >
-        {payload.name}
+        {(selectedIdx === index ||
+          index === 1 ||
+          index === 3 ||
+          index === 5 ||
+          index === 7 ||
+          index === 9) &&
+          payload.name}
       </text>
     </g>
   );

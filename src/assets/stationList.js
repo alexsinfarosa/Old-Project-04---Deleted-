@@ -9,9 +9,9 @@ export const stations = [
   {
     name: "Hartford",
     state: "CT",
-    sid: "ct_nha",
-    lon: -73.016757,
-    lat: 41.799465
+    sid: "khfd",
+    lon: -72.65056,
+    lat: 41.73611
   },
   {
     name: "NYC-Central Park",

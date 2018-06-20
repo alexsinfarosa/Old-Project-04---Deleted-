@@ -305,8 +305,8 @@ export default class ParamsStore {
         ]
       : [
           {
-            label: "Days >",
-            range: [32, 40, 45],
+            label: "Days <",
+            range: [32, 20, 15],
             elem: this.maxt,
             marks: {
               32: {
@@ -315,30 +315,30 @@ export default class ParamsStore {
                 },
                 label: "32 °C"
               },
-              40: {
+              20: {
                 style: {
                   whiteSpace: "nowrap"
                 },
-                label: "40 °C"
+                label: "20 °C"
               },
-              45: {
+              15: {
                 style: {
                   whiteSpace: "nowrap"
                 },
-                label: "45 °C"
+                label: "15 °C"
               }
             }
           },
           {
             label: "Nights <",
-            range: [10, 15, 20],
+            range: [20, 15, 10],
             elem: this.mint,
             marks: {
-              10: {
+              20: {
                 style: {
                   whiteSpace: "nowrap"
                 },
-                label: "10 °C"
+                label: "20 °C"
               },
               15: {
                 style: {
@@ -346,11 +346,11 @@ export default class ParamsStore {
                 },
                 label: "15 °C"
               },
-              20: {
+              10: {
                 style: {
                   whiteSpace: "nowrap"
                 },
-                label: "20 °C"
+                label: "10 °C"
               }
             }
           },

@@ -23,6 +23,11 @@ const styles = theme => ({
     height: 300,
     justifyContent: "center",
     alignItems: "center"
+  },
+  legend: {
+    color: "white",
+    fontWeight: "bold",
+    letterSpacing: 1
   }
 });
 
@@ -39,6 +44,23 @@ class App extends Component {
     return (
       <div className={classes.root}>
         <Grid container className={classes.root} spacing={24}>
+          <Grid container style={{ marginTop: 0 }} alignContent="center">
+            <Grid item style={{ flex: 1, background: "#dcdcdc", height: 20 }}>
+              <Typography className={classes.legend}>NEW RECORD</Typography>
+            </Grid>
+            <Grid item style={{ flex: 1, background: "#a1c2f3", height: 20 }}>
+              <Typography className={classes.legend}>BELOW</Typography>
+            </Grid>
+            <Grid item style={{ flex: 1, background: "#91ac76", height: 20 }}>
+              <Typography className={classes.legend}>SLIGHTLY BELOW</Typography>
+            </Grid>
+            <Grid item style={{ flex: 1, background: "#f4dcaa", height: 20 }}>
+              <Typography className={classes.legend}>SLIGHTLY ABOVE</Typography>
+            </Grid>
+            <Grid item style={{ flex: 1, background: "#dea59c", height: 20 }}>
+              <Typography className={classes.legend}>ABOVE</Typography>
+            </Grid>
+          </Grid>
           <Grid item xs={12} sm={4}>
             {station ? (
               <Typography variant="display1" gutterBottom>
