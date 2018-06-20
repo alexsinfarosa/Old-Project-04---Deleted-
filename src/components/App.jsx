@@ -15,7 +15,9 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing.unit * 2
-    // background: "#e8ecf0"
+    // background: "#e8ecf0",
+    // marginTop: 0,
+    // paddingTop: 2
   },
   centered: {
     display: "flex",
@@ -27,7 +29,8 @@ const styles = theme => ({
   legend: {
     color: "white",
     fontWeight: "bold",
-    letterSpacing: 1
+    letterSpacing: 1,
+    textAlign: "center"
   }
 });
 
@@ -44,7 +47,7 @@ class App extends Component {
     return (
       <div className={classes.root}>
         <Grid container className={classes.root} spacing={24}>
-          <Grid container style={{ marginTop: 0 }} alignContent="center">
+          {/**<Grid container>
             <Grid item style={{ flex: 1, background: "#dcdcdc", height: 20 }}>
               <Typography className={classes.legend}>NEW RECORD</Typography>
             </Grid>
@@ -60,7 +63,7 @@ class App extends Component {
             <Grid item style={{ flex: 1, background: "#dea59c", height: 20 }}>
               <Typography className={classes.legend}>ABOVE</Typography>
             </Grid>
-          </Grid>
+          </Grid>**/}
           <Grid item xs={12} sm={4}>
             {station ? (
               <Typography variant="display1" gutterBottom>

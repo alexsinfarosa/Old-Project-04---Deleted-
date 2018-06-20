@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 const PieLabels = ({
   cx,
@@ -75,16 +75,34 @@ const PieLabels = ({
               : "white"
             : "black"
         }
-        fontSize={selectedIdx === index ? 10 : 9}
+        fontSize={selectedIdx === index ? 12 : 10}
         fontWeight="bold"
         opacity={selectedIdx === index ? 1 : 0.5}
       >
-        {(selectedIdx === index ||
-          index === 1 ||
-          index === 3 ||
-          index === 5 ||
-          index === 7 ||
-          index === 9) &&
+        {payload.name === "Slightly Below" && (
+          <Fragment>
+            <tspan x={xL} dy="-3">
+              Slightly
+            </tspan>
+            <tspan x={xL} dy="15">
+              Below
+            </tspan>
+          </Fragment>
+        )}
+
+        {payload.name === "Slightly Above" && (
+          <Fragment>
+            <tspan x={xL} dy="-3">
+              Slightly
+            </tspan>
+            <tspan x={xL} dy="15">
+              Above
+            </tspan>
+          </Fragment>
+        )}
+
+        {payload.name !== "Slightly Below" &&
+          payload.name !== "Slightly Above" &&
           payload.name}
       </text>
     </g>
