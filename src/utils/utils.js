@@ -67,23 +67,23 @@ export const index = (threshold, quantiles) => {
     // less then min (new record)
     if (d < q[0]) return 0;
     // is the min
-    if (d === q[0]) return 1;
+    // if (d === q[0]) return 1;
     // is below
-    if (d > q[0] && d < q[1]) return 2;
+    if (d >= q[0] && d < q[1]) return 2;
     // is the 25th percentile
-    if (d === q[1]) return 3;
+    // if (d === q[1]) return 3;
     // is slightly below
-    if (d > q[1] && d < q[2]) return 4;
+    if (d >= q[1] && d < q[2]) return 4;
     // is the mean
-    if (d === q[2]) return 5;
+    // if (d === q[2]) return 5;
     // is slightly above
-    if (d > q[2] && d < q[3]) return 6;
+    if (d >= q[2] && d < q[3]) return 6;
     // is the 75% percentile
-    if (d === q[3]) return 7;
+    // if (d === q[3]) return 7;
     // is above
-    if (d > q[3] && d < q[4]) return 8;
+    if (d >= q[3] && d < q[4]) return 8;
     // is equal to max
-    if (d === q[4]) return 9;
+    // if (d === q[4]) return 9;
     // new record
     if (d > q[4]) return 10;
   }
@@ -92,58 +92,61 @@ export const index = (threshold, quantiles) => {
     // console.log(
     //   `d: ${d}, q = [min, mean, 75, max]: [${q[0]}, ${q[1]}, ${q[2]}, ${q[3]}]`
     // );
+    if (d < q[0]) return 0;
     // is the 25%
-    if (d === q[0]) return 0;
+    // if (d === q[0]) return 0;
     // is slightly below
-    if (d > q[0] && d < q[1]) return 1;
+    if (d >= q[0] && d < q[1]) return 1;
     // is the Mean
-    if (d === q[1]) return 2;
+    // if (d === q[1]) return 2;
     // is slightly above
-    if (d > q[1] && d < q[2]) return 3;
+    if (d >= q[1] && d < q[2]) return 3;
     // is the 75%
-    if (d === q[2]) return 4;
+    // if (d === q[2]) return 4;
     // is above
-    if (d > q[2] && d < q[3]) return 5;
+    if (d >= q[2] && d < q[3]) return 5;
     // is the Max
-    if (d === q[3]) return 6;
+    // if (d === q[3]) return 6;
     // new record
-    if (d < q[0] || d > q[3]) return 7;
+    if (d > q[3]) return 7;
   }
 
   if (q.length === 3) {
     // console.log(`d: ${d}, q = [mean, 75, max]: [${q[0]}, ${q[1]}, ${q[2]}]`);
+    if (d < q[0]) return 0;
     // is the Mean
-    if (d === q[0]) return 0;
+    // if (d === q[0]) return 0;
     // is slightly above
-    if (d > q[0] && d < q[1]) return 1;
+    if (d >= q[0] && d < q[1]) return 1;
     // is the 75th percentile
-    if (d === q[1]) return 2;
+    // if (d === q[1]) return 2;
     // is above
-    if (d > q[1] && d < q[2]) return 3;
+    if (d >= q[1] && d < q[2]) return 3;
     // is the Max
-    if (d === q[2]) return 4;
+    // if (d === q[2]) return 4;
     // new record
-    if (d < q[0] || d > q[2]) return 5;
+    if (d > q[2]) return 5;
   }
 
   if (q.length === 2) {
     // console.log(`d: ${d}, q = [mean, max]: [${q[0]}, ${q[1]}]`);
+    if (d < q[0]) return 0;
     // is the 75% or less
-    if (d === q[0]) return 0;
+    // if (d === q[0]) return 0;
     // is above
-    if (d > q[0] && d < q[1]) return 1;
+    if (d >= q[0] && d < q[1]) return 1;
     // is max
-    if (d === q[1]) return 2;
+    // if (d === q[1]) return 2;
     // Not expected
-    if (d < q[0] || d > q[1]) return 3;
+    if (d > q[1]) return 3;
   }
 
   if (q.length === 1) {
     // console.log(`d: ${d}, q = [max]: [${q[0]}]`);
     // is the Mean
-    if (d === q[0]) return 0;
+    // if (d === q[0]) return 0;
     // is slightly above
-    if (d > q[0]) return 1;
+    if (d >= q[0]) return 1;
     // is slightly below
     if (d < q[0]) return 2;
   }

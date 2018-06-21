@@ -55,7 +55,7 @@ const PieLabels = ({
           r={selectedIdx === index ? 17 : 14}
           fill="#fff"
           stroke={selectedIdx === index ? "black" : null}
-          opacity={selectedIdx === index ? 1 : 0.5}
+          opacity={1}
         />
       )}
 
@@ -75,16 +75,16 @@ const PieLabels = ({
               : "white"
             : "black"
         }
-        fontSize={selectedIdx === index ? 12 : 10}
+        fontSize={selectedIdx === index ? 14 : 10}
         fontWeight="bold"
         opacity={selectedIdx === index ? 1 : 0.5}
       >
         {payload.name === "Slightly Below" && (
           <Fragment>
-            <tspan x={xL} dy="-3">
+            <tspan x={xL} dy="-5">
               Slightly
             </tspan>
-            <tspan x={xL} dy="15">
+            <tspan x={xL} dy="17">
               Below
             </tspan>
           </Fragment>
@@ -92,10 +92,10 @@ const PieLabels = ({
 
         {payload.name === "Slightly Above" && (
           <Fragment>
-            <tspan x={xL} dy="-3">
+            <tspan x={xL} dy="-5">
               Slightly
             </tspan>
-            <tspan x={xL} dy="15">
+            <tspan x={xL} dy="17">
               Above
             </tspan>
           </Fragment>
