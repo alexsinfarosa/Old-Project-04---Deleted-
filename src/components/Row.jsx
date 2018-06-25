@@ -23,31 +23,23 @@ class Rows extends Component {
             <Grid item>
               <Typography variant="display1">{row[0].label}</Typography>
             </Grid>
-            {false ? (
-              <Grid container justify="center">
-                {row.map((gauge, i) => (
-                  <Fragment key={i}>
-                    <MySlider marks={gauge.type.marks} />
-                    <Gauge
-                      index={gauge.idx}
-                      gaugeData={gauge.gaugeData}
-                      elem={gauge.elem}
-                    />
-                  </Fragment>
-                ))}
-              </Grid>
-            ) : (
-              <Grid container justify="center">
-                {row.map((gauge, i) => (
+
+            <Grid container wrap="nowrap">
+              {row.map((gauge, i) => (
+                <Fragment key={i}>
+                  {isSlider && (
+                    <Grid item style={{ height: 300, marginRight: -14 }}>
+                      <MySlider type={gauge.type} />
+                    </Grid>
+                  )}
                   <Gauge
-                    key={i}
                     index={gauge.idx}
                     gaugeData={gauge.gaugeData}
                     elem={gauge.elem}
                   />
-                ))}
-              </Grid>
-            )}
+                </Fragment>
+              ))}
+            </Grid>
           </Grid>
         ) : null}
       </Fragment>

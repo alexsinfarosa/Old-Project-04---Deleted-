@@ -231,6 +231,10 @@ export default class ParamsStore {
             label: "Days >",
             range: [80, 90, 100],
             elem: this.maxt,
+            steps: 10,
+            min: 80,
+            max: 100,
+            defaultValue: 80,
             marks: {
               80: {
                 style: {
@@ -256,6 +260,10 @@ export default class ParamsStore {
             label: "Nights >",
             range: [65, 70, 75],
             elem: this.mint,
+            steps: 5,
+            min: 65,
+            max: 75,
+            defaultValue: 65,
             marks: {
               65: {
                 style: {
@@ -281,6 +289,10 @@ export default class ParamsStore {
             label: "Rainfall >",
             range: [1, 2, 3],
             elem: this.pcpn,
+            steps: 1,
+            min: 1,
+            max: 3,
+            defaultValue: 1,
             marks: {
               1: {
                 style: {
@@ -308,6 +320,10 @@ export default class ParamsStore {
             label: "Days <",
             range: [32, 20, 15],
             elem: this.maxt,
+            steps: 5,
+            min: 15,
+            max: 32,
+            defaultValue: 32,
             marks: {
               32: {
                 style: {
@@ -333,6 +349,10 @@ export default class ParamsStore {
             label: "Nights <",
             range: [20, 15, 10],
             elem: this.mint,
+            steps: 5,
+            min: 10,
+            max: 20,
+            defaultValue: 20,
             marks: {
               20: {
                 style: {
@@ -358,6 +378,10 @@ export default class ParamsStore {
             label: "Snowfall >",
             range: [2, 4, 6],
             elem: this.snow,
+            steps: 2,
+            min: 2,
+            max: 6,
+            defaultValue: 2,
             marks: {
               2: {
                 style: {

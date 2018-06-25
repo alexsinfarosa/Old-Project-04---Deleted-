@@ -12,17 +12,17 @@ const styles = theme => ({
 
 class MySlider extends Component {
   render() {
-    const { marks } = this.props;
-    console.log(marks);
+    const { type } = this.props;
+    // console.log(type);
     return (
       <Slider
         vertical
-        min={80}
-        marks={marks}
-        step={5}
-        max={100}
+        min={type.min}
+        marks={type.marks}
+        step={type.steps}
+        max={type.max}
         // onChange={log}
-        defaultValue={85}
+        defaultValue={type.defaultValue}
       />
     );
   }
