@@ -30,6 +30,13 @@ export default class ParamsStore {
   snow = this.seasonalType[2].range[0];
   setSnow = d => (this.snow = d);
 
+  setSeasonalExtreme = (label, value) => {
+    if (label === "Days >" || label === "Days <") this.maxt = value;
+    if (label === "Nights >" || label === "Nights <") this.mint = value;
+    if (label === "Rainfall >") this.pcpn = value;
+    if (label === "Snowfall >") this.snow = value;
+  };
+
   rows = ["Temperature", "Precipitation", "Seasonal Extreme"];
 
   get season() {
@@ -124,6 +131,7 @@ export default class ParamsStore {
   setData = d => (this.data = d);
 
   loadObservedData = params => {
+    // console.log(params);
     this.setData(undefined);
     this.setIsLoading(true);
     return axios
@@ -234,7 +242,7 @@ export default class ParamsStore {
             steps: 10,
             min: 80,
             max: 100,
-            defaultValue: 80,
+            defaultValue: 90,
             marks: {
               80: {
                 style: {
@@ -464,5 +472,6 @@ decorate(ParamsStore, {
   avgTemps: computed,
   avgPcpns: computed,
   snow: observable,
-  setSnow: action
+  setSnow: action,
+  setSeasonalExtreme: action
 });

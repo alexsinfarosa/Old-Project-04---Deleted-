@@ -27,7 +27,7 @@ class StationsMap extends Component {
         key={stn.name}
         center={[stn.lat, stn.lon]}
         radius={stn.sid === "nycthr" ? 10 : 6}
-        color={station && stn.sid === station.sid ? "#EE5622" : "#221E22"}
+        color={station && stn.sid === station.sid ? "#843EA4" : "#221E22"}
         onClick={() => setStation(stn)}
       />
     ));

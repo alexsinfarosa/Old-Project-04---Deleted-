@@ -52,7 +52,7 @@ const PieLabels = ({
         <circle
           cx={xL}
           cy={yL}
-          r={selectedIdx === index ? 17 : 14}
+          r={selectedIdx === index ? 17 : 13}
           fill="#fff"
           stroke={selectedIdx === index ? "black" : null}
           opacity={1}
@@ -75,7 +75,7 @@ const PieLabels = ({
               : "white"
             : "black"
         }
-        fontSize={selectedIdx === index ? 14 : 10}
+        fontSize={selectedIdx === index ? 13 : 9}
         fontWeight="bold"
         opacity={selectedIdx === index ? 1 : 0.5}
       >

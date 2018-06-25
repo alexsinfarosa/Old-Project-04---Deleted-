@@ -22,7 +22,7 @@ const styles = theme => ({
   centered: {
     display: "flex",
     flex: 1,
-    height: 300,
+    height: 280,
     justifyContent: "center",
     alignItems: "center"
   },

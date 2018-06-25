@@ -1,8 +1,11 @@
 import { jStat } from "jStat";
 import isEqual from "lodash.isequal";
 
+const without = (arr, ...args) => arr.filter(v => !args.includes(v));
+
 export const determineQuantiles = data => {
-  const d = data.filter(e => e); // Because some values are NaN
+  const d = without(data, NaN); // Because some values are NaN
+  // console.log(d);
   let original = jStat
     .quantiles(d, [0, 0.25, 0.5, 0.75, 1])
     .map(x => Math.round(x));
@@ -96,19 +99,19 @@ export const index = (threshold, quantiles) => {
     // is the 25%
     // if (d === q[0]) return 0;
     // is slightly below
-    if (d >= q[0] && d < q[1]) return 1;
+    if (d >= q[0] && d < q[1]) return 2;
     // is the Mean
     // if (d === q[1]) return 2;
     // is slightly above
-    if (d >= q[1] && d < q[2]) return 3;
+    if (d >= q[1] && d < q[2]) return 4;
     // is the 75%
     // if (d === q[2]) return 4;
     // is above
-    if (d >= q[2] && d < q[3]) return 5;
+    if (d >= q[2] && d < q[3]) return 6;
     // is the Max
     // if (d === q[3]) return 6;
     // new record
-    if (d > q[3]) return 7;
+    if (d > q[3]) return 8;
   }
 
   if (q.length === 3) {
@@ -117,15 +120,15 @@ export const index = (threshold, quantiles) => {
     // is the Mean
     // if (d === q[0]) return 0;
     // is slightly above
-    if (d >= q[0] && d < q[1]) return 1;
+    if (d >= q[0] && d < q[1]) return 2;
     // is the 75th percentile
     // if (d === q[1]) return 2;
     // is above
-    if (d >= q[1] && d < q[2]) return 3;
+    if (d >= q[1] && d < q[2]) return 4;
     // is the Max
     // if (d === q[2]) return 4;
     // new record
-    if (d > q[2]) return 5;
+    if (d > q[2]) return 6;
   }
 
   if (q.length === 2) {
@@ -134,21 +137,21 @@ export const index = (threshold, quantiles) => {
     // is the 75% or less
     // if (d === q[0]) return 0;
     // is above
-    if (d >= q[0] && d < q[1]) return 1;
+    if (d >= q[0] && d < q[1]) return 2;
     // is max
     // if (d === q[1]) return 2;
     // Not expected
-    if (d > q[1]) return 3;
+    if (d > q[1]) return 4;
   }
 
   if (q.length === 1) {
     // console.log(`d: ${d}, q = [max]: [${q[0]}]`);
     // is the Mean
     // if (d === q[0]) return 0;
+    if (d < q[0]) return 0;
     // is slightly above
-    if (d >= q[0]) return 1;
+    if (d >= q[0]) return 2;
     // is slightly below
-    if (d < q[0]) return 2;
   }
 };
 

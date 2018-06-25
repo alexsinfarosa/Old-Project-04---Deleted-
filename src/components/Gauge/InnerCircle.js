@@ -31,7 +31,7 @@ const InnerCircle = ({
         dy={8}
         textAnchor="middle"
         fill={fill}
-        fontSize={16}
+        fontSize={14}
         fontWeight="bold"
       >
         {isSeasonal ? `${gaugeTitle} ${elem}` : gaugeTitle}

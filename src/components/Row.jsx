@@ -21,17 +21,32 @@ class Rows extends Component {
         {row ? (
           <Grid container spacing={24} direction="column">
             <Grid item>
-              <Typography variant="display1">{row[0].label}</Typography>
+              <Typography
+                variant="display1"
+                style={{ fontSize: "1.5rem", marginBottom: 16, marginTop: 32 }}
+              >
+                {row[0].label}
+              </Typography>
             </Grid>
 
-            <Grid container wrap="nowrap">
+            <Grid container>
               {row.map((gauge, i) => (
                 <Fragment key={i}>
                   {isSlider && (
-                    <Grid item style={{ height: 300, marginRight: -14 }}>
+                    <Grid
+                      item
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: 280,
+                        marginRight: -14
+                      }}
+                    >
                       <MySlider type={gauge.type} />
                     </Grid>
                   )}
+
                   <Gauge
                     index={gauge.idx}
                     gaugeData={gauge.gaugeData}

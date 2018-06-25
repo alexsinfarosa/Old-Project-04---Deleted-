@@ -3,6 +3,7 @@ import { inject, observer } from "mobx-react";
 import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../../withRoot";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 import { arcColoring } from "../../utils/utils";
 
@@ -29,7 +30,7 @@ class Gauge extends Component {
     }
 
     return (
-      <Grid item>
+      <Button size="small" style={{ margin: 0, padding: 0 }}>
         <PieChart width={width} height={height}>
           <Pie
             opacity={0.5}
@@ -49,7 +50,7 @@ class Gauge extends Component {
             {cell}
           </Pie>
         </PieChart>
-      </Grid>
+      </Button>
     );
   }
 }

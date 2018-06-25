@@ -14,14 +14,25 @@ class MySlider extends Component {
   render() {
     const { type } = this.props;
     // console.log(type);
+    const { setSeasonalExtreme } = this.props.appStore.paramsStore;
+    // let value;
+    // if (type.label === "Days >" || type.label === "Days <") value = maxt;
+    // if (type.label === "Nights >" || type.label === "Nights <") value = mint;
+    // if (type.label === "Rainfall >") value = pcpn;
+    // if (type.label === "Snowfall >") value = snow;
+
     return (
       <Slider
+        style={{ height: 250 }}
         vertical
+        trackStyle={{ background: "#843EA4" }}
         min={type.min}
         marks={type.marks}
-        step={type.steps}
+        step={null}
         max={type.max}
-        // onChange={log}
+        // value={value}
+        // onAfterChange={e => setSeasonalExtreme(type.label, e)}
+        onChange={e => console.log(e)}
         defaultValue={type.defaultValue}
       />
     );
