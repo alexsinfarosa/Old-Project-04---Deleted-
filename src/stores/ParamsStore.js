@@ -164,12 +164,21 @@ export default class ParamsStore {
         const daysAboveThisYearALL = this.data.slice(-1)[0];
         const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 1}`);
         const values = this.data.map(arr => Number(arr[i + 1]));
+        const dates = this.data.map(obj => obj[0]);
+        const graphData = values.map((v, i) => {
+          let p = {};
+          p["date"] = dates[i];
+          p["value"] = v;
+          return p;
+        });
         const quantiles = determineQuantiles(values);
         const idx = index(daysAboveThisYear, Object.values(quantiles));
+
         let gaugeTitle = "";
         if (type === "month") gaugeTitle = format(new Date(), "MMMM");
         if (type === "season") gaugeTitle = this.season.label;
         if (type === "year") gaugeTitle = "This Year";
+
         const gaugeData = arcData(
           quantiles,
           daysAboveThisYear,
@@ -178,6 +187,7 @@ export default class ParamsStore {
         );
 
         p = {
+          graphData,
           daysAboveThisYear,
           type,
           gaugeTitle,
@@ -201,6 +211,13 @@ export default class ParamsStore {
         const daysAboveThisYearALL = this.data.slice(-1)[0];
         const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 4}`);
         const values = this.data.map(arr => Number(arr[i + 4]));
+        const dates = this.data.map(obj => obj[0]);
+        const graphData = values.map((v, i) => {
+          let p = {};
+          p["date"] = dates[i];
+          p["value"] = v;
+          return p;
+        });
         const quantiles = determineQuantiles(values);
         const idx = index(daysAboveThisYear, Object.values(quantiles));
         let gaugeTitle = "";
@@ -215,6 +232,7 @@ export default class ParamsStore {
         );
 
         p = {
+          graphData,
           daysAboveThisYear,
           type,
           gaugeTitle,
@@ -422,6 +440,13 @@ export default class ParamsStore {
         const daysAboveThisYearALL = this.data.slice(-1)[0];
         const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 7}`);
         const values = this.data.map(arr => Number(arr[i + 7]));
+        const dates = this.data.map(obj => obj[0]);
+        const graphData = values.map((v, i) => {
+          let p = {};
+          p["date"] = dates[i];
+          p["value"] = v;
+          return p;
+        });
         const quantiles = determineQuantiles(values);
         const idx = index(daysAboveThisYear, Object.values(quantiles));
         const gaugeTitle = type.label;
@@ -435,6 +460,7 @@ export default class ParamsStore {
         );
 
         p = {
+          graphData,
           elem,
           daysAboveThisYear,
           type,

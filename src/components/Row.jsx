@@ -5,17 +5,30 @@ import withRoot from "../withRoot";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 import Gauge from "./Gauge/Gauge";
 import MySlider from "./MySlider";
+import GaugeGraphDialog from "./GaugeGraphDialog";
+import TimeSeries from "./TimeSeries";
 
 const styles = theme => ({
   root: {}
 });
 
 class Rows extends Component {
+  state = {
+    isOpen: false,
+    idx: 0
+  };
+
+  onClose = () => {
+    this.setState({ isOpen: false });
+  };
+
   render() {
     const { row, isSlider } = this.props;
+    // console.log(row[this.state.idx]);
     return (
       <Fragment>
         {row ? (
@@ -40,17 +53,47 @@ class Rows extends Component {
                         justifyContent: "center",
                         alignItems: "center",
                         height: 280,
-                        marginRight: -14
+                        marginRight: -14,
+                        zIndex: 99
                       }}
                     >
                       <MySlider type={gauge.type} />
                     </Grid>
                   )}
 
-                  <Gauge
-                    index={gauge.idx}
-                    gaugeData={gauge.gaugeData}
-                    elem={gauge.elem}
+                  <Button
+                    style={{ width: 250 }}
+                    size="small"
+                    style={{ margin: 0, padding: 0 }}
+                    onClick={() => {
+                      this.setState({ isOpen: true, idx: i });
+                    }}
+                  >
+                    <Gauge
+                      index={gauge.idx}
+                      gaugeData={gauge.gaugeData}
+                      elem={gauge.elem}
+                    />
+                  </Button>
+                  <GaugeGraphDialog
+                    title={row[0].label}
+                    onClose={this.onClose}
+                    isOpen={this.state.isOpen}
+                    gauge={
+                      <Gauge
+                        index={row[this.state.idx].idx}
+                        gaugeData={row[this.state.idx].gaugeData}
+                        elem={row[this.state.idx].elem}
+                      />
+                    }
+                    timeSeries={
+                      <TimeSeries
+                        data={row[this.state.idx].graphData}
+                        daysAboveThisYear={
+                          row[this.state.idx].daysAboveThisYear
+                        }
+                      />
+                    }
                   />
                 </Fragment>
               ))}
