@@ -15,7 +15,7 @@ export default class ParamsStore {
   isLoading = false;
   setIsLoading = d => this.isLoading;
 
-  station = stations[0];
+  station = stations[2];
   setStation = d => (this.station = d);
 
   maxt = this.seasonalType[0].range[0];

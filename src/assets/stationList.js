@@ -9,9 +9,9 @@ export const stations = [
   {
     name: "Hartford",
     state: "CT",
-    sid: "khfd",
-    lon: -72.65056,
-    lat: 41.73611
+    sid: "bdlthr",
+    lon: -72.6819,
+    lat: 41.9375
   },
   {
     name: "NYC-Central Park",
@@ -37,21 +37,21 @@ export const stations = [
   {
     name: "Newark",
     state: "NJ",
-    sid: "kewr",
+    sid: "ewrthr",
     lon: -74.16944,
     lat: 40.6825
   },
   {
     name: "Bridgeport",
     state: "CT",
-    sid: "kbdr",
+    sid: "bdrthr",
     lon: -73.12889,
     lat: 41.15833
   },
   {
     name: "Islip",
     state: "NY",
-    sid: "kisp",
+    sid: "ispthr",
     lon: -73.10167,
     lat: 40.79389
   }
