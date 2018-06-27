@@ -150,7 +150,7 @@ export const index = (threshold, quantiles) => {
     // if (d === q[0]) return 0;
     if (d < q[0]) return 0;
     // is slightly above
-    if (d >= q[0]) return 2;
+    if (d >= q[0]) return 1;
     // is slightly below
   }
 };
@@ -167,7 +167,7 @@ export const arcColoring = name => {
   if (name === "Max") return "#565656";
   // if (name === "New Record") return "#292F36";
   if (name === "New") return "#BEBEBE";
-  if (name === "Always Observed") return "#565656";
+  if (name === "Always Observed") return "#BEBEBE";
 };
 
 export const projectionHeaderMessage = name => {
