@@ -29,16 +29,23 @@ class MySlider extends Component {
 
     return (
       <Slider
-        style={{ height: 250 }}
-        vertical
+        handleStyle={{
+          borderColor: "#843EA4",
+          height: 14,
+          width: 14,
+          backgroundColor: "white"
+        }}
+        dotStyle={{ borderColor: "#843EA4" }}
+        activeDotStyle={{ borderColor: "#843EA4" }}
         trackStyle={{ background: "#843EA4" }}
+        vertical
         min={type.min}
         marks={type.marks}
         step={null}
         max={type.max}
         // value={value}
         onAfterChange={e => setSeasonalExtreme(type.label, e)}
-        // defaultValue={type.defaultValue}
+        defaultValue={value}
       />
     );
   }
