@@ -1,5 +1,6 @@
 import { decorate, observable, action, computed, when, reaction } from "mobx";
 import axios from "axios";
+import { jStat } from "jStat";
 import { stations } from "../assets/stationList";
 
 import { determineQuantiles, index, arcData } from "../utils/utils";
@@ -164,11 +165,14 @@ export default class ParamsStore {
         const daysAboveThisYearALL = this.data.slice(-1)[0];
         const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 1}`);
         const values = this.data.map(arr => Number(arr[i + 1]));
+        const mean = jStat.quantiles(values, [0.5]).map(x => Math.round(x))[0];
         const dates = this.data.map(obj => obj[0]);
         const graphData = values.map((v, i) => {
           let p = {};
           p["date"] = dates[i];
           p["value"] = v;
+          p["mean"] = mean;
+          p["bar"] = Math.round(mean - v);
           return p;
         });
         const quantiles = determineQuantiles(values);

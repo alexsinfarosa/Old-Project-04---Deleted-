@@ -9,10 +9,10 @@ export default class GraphLabels extends Component {
           x={0}
           y={0}
           dy={10}
-          fontSize={10}
-          textAnchor="end"
+          fontSize={12}
+          textAnchor="middle"
           fill="#666"
-          transform="rotate(-15)"
+          transform="rotate(0)"
         >
           {payload.value}
         </text>

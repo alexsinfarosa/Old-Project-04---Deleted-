@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
-import withMobileDialog from "@material-ui/core/withMobileDialog";
-
+import getYear from "date-fns/getYear";
 import {
-  ComposedChart,
+  BarChart,
   Bar,
+  Brush,
+  ReferenceLine,
   XAxis,
   YAxis,
-  Tooltip,
-  Legend,
-  Cell,
-  Line
+  CartesianGrid,
+  Tooltip
 } from "recharts";
 
 import GraphLabels from "./GraphLabels";
@@ -26,49 +25,32 @@ const styles = theme => ({
 class TimeSeries extends Component {
   render() {
     const { data } = this.props;
+
     return (
-      <ComposedChart width={900} height={350} data={data}>
+      <BarChart
+        width={1000}
+        height={350}
+        data={data}
+        margin={{ top: 30, right: 40, left: 40, bottom: 30 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" tick={<GraphLabels />} />
         <YAxis allowDecimals={false} />
-        <Tooltip />
-        <Legend
-          verticalAlign="top"
-          align="right"
-          height={36}
-          iconSize={18}
-          iconType="rect"
-          payload={
-            [
-              // {
-              //   value: `Days above ${daysAboveThisYear} ˚F`,
-              //   type: "rect",
-              //   color: "#ddd"
-              // }
-              // {
-              //   value: `Observed Data Mean ${1111}`,
-              //   type: "line",
-              //   color: "#ff7300"
-              // }
-            ]
-          }
+        <Tooltip label="value" />
+        <ReferenceLine y={data[0].mean} stroke="#000" />
+        <Brush
+          dataKey="name"
+          height={30}
+          stroke="#8884d8"
+          tickFormatter={x => getYear(data[x].date)}
         />
-
-        <Bar dataKey="value">
-          {data.map((e, i) => {
-            if (i === data.length - 1) {
-              return <Cell key={i} />;
-            }
-            return <Cell key={i} fill="#ddd" />;
-          })}
-        </Bar>
-        <Line type="monotone" dataKey="mean" stroke="#ff7300" dot={false} />
-      </ComposedChart>
+        <Bar dataKey="bar" fill="#82ca9d" />
+        />
+      </BarChart>
     );
   }
 }
 
 export default withRoot(
-  withStyles(styles)(
-    inject("appStore")(observer(withMobileDialog()(TimeSeries)))
-  )
+  withStyles(styles)(inject("appStore")(observer(TimeSeries)))
 );
