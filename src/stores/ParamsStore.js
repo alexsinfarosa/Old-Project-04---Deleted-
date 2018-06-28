@@ -167,15 +167,16 @@ export default class ParamsStore {
         const values = this.data.map(arr => Number(arr[i + 1]));
         const mean = jStat.quantiles(values, [0.5]).map(x => Math.round(x))[0];
         const dates = this.data.map(obj => obj[0]);
+        const quantiles = determineQuantiles(values);
         const graphData = values.map((v, i) => {
           let p = {};
           p["date"] = dates[i];
           p["value"] = v;
           p["mean"] = mean;
           p["bar"] = Math.round(mean - v);
+          p["quantiles"] = Object.values(quantiles);
           return p;
         });
-        const quantiles = determineQuantiles(values);
         const idx = index(daysAboveThisYear, Object.values(quantiles));
 
         let gaugeTitle = "";
@@ -215,14 +216,18 @@ export default class ParamsStore {
         const daysAboveThisYearALL = this.data.slice(-1)[0];
         const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 4}`);
         const values = this.data.map(arr => Number(arr[i + 4]));
+        const mean = jStat.quantiles(values, [0.5]).map(x => Math.round(x))[0];
         const dates = this.data.map(obj => obj[0]);
+        const quantiles = determineQuantiles(values);
         const graphData = values.map((v, i) => {
           let p = {};
           p["date"] = dates[i];
           p["value"] = v;
+          p["mean"] = mean;
+          p["bar"] = Math.round(mean - v);
+          p["quantiles"] = Object.values(quantiles);
           return p;
         });
-        const quantiles = determineQuantiles(values);
         const idx = index(daysAboveThisYear, Object.values(quantiles));
         let gaugeTitle = "";
         if (type === "month") gaugeTitle = format(new Date(), "MMMM");

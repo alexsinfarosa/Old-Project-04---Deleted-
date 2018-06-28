@@ -9,7 +9,7 @@ export default class GraphLabels extends Component {
           x={0}
           y={0}
           dy={10}
-          fontSize={12}
+          fontSize={13}
           textAnchor="middle"
           fill="#666"
           transform="rotate(0)"

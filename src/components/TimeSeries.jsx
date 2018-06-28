@@ -11,7 +11,9 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip
+  Tooltip,
+  Label,
+  Text
 } from "recharts";
 
 import GraphLabels from "./GraphLabels";
@@ -22,22 +24,32 @@ const styles = theme => ({
   root: { flexGrow: 1 }
 });
 
+const width = 1000;
+const height = 350;
 class TimeSeries extends Component {
   render() {
-    const { data } = this.props;
-
+    const { data, x, y } = this.props;
     return (
       <BarChart
-        width={1000}
-        height={350}
+        width={width}
+        height={height}
         data={data}
         margin={{ top: 30, right: 40, left: 40, bottom: 30 }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="date" tick={<GraphLabels />} />
-        <YAxis allowDecimals={false} />
+        <YAxis
+          hide
+          allowDecimals={false}
+          domain={[
+            data[0].quantiles[0],
+            data[0].quantiles[data[0].quantiles.length - 1]
+          ]}
+        >
+          <Label value="Mean" offset={0} position="insideLeft" />
+        </YAxis>
         <Tooltip label="value" />
-        <ReferenceLine y={data[0].mean} stroke="#000" />
+        <ReferenceLine isFront y={0} stroke="#000" />
         <Brush
           dataKey="name"
           height={30}
