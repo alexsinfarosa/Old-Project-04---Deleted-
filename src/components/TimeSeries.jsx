@@ -11,9 +11,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Label,
-  Text
+  Tooltip
 } from "recharts";
 
 import GraphLabels from "./GraphLabels";
@@ -28,7 +26,16 @@ const width = 1000;
 const height = 350;
 class TimeSeries extends Component {
   render() {
-    const { data, x, y } = this.props;
+    const { data, gaugeData } = this.props;
+    const gaugeDataNoCircles = gaugeData.filter(
+      obj =>
+        obj.name !== "Min" ||
+        obj.name !== "25%" ||
+        obj.name !== "Mean" ||
+        obj.name !== "75%" ||
+        obj.name !== "Max"
+    );
+    console.log(gaugeDataNoCircles);
     return (
       <BarChart
         width={width}
@@ -38,16 +45,7 @@ class TimeSeries extends Component {
       >
         <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="date" tick={<GraphLabels />} />
-        <YAxis
-          hide
-          allowDecimals={false}
-          domain={[
-            data[0].quantiles[0],
-            data[0].quantiles[data[0].quantiles.length - 1]
-          ]}
-        >
-          <Label value="Mean" offset={0} position="insideLeft" />
-        </YAxis>
+        <YAxis allowDecimals={false} />
         <Tooltip label="value" />
         <ReferenceLine isFront y={0} stroke="#000" />
         <Brush

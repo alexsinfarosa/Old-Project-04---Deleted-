@@ -89,6 +89,7 @@ class Rows extends Component {
                 }
                 timeSeries={
                   <TimeSeries
+                    gaugeData={row[this.state.idx].gaugeData}
                     data={row[this.state.idx].graphData}
                     daysAboveThisYear={row[this.state.idx].daysAboveThisYear}
                   />

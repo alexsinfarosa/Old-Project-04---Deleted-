@@ -195,7 +195,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 2
+        value: 2,
+        fill: "#BEBEBE"
       },
       {
         name: "Min",
@@ -204,7 +205,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Below",
@@ -213,7 +215,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#0088FE"
       },
       {
         name: "25%",
@@ -222,7 +225,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Slightly Below",
@@ -231,7 +235,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#7FB069"
       },
       {
         name: "Mean",
@@ -240,7 +245,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Slightly Above",
@@ -249,7 +255,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#FFBB28"
       },
       {
         name: "75%",
@@ -258,7 +265,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Above",
@@ -267,7 +275,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#E63B2E"
       },
       {
         name: "Max",
@@ -276,7 +285,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "New",
@@ -285,7 +295,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 2
+        value: 2,
+        fill: "#BEBEBE"
       }
     ];
   }
@@ -300,7 +311,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "Min",
@@ -309,7 +321,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Below",
@@ -318,7 +331,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#0088FE"
         },
         {
           name: "Mean",
@@ -327,7 +341,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Slightly Above",
@@ -336,7 +351,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#7FB069"
         },
         {
           name: "75%",
@@ -345,7 +361,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -354,7 +371,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -363,7 +381,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -372,7 +391,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -385,7 +405,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "Min",
@@ -394,7 +415,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Below",
@@ -403,7 +425,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#0088FE"
         },
         {
           name: "25%",
@@ -412,7 +435,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Slightly Below",
@@ -421,7 +445,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#7FB069"
         },
         {
           name: "Mean",
@@ -430,7 +455,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -439,7 +465,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -448,7 +475,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -457,7 +485,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -470,7 +499,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "25%",
@@ -479,7 +509,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Slightly Below",
@@ -488,7 +519,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#7FB069"
         },
         {
           name: "Mean",
@@ -497,7 +529,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Slightly Above",
@@ -506,7 +539,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#FFBB28"
         },
         {
           name: "75%",
@@ -515,7 +549,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -524,7 +559,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -533,7 +569,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -542,7 +579,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -556,7 +594,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 2
+        value: 2,
+        fill: "#BEBEBE"
       },
       {
         name: "Min",
@@ -565,7 +604,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Below",
@@ -574,7 +614,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#0088FE"
       },
       {
         name: "25%",
@@ -583,7 +624,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Slightly Below",
@@ -592,7 +634,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#7FB069"
       },
       {
         name: "Mean",
@@ -601,7 +644,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Above",
@@ -610,7 +654,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#E63B2E"
       },
       {
         name: "Max",
@@ -619,7 +664,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "New",
@@ -628,7 +674,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#BEBEBE"
       }
     ];
   }
@@ -642,7 +689,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "Mean",
@@ -651,7 +699,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Slightly Above",
@@ -660,7 +709,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#7FB069"
         },
         {
           name: "75%",
@@ -669,7 +719,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -678,7 +729,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -687,7 +739,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -696,7 +749,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -710,7 +764,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "25%",
@@ -719,7 +774,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Slightly Below",
@@ -728,7 +784,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#7FB069"
         },
         {
           name: "Mean",
@@ -737,7 +794,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -746,7 +804,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -755,7 +814,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -764,7 +824,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -781,7 +842,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "Min",
@@ -790,7 +852,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Below",
@@ -799,7 +862,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#0088FE"
         },
         {
           name: "Mean",
@@ -808,7 +872,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -817,7 +882,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -826,7 +892,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -835,7 +902,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -849,7 +917,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 2
+        value: 2,
+        fill: "#BEBEBE"
       },
       {
         name: "Min",
@@ -858,7 +927,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Below",
@@ -867,7 +937,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#0088FE"
       },
       {
         name: "25%",
@@ -876,7 +947,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "Slightly Below",
@@ -885,7 +957,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 4
+        value: 4,
+        fill: "#7FB069"
       },
       {
         name: "Mean",
@@ -894,7 +967,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 0
+        value: 0,
+        fill: "#BEBEBE"
       },
       {
         name: "New",
@@ -903,7 +977,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 2
+        value: 2,
+        fill: "#BEBEBE"
       }
     ];
   }
@@ -918,7 +993,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "Mean",
@@ -927,7 +1003,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -936,7 +1013,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -945,7 +1023,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -954,7 +1033,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -968,7 +1048,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "Min",
@@ -977,7 +1058,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Below",
@@ -986,7 +1068,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#0088FE"
         },
         {
           name: "Mean",
@@ -995,7 +1078,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -1004,7 +1088,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -1018,7 +1103,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 2
+          value: 2,
+          fill: "#BEBEBE"
         },
         {
           name: "Mean",
@@ -1027,7 +1113,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "Above",
@@ -1036,7 +1123,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 4
+          value: 4,
+          fill: "#E63B2E"
         },
         {
           name: "Max",
@@ -1045,7 +1133,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 0
+          value: 0,
+          fill: "#BEBEBE"
         },
         {
           name: "New",
@@ -1054,7 +1143,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
           daysAboveThisYear,
           idx,
           gaugeTitle,
-          value: 1
+          value: 1,
+          fill: "#BEBEBE"
         }
       ];
     }
@@ -1068,7 +1158,8 @@ export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
         daysAboveThisYear,
         idx,
         gaugeTitle,
-        value: 1
+        value: 1,
+        fill: "#BEBEBE"
       }
     ];
   }
