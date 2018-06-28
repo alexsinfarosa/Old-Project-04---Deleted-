@@ -9,11 +9,11 @@ import Button from "@material-ui/core/Button";
 
 import Gauge from "./Gauge/Gauge";
 import MySlider from "./MySlider";
-import GaugeGraphDialog from "./GaugeGraphDialog";
+import GaugeGraphModal from "./GaugeGraphModal";
 import TimeSeries from "./TimeSeries";
 
 const styles = theme => ({
-  root: {}
+  root: { flexGrowth: 1 }
 });
 
 class Rows extends Component {
@@ -27,10 +27,10 @@ class Rows extends Component {
   };
 
   render() {
-    const { row, isSlider } = this.props;
+    const { classes, row, isSlider } = this.props;
     // console.log(row[this.state.idx]);
     return (
-      <Fragment>
+      <div className={classes.root}>
         {row ? (
           <Grid container spacing={24} direction="column">
             <Grid item>
@@ -62,7 +62,6 @@ class Rows extends Component {
                   )}
 
                   <Button
-                    style={{ width: 250 }}
                     size="small"
                     style={{ margin: 0, padding: 0 }}
                     onClick={() => {
@@ -75,32 +74,30 @@ class Rows extends Component {
                       elem={gauge.elem}
                     />
                   </Button>
-                  <GaugeGraphDialog
-                    title={row[0].label}
-                    onClose={this.onClose}
-                    isOpen={this.state.isOpen}
-                    gauge={
-                      <Gauge
-                        index={row[this.state.idx].idx}
-                        gaugeData={row[this.state.idx].gaugeData}
-                        elem={row[this.state.idx].elem}
-                      />
-                    }
-                    timeSeries={
-                      <TimeSeries
-                        data={row[this.state.idx].graphData}
-                        daysAboveThisYear={
-                          row[this.state.idx].daysAboveThisYear
-                        }
-                      />
-                    }
-                  />
                 </Fragment>
               ))}
+              <GaugeGraphModal
+                title={row[0].label}
+                onClose={this.onClose}
+                isOpen={this.state.isOpen}
+                gauge={
+                  <Gauge
+                    index={row[this.state.idx].idx}
+                    gaugeData={row[this.state.idx].gaugeData}
+                    elem={row[this.state.idx].elem}
+                  />
+                }
+                timeSeries={
+                  <TimeSeries
+                    data={row[this.state.idx].graphData}
+                    daysAboveThisYear={row[this.state.idx].daysAboveThisYear}
+                  />
+                }
+              />
             </Grid>
           </Grid>
         ) : null}
-      </Fragment>
+      </div>
     );
   }
 }

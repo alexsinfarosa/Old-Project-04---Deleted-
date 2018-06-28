@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../../withRoot";
-import Grid from "@material-ui/core/Grid";
 
 import { arcColoring } from "../../utils/utils";
 

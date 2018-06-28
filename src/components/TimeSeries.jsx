@@ -17,7 +17,7 @@ import {
 
 import GraphLabels from "./GraphLabels";
 
-import { arcColoring } from "../utils/utils";
+// import { arcColoring } from "../utils/utils";
 
 const styles = theme => ({
   root: { flexGrow: 1 }
@@ -27,7 +27,7 @@ class TimeSeries extends Component {
   render() {
     const { data } = this.props;
     return (
-      <ComposedChart width={500} height={300} data={data}>
+      <ComposedChart width={900} height={350} data={data}>
         <XAxis dataKey="date" tick={<GraphLabels />} />
         <YAxis allowDecimals={false} />
         <Tooltip />
