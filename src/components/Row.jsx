@@ -30,8 +30,8 @@ const styles = theme => ({
     padding: 0,
     background: "none",
     border: "none",
-    transitionDuration: "0.3s",
-    borderRadius: 100,
+    transitionDuration: "0.1s",
+    borderRadius: 50,
     borderColor: "#fff",
     "&:hover": {
       cursor: "pointer",
@@ -58,7 +58,9 @@ class Rows extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography variant="headline">{type}</Typography>
+        <Typography variant="headline" style={{ color: "#797979" }}>
+          {type}
+        </Typography>
         <Grid container justify="space-around" alignItems="center">
           {row.map((gauge, i) => (
             <Grid item key={i} style={{ marginBottom: 0 }}>
