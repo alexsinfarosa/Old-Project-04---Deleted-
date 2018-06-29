@@ -51,11 +51,13 @@ class App extends Component {
 
           <div style={{ marginTop: 32, marginBottom: 32 }}>
             <Typography variant="caption" paragraph align="justify">
-              {" "}
               Each climate gauge is based on daily data from the ThreadEx
               dataset developed by the{" "}
-              <a href="ftp://ftp.ncdc.noaa.gov/pub/data/papers/200686ams12.4tofree.pdf">
-                {" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="ftp://ftp.ncdc.noaa.gov/pub/data/papers/200686ams12.4tofree.pdf"
+              >
                 Northeast Regional Climate Center
               </a>
             </Typography>
