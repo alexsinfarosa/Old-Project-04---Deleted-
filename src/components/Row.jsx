@@ -56,16 +56,17 @@ class Rows extends Component {
         <Typography variant="headline" style={{ color: "#797979" }}>
           {type}
         </Typography>
-        <Grid container justify="space-around" alignItems="center">
-          {row.map((gauge, i) => (
-            <Grid item key={i} style={{ marginBottom: 0 }}>
-              <Grid container alignItems="center" spacing={8}>
-                {isSlider ? (
-                  <MySlider type={gauge.type} />
-                ) : (
-                  <Grid item xs={2} sm={2} />
-                )}
-                {gauge ? (
+        {row ? (
+          <Grid container justify="space-around" alignItems="center">
+            {row.map((gauge, i) => (
+              <Grid item key={i} style={{ marginBottom: 0 }}>
+                <Grid container alignItems="center" spacing={8}>
+                  {isSlider ? (
+                    <MySlider type={gauge.type} />
+                  ) : (
+                    <Grid item xs={2} sm={2} />
+                  )}
+
                   <Grid item xs={2} sm={10}>
                     <button
                       className={classes.button}
@@ -80,34 +81,58 @@ class Rows extends Component {
                       />
                     </button>
                   </Grid>
-                ) : (
-                  <Grid item sm={10}>
-                    <RingLoader color={"#843EA4"} loading={!gauge} />
-                  </Grid>
-                )}
+                </Grid>
               </Grid>
-            </Grid>
-          ))}
-        </Grid>
-        <GaugeGraphModal
-          title={row[0].label}
-          onClose={this.onClose}
-          isOpen={this.state.isOpen}
-          gauge={
-            <Gauge
-              index={row[this.state.idx].idx}
-              gaugeData={row[this.state.idx].gaugeData}
-              elem={row[this.state.idx].elem}
-            />
-          }
-          timeSeries={
-            <TimeSeries
-              gaugeData={row[this.state.idx].gaugeData}
-              data={row[this.state.idx].graphData}
-              daysAboveThisYear={row[this.state.idx].daysAboveThisYear}
-            />
-          }
-        />
+            ))}
+          </Grid>
+        ) : (
+          <Grid container justify="space-around" alignItems="center">
+            {[1, 2, 3].map(n => (
+              <Grid item key={n}>
+                <Grid container alignItems="center" spacing={8}>
+                  <Grid item xs={2} sm={2} />
+
+                  <Grid
+                    item
+                    xs={2}
+                    sm={10}
+                    style={{
+                      width: 310,
+                      height: 320,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}
+                  >
+                    <RingLoader color={"#843EA4"} loading={!row} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+
+        {row && (
+          <GaugeGraphModal
+            title={row[0].label}
+            onClose={this.onClose}
+            isOpen={this.state.isOpen}
+            gauge={
+              <Gauge
+                index={row[this.state.idx].idx}
+                gaugeData={row[this.state.idx].gaugeData}
+                elem={row[this.state.idx].elem}
+              />
+            }
+            timeSeries={
+              <TimeSeries
+                gaugeData={row[this.state.idx].gaugeData}
+                data={row[this.state.idx].graphData}
+                daysAboveThisYear={row[this.state.idx].daysAboveThisYear}
+              />
+            }
+          />
+        )}
       </div>
     );
   }

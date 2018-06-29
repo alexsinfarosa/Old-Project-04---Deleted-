@@ -85,19 +85,9 @@ class App extends Component {
         </Grid>
 
         <Grid item xs={12} sm={8}>
-          {avgTemps && (
-            <Row type="TEMPERATURE" row={avgTemps} isSlider={false} />
-          )}
-          {avgPcpns && (
-            <Row type="PRECIPITATION" row={avgPcpns} isSlider={false} />
-          )}
-          {seasonalExtreme && (
-            <Row
-              type="SEASONAL EXTREME"
-              row={seasonalExtreme}
-              isSlider={true}
-            />
-          )}
+          <Row type="TEMPERATURE" row={avgTemps} isSlider={false} />
+          <Row type="PRECIPITATION" row={avgPcpns} isSlider={false} />
+          <Row type="SEASONAL EXTREME" row={seasonalExtreme} isSlider={true} />
         </Grid>
       </Grid>
     );

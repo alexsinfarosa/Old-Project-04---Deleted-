@@ -34,7 +34,7 @@ class TimeSeries extends Component {
 
   render() {
     const { data, gaugeData } = this.props;
-    console.log(data);
+    // console.log(data);
     const gaugeDataNoCircles = gaugeData.filter(
       obj =>
         obj.name !== "Min" &&
@@ -43,7 +43,7 @@ class TimeSeries extends Component {
         obj.name !== "75%" &&
         obj.name !== "Max"
     );
-    console.log(gaugeDataNoCircles);
+    // console.log(gaugeDataNoCircles);
     return (
       <BarChart
         width={width}

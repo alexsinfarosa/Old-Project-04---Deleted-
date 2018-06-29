@@ -38,7 +38,7 @@ export default class ParamsStore {
     if (label === "Snowfall >") this.snow = value;
   };
 
-  rows = ["Temperature", "Precipitation", "Seasonal Extreme"];
+  // rows = ["Temperature", "Precipitation", "Seasonal Extreme"];
 
   get season() {
     const month = getMonth(new Date()) + 1;
