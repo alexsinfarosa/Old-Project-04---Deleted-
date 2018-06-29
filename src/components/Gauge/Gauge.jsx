@@ -13,7 +13,7 @@ const styles = theme => ({
   root: { flexGrow: 1 }
 });
 
-let height = 250;
+let height = 310;
 let width = 360;
 
 class Gauge extends Component {

@@ -15,14 +15,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing.unit * 2
-    // background: "#e8ecf0",
-    // marginTop: 0,
-    // paddingTop: 2
   },
   centered: {
     display: "flex",
     flex: 1,
-    height: 280,
+    height: 330,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -45,69 +42,62 @@ class App extends Component {
     } = this.props.appStore.paramsStore;
 
     return (
-      <div className={classes.root}>
-        <Grid container className={classes.root} spacing={24}>
-          {/**<Grid container>
-            <Grid item style={{ flex: 1, background: "#dcdcdc", height: 20 }}>
-              <Typography className={classes.legend}>NEW RECORD</Typography>
-            </Grid>
-            <Grid item style={{ flex: 1, background: "#a1c2f3", height: 20 }}>
-              <Typography className={classes.legend}>BELOW</Typography>
-            </Grid>
-            <Grid item style={{ flex: 1, background: "#91ac76", height: 20 }}>
-              <Typography className={classes.legend}>SLIGHTLY BELOW</Typography>
-            </Grid>
-            <Grid item style={{ flex: 1, background: "#f4dcaa", height: 20 }}>
-              <Typography className={classes.legend}>SLIGHTLY ABOVE</Typography>
-            </Grid>
-            <Grid item style={{ flex: 1, background: "#dea59c", height: 20 }}>
-              <Typography className={classes.legend}>ABOVE</Typography>
-            </Grid>
-          </Grid>**/}
-          <Grid item xs={12} sm={4}>
-            {station ? (
-              <Typography variant="display1" gutterBottom>
-                <div>Viewing Climate Conditions at </div>
-                {station.name}
-              </Typography>
-            ) : (
-              <Typography variant="display1" gutterBottom>
-                Select a station
-              </Typography>
-            )}
-            <StationsMap />
-            <div style={{ marginTop: 32 }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-              similique aliquam repellat harum velit ad eveniet dolorem autem
-              saepe rem? Dolores, temporibus voluptate? Modi aliquid nostrum,
-              consequatur quis doloribus facere?
-            </div>
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            {avgTemps ? (
-              <Row row={avgTemps} isSlider={false} />
-            ) : (
-              <div className={classes.centered}>
-                <RingLoader color={"#843EA4"} loading={!avgTemps} />
-              </div>
-            )}
-            {avgPcpns ? (
-              <Row row={avgPcpns} isSlider={false} />
-            ) : (
-              <div className={classes.centered}>
-                <RingLoader color={"#843EA4"} loading={!avgPcpns} />
-              </div>
-            )}
-            {seasonalExtreme ? (
-              <Row row={seasonalExtreme} isSlider={true} />
-            ) : (
-              <div className={classes.centered}>
-                <RingLoader color={"#843EA4"} loading={!seasonalExtreme} />
-              </div>
-            )}
-          </Grid>
+      <Grid container className={classes.root} spacing={32}>
+        <Grid item xs={12} sm={4}>
+          <Typography variant="display1" gutterBottom>
+            <div>Viewing Climate Conditions at </div>
+            <div style={{ color: "#843EA4" }}>{station.name}</div>
+          </Typography>
+
+          <div style={{ marginTop: 32, marginBottom: 32 }}>
+            <Typography variant="caption" paragraph align="justify">
+              {" "}
+              Each climate gauge is based on daily data from the ThreadEx
+              dataset developed by the{" "}
+              <a href="ftp://ftp.ncdc.noaa.gov/pub/data/papers/200686ams12.4tofree.pdf">
+                {" "}
+                Northeast Regional Climate Center
+              </a>
+            </Typography>
+            <Typography variant="caption" paragraph align="justify">
+              The long-term time series of each variable is sorted and divided
+              into four segments each containing one quarter of the total
+              available data.
+            </Typography>
+            <Typography variant="caption" paragraph align="justify">
+              The lowest 25% of the values are considered below normal and the
+              highest 25% are considered above normal. The remaining 50% of the
+              values are divided in half to give the slightly below and slightly
+              above normal categories.
+            </Typography>
+            <Typography variant="caption" paragraph align="justify">
+              The highlighted segment shows the category in which the current
+              year falls. A new record occurs when either the current year’s
+              value falls above the highest or below the lowest historical
+              value. Each variable’s historical record can be viewed by clicking
+              on the gauge.
+            </Typography>
+          </div>
+
+          <StationsMap />
         </Grid>
-      </div>
+
+        <Grid item xs={12} sm={8}>
+          {avgTemps && (
+            <Row type="Temperature" row={avgTemps} isSlider={false} />
+          )}
+          {avgPcpns && (
+            <Row type="Precipitation" row={avgPcpns} isSlider={false} />
+          )}
+          {seasonalExtreme && (
+            <Row
+              type="Seasonal Extreme"
+              row={seasonalExtreme}
+              isSlider={true}
+            />
+          )}
+        </Grid>
+      </Grid>
     );
   }
 }
