@@ -31,7 +31,7 @@ class MySlider extends Component {
     if (type.label === "Snowfall >") value = snow;
 
     return (
-      <Grid item xs={2} sm={1} style={{ height: 150 }}>
+      <Grid item xs={2} sm={2} style={{ height: 150 }}>
         <Slider
           handleStyle={{
             borderColor: "#843EA4",

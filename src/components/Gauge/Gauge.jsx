@@ -14,7 +14,7 @@ const styles = theme => ({
 });
 
 let height = 310;
-let width = 360;
+let width = 290;
 
 class Gauge extends Component {
   render() {

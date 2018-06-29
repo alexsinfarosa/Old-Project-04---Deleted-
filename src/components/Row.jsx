@@ -25,8 +25,21 @@ const styles = theme => ({
     margin: 0,
     padding: 0
   },
-  slider: {
-    // border: "1px solid #ddd"
+  button: {
+    margin: 0,
+    padding: 0,
+    background: "none",
+    border: "none",
+    transitionDuration: "0.3s",
+    borderRadius: 100,
+    borderColor: "#fff",
+    "&:hover": {
+      cursor: "pointer",
+      background: "#EDE8F2"
+    },
+    "&:focus": {
+      outline: 0
+    }
   }
 });
 
@@ -49,19 +62,26 @@ class Rows extends Component {
         <Grid container justify="space-around" alignItems="center">
           {row.map((gauge, i) => (
             <Grid item key={i} style={{ marginBottom: 0 }}>
-              <Grid container alignItems="center">
+              <Grid container alignItems="center" spacing={8}>
                 {isSlider ? (
                   <MySlider type={gauge.type} />
                 ) : (
-                  <Grid item xs={2} sm={1} />
+                  <Grid item xs={2} sm={2} />
                 )}
                 {gauge ? (
-                  <Grid item xs={2} sm={11}>
-                    <Gauge
-                      index={gauge.idx}
-                      gaugeData={gauge.gaugeData}
-                      elem={gauge.elem}
-                    />
+                  <Grid item xs={2} sm={10}>
+                    <button
+                      className={classes.button}
+                      onClick={() => {
+                        this.setState({ isOpen: true, idx: i });
+                      }}
+                    >
+                      <Gauge
+                        index={gauge.idx}
+                        gaugeData={gauge.gaugeData}
+                        elem={gauge.elem}
+                      />
+                    </button>
                   </Grid>
                 ) : (
                   <Grid item sm={10}>
@@ -72,6 +92,25 @@ class Rows extends Component {
             </Grid>
           ))}
         </Grid>
+        <GaugeGraphModal
+          title={row[0].label}
+          onClose={this.onClose}
+          isOpen={this.state.isOpen}
+          gauge={
+            <Gauge
+              index={row[this.state.idx].idx}
+              gaugeData={row[this.state.idx].gaugeData}
+              elem={row[this.state.idx].elem}
+            />
+          }
+          timeSeries={
+            <TimeSeries
+              gaugeData={row[this.state.idx].gaugeData}
+              data={row[this.state.idx].graphData}
+              daysAboveThisYear={row[this.state.idx].daysAboveThisYear}
+            />
+          }
+        />
       </div>
     );
   }
