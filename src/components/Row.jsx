@@ -23,16 +23,11 @@ const styles = theme => ({
   },
   button: {
     margin: 0,
-    padding: 0
-  },
-  button: {
-    margin: 0,
     padding: 0,
     background: "none",
     border: "none",
     transitionDuration: "0.1s",
     borderRadius: 50,
-    borderColor: "#fff",
     "&:hover": {
       cursor: "pointer",
       background: "#EDE8F2"
