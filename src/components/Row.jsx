@@ -18,7 +18,7 @@ const styles = theme => ({
   root: { flexGrowth: 1 },
   widget: {
     width: 360,
-    height: 310,
+    height: 290,
     border: "1px solid #ddd"
   },
   button: {
@@ -59,7 +59,7 @@ class Rows extends Component {
         {row ? (
           <Grid container justify="space-around" alignItems="center">
             {row.map((gauge, i) => (
-              <Grid item key={i} style={{ marginBottom: 0 }}>
+              <Grid item key={i}>
                 <Grid container alignItems="center" spacing={8}>
                   {isSlider ? (
                     <MySlider type={gauge.type} />
@@ -98,7 +98,7 @@ class Rows extends Component {
                     sm={10}
                     style={{
                       width: 310,
-                      height: 320,
+                      height: 292,
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center"

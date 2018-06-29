@@ -13,7 +13,7 @@ import { stations } from "../assets/stationList";
 const styles = theme => ({
   root: {
     width: "100%",
-    height: 600
+    height: 550
   }
 });
 
