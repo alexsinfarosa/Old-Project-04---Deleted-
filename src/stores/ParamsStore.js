@@ -9,7 +9,7 @@ import { format, getMonth } from "date-fns/esm";
 export default class ParamsStore {
   constructor() {
     when(() => !this.data, () => this.loadObservedData(this.params));
-    reaction(() => this.params, () => this.loadObservedData(this.params));
+    reaction(() => this.station.sid, () => this.loadObservedData(this.params));
     when(() => this.data, () => console.log(this.asJson));
   }
 
@@ -32,10 +32,23 @@ export default class ParamsStore {
   setSnow = d => (this.snow = d);
 
   setSeasonalExtreme = (label, value) => {
-    if (label === "Days >" || label === "Days <") this.maxt = value;
-    if (label === "Nights >" || label === "Nights <") this.mint = value;
-    if (label === "Rainfall >") this.pcpn = value;
-    if (label === "Snowfall >") this.snow = value;
+    console.log(label, value);
+    if (label === "Days >" || label === "Days <") {
+      this.maxt = value;
+      this.loadSeasonalExtreme(this.maxtParam, 7);
+    }
+    if (label === "Nights >" || label === "Nights <") {
+      this.mint = value;
+      this.loadSeasonalExtreme(this.mintParam, 8);
+    }
+    if (label === "Rainfall >") {
+      this.pcpn = value;
+      this.loadSeasonalExtreme(this.pcpnParam, 9);
+    }
+    if (label === "Snowfall >") {
+      this.snow = value;
+      this.loadSeasonalExtreme(this.snowParam, 10);
+    }
   };
 
   // rows = ["Temperature", "Precipitation", "Seasonal Extreme"];
@@ -128,11 +141,48 @@ export default class ParamsStore {
     };
   }
 
+  maxtParam = {
+    name: "maxt",
+    interval: [1, 0, 0],
+    duration: "std",
+    season_start: "01-01",
+    reduce: `cnt_ge_${this.maxt}`
+  };
+
+  mintParam = {
+    name: "mint",
+    interval: [1, 0, 0],
+    duration: "std",
+    season_start: "01-01",
+    reduce: `cnt_ge_${this.mint}`
+  };
+
+  pcpnParam = {
+    name: "pcpn",
+    interval: [1, 0, 0],
+    duration: "std",
+    season_start: "01-01",
+    reduce: `cnt_ge_${this.pcpn}`
+  };
+
+  snowParam = {
+    name: "snow",
+    interval: [1, 0, 0],
+    duration: "std",
+    season_start: "01-01",
+    reduce: `cnt_ge_${this.snow}`
+  };
+
   data;
   setData = d => (this.data = d);
+  updateData = (d, idx) => {
+    this.data.map((obj, i) => {
+      return (obj[idx] = d[i][1]);
+    });
+  };
 
   loadObservedData = params => {
-    // console.log(params);
+    // console.log("ciccio");
     this.setData(undefined);
     this.setIsLoading(true);
     return axios
@@ -149,11 +199,33 @@ export default class ParamsStore {
 
   get asJson() {
     return {
-      avgTemps: this.avgTemps,
-      avgPcpns: this.avgPcpns,
-      seasonalExtreme: this.seasonalExtreme
+      maxt: this.maxt,
+      mint: this.mint,
+      pcpn: this.pcpn,
+      snow: this.snow
     };
   }
+
+  loadSeasonalExtreme = (param, idx) => {
+    this.setIsLoading(true);
+    let params = {
+      sid: this.station.sid,
+      sdate: `POR-${format(new Date(), "MM-dd")}`,
+      edate: format(new Date(), "YYYY-MM-dd"),
+      elems: [param]
+    };
+    return axios
+      .post(`${window.location.protocol}//data.rcc-acis.org/StnData`, params)
+      .then(res => {
+        // console.log(this.data);
+        // console.log(res.data.data);
+        this.updateData(res.data.data, idx);
+        this.setIsLoading(false);
+      })
+      .catch(err => {
+        console.log("Failed to load observed data ", err);
+      });
+  };
 
   gaugeType = ["month", "season", "year"];
 
@@ -508,5 +580,6 @@ decorate(ParamsStore, {
   avgPcpns: computed,
   snow: observable,
   setSnow: action,
-  setSeasonalExtreme: action
+  setSeasonalExtreme: action,
+  updateData: action
 });

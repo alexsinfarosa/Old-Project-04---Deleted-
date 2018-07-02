@@ -49,14 +49,23 @@ class App extends Component {
             <div style={{ color: "#843EA4" }}>{station.name}</div>
           </Typography>
 
+          <StationsMap />
+
           <div style={{ marginTop: 32, marginBottom: 32 }}>
             <Typography variant="caption" paragraph align="justify">
-              Each climate gauge is based on daily data from the ThreadEx
-              dataset developed by the{" "}
+              Each climate gauge is based on daily data from the{" "}
               <a
                 target="_blank"
                 rel="noopener noreferrer"
                 href="ftp://ftp.ncdc.noaa.gov/pub/data/papers/200686ams12.4tofree.pdf"
+              >
+                ThreadEx
+              </a>{" "}
+              dataset developed by the{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="http://www.nrcc.cornell.edu/"
               >
                 Northeast Regional Climate Center
               </a>
@@ -64,24 +73,20 @@ class App extends Component {
             <Typography variant="caption" paragraph align="justify">
               The long-term time series of each variable is sorted and divided
               into four segments each containing one quarter of the total
-              available data.
+              available data. The lowest 25% of the values are considered below
+              normal (blue) and the highest 25% are considered above normal
+              (red). The remaining 50% of the values are divided in half to give
+              the slightly below (green) and slightly above normal (gold)
+              categories.
             </Typography>
             <Typography variant="caption" paragraph align="justify">
-              The lowest 25% of the values are considered below normal and the
-              highest 25% are considered above normal. The remaining 50% of the
-              values are divided in half to give the slightly below and slightly
-              above normal categories.
-            </Typography>
-            <Typography variant="caption" paragraph align="justify">
-              The highlighted segment shows the category in which the current
-              year falls. A new record occurs when either the current year’s
-              value falls above the highest or below the lowest historical
-              value. Each variable’s historical record can be viewed by clicking
-              on the gauge.
+              The slightly larger, highlighted segment shows the category in
+              which the current year falls. A new record (gray shading) occurs
+              when either the current year’s value falls above the highest or
+              below the lowest historical value. Each variable’s historical
+              record can be viewed by clicking on the gauge.
             </Typography>
           </div>
-
-          <StationsMap />
         </Grid>
 
         <Grid item xs={12} sm={8}>
