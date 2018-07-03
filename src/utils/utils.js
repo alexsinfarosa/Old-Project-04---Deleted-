@@ -3,6 +3,19 @@ import isEqual from "lodash.isequal";
 
 const without = (arr, ...args) => arr.filter(v => !args.includes(v));
 
+export const closest = (n, arr) => {
+  if (arr.length === 1) return 0;
+  return arr
+    .map((q, i) => {
+      if (i === 0 && n < q) return 0;
+      if (i === arr.length - 1 && n >= q) return 0;
+      if (i !== arr.length - 1) {
+        if (n >= q && n < arr[i + 1]) return i + 1;
+      }
+    })
+    .filter(d => d !== undefined)[0];
+};
+
 export const determineQuantiles = data => {
   const d = without(data, NaN); // Because some values are NaN
   // console.log(d);
@@ -61,6 +74,7 @@ export const determineQuantiles = data => {
 };
 
 export const index = (threshold, quantiles) => {
+  // console.log(threshold);
   const d = Number(threshold); // ex: 13
   const q = quantiles; // ex: [3,11,23,66]
 
@@ -132,7 +146,7 @@ export const index = (threshold, quantiles) => {
   }
 
   if (q.length === 2) {
-    // console.log(`d: ${d}, q = [mean, max]: [${q[0]}, ${q[1]}]`);
+    console.log(`d: ${d}, q = [mean, max]: [${q[0]}, ${q[1]}]`);
     if (d < q[0]) return 0;
     // is the 75% or less
     // if (d === q[0]) return 0;

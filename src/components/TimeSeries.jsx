@@ -11,7 +11,8 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip
+  Tooltip,
+  Cell
 } from "recharts";
 
 import GraphLabels from "./GraphLabels";
@@ -25,25 +26,9 @@ const styles = theme => ({
 const width = 1000;
 const height = 350;
 class TimeSeries extends Component {
-  barColor = (val, gaugeDataNoCircles) => {
-    gaugeDataNoCircles.map((arc, i) => {
-      if (val >= arc.endArcQuantile && val < arc.endArcQuantile)
-        return arc.fill;
-    });
-  };
-
   render() {
-    const { data, gaugeData } = this.props;
-    // console.log(data);
-    const gaugeDataNoCircles = gaugeData.filter(
-      obj =>
-        obj.name !== "Min" &&
-        obj.name !== "25%" &&
-        obj.name !== "Mean" &&
-        obj.name !== "75%" &&
-        obj.name !== "Max"
-    );
-    // console.log(gaugeDataNoCircles);
+    const { data } = this.props;
+    console.log(data);
     return (
       <BarChart
         width={width}
@@ -62,7 +47,11 @@ class TimeSeries extends Component {
           stroke="#8884d8"
           tickFormatter={x => getYear(data[x].date)}
         />
-        <Bar dataKey="bar" fill="#82ca9d" />
+        <Bar dataKey="bar" fill={"red"}>
+          {data.map((entry, index) => {
+            return <Cell key={index} fill={entry.barColor} />;
+          })}
+        </Bar>
         />
       </BarChart>
     );

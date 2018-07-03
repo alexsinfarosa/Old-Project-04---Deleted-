@@ -3,7 +3,7 @@ import axios from "axios";
 import { jStat } from "jStat";
 import { stations } from "../assets/stationList";
 
-import { determineQuantiles, index, arcData } from "../utils/utils";
+import { determineQuantiles, index, arcData, closest } from "../utils/utils";
 import { format, getMonth } from "date-fns/esm";
 
 export default class ParamsStore {
@@ -240,21 +240,7 @@ export default class ParamsStore {
         const mean = jStat.quantiles(values, [0.5]).map(x => Math.round(x))[0];
         const dates = this.data.map(obj => obj[0]);
         const quantiles = determineQuantiles(values);
-        const graphData = values.map((v, i) => {
-          let p = {};
-          p["date"] = dates[i];
-          p["value"] = v;
-          p["mean"] = mean;
-          p["bar"] = Math.round(mean - v);
-          p["quantiles"] = Object.values(quantiles);
-          return p;
-        });
         const idx = index(daysAboveThisYear, Object.values(quantiles));
-
-        let gaugeTitle = "";
-        if (type === "month") gaugeTitle = format(new Date(), "MMMM");
-        if (type === "season") gaugeTitle = this.season.label;
-        if (type === "year") gaugeTitle = "This Year";
 
         const gaugeData = arcData(
           quantiles,
@@ -262,6 +248,38 @@ export default class ParamsStore {
           idx,
           gaugeTitle
         );
+
+        const gaugeDataNoCircles = gaugeData.filter(
+          obj =>
+            obj.name !== "Min" &&
+            obj.name !== "25%" &&
+            obj.name !== "Mean" &&
+            obj.name !== "75%" &&
+            obj.name !== "Max"
+        );
+
+        const colors = gaugeDataNoCircles.map(d => d.fill);
+        console.log(colors.slice(0, -1));
+
+        let gaugeTitle = "";
+        if (type === "month") gaugeTitle = format(new Date(), "MMMM");
+        if (type === "season") gaugeTitle = this.season.label;
+        if (type === "year") gaugeTitle = "This Year";
+
+        const graphData = values.map((v, i) => {
+          let p = {};
+          let barColorIdx = closest(v, Object.values(quantiles));
+          const barColor = colors.slice(0, -1)[barColorIdx];
+
+          p["date"] = dates[i];
+          p["value"] = v;
+          p["mean"] = mean;
+          p["bar"] = Math.round(v - mean);
+          p["quantiles"] = Object.values(quantiles);
+          p["gaugeDataNoCircles"] = gaugeDataNoCircles;
+          p["barColor"] = barColor;
+          return p;
+        });
 
         p = {
           graphData,
@@ -296,7 +314,7 @@ export default class ParamsStore {
           p["date"] = dates[i];
           p["value"] = v;
           p["mean"] = mean;
-          p["bar"] = Math.round(mean - v);
+          p["bar"] = Math.round(v - mean);
           p["quantiles"] = Object.values(quantiles);
           return p;
         });

@@ -13,7 +13,6 @@ const InnerCircle = ({
   elem
 }) => {
   const { daysAboveThisYear, gaugeTitle } = payload;
-
   let isSeasonal = false;
   if (
     gaugeTitle === "Days >" ||
