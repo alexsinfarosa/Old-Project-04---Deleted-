@@ -50,7 +50,6 @@ class Rows extends Component {
 
   render() {
     const { classes, row, type } = this.props;
-    console.log(row);
 
     return (
       <div className={classes.root}>
@@ -75,11 +74,7 @@ class Rows extends Component {
                         this.setState({ isOpen: true, idx: i });
                       }}
                     >
-                      <Gauge
-                        index={gauge.idx}
-                        gaugeData={gauge.arc}
-                        elem={gauge.elem}
-                      />
+                      <Gauge gauge={gauge} />
                     </button>
                   </Grid>
                 </Grid>
@@ -118,13 +113,7 @@ class Rows extends Component {
             title={row[0].label}
             onClose={this.onClose}
             isOpen={this.state.isOpen}
-            gauge={
-              <Gauge
-                index={row[this.state.idx].idx}
-                gaugeData={row[this.state.idx].gaugeData}
-                elem={row[this.state.idx].elem}
-              />
-            }
+            gauge={<Gauge gauge={row[this.state.idx]} />}
             timeSeries={
               <TimeSeries
                 gaugeData={row[this.state.idx].gaugeData}

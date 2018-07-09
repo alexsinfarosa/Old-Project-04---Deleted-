@@ -515,7 +515,7 @@ export default class ParamsStore {
         const mean = parseFloat(jStat.quantiles(values, [0.5])[0].toFixed(1));
         const dates = this.data.map(d => d[0]);
         const active = index(daysAboveThisYear, quantiles);
-        const arc = arcData(quantiles, daysAboveThisYear, type);
+        const gaugeData = arcData(quantiles, daysAboveThisYear, type);
 
         p = {
           label,
@@ -527,7 +527,7 @@ export default class ParamsStore {
           mean,
           dates,
           active,
-          arc,
+          gaugeData,
           isSlider
         };
         results.push(p);
@@ -557,6 +557,27 @@ export default class ParamsStore {
       );
     }
   }
+
+  get extremeMaxtT() {
+    if (this.gauge) {
+      return this.gauge.filter(o => o.elem === `maxt${this.maxt}`);
+    }
+  }
+
+  get extremeMinT() {
+    if (this.gauge) {
+      return this.gauge.filter(o => o.elem === `mint${this.mint}`);
+    }
+  }
+
+  get extremeRainSnow() {
+    if (this.gauge) {
+      if (this.isSummerOrWinter) {
+        return this.gauge.filter(o => o.elem === `rain${this.pcpn}`);
+      }
+      return this.gauge.filter(o => o.elem === `snow${this.snow}`);
+    }
+  }
 }
 
 decorate(ParamsStore, {
@@ -581,5 +602,8 @@ decorate(ParamsStore, {
   seasonalType: computed,
   keys: computed,
   avgTemps: computed,
-  avgPcpns: computed
+  avgPcpns: computed,
+  extremeMaxtT: computed,
+  extremeMinT: computed,
+  extremeRainSnow: computed
 });

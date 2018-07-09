@@ -18,13 +18,13 @@ let width = 290;
 
 class Gauge extends Component {
   render() {
-    const { index, gaugeData, elem } = this.props;
+    const { gauge } = this.props;
 
-    // console.log(i);
+    console.log(gauge);
 
     let cell;
-    if (gaugeData) {
-      cell = gaugeData.map((arc, index) => {
+    if (gauge) {
+      cell = gauge.gaugeData.map((arc, index) => {
         return <Cell key={index} fill={arcColoring(arc.name)} />;
       });
     }
@@ -33,16 +33,21 @@ class Gauge extends Component {
       <PieChart width={width} height={height}>
         <Pie
           opacity={0.5}
-          activeIndex={index}
-          activeShape={<InnerCircle elem={elem} />}
+          activeIndex={gauge.active}
+          activeShape={
+            <InnerCircle
+              daysAboveThisYear={gauge.daysAboveThisYear}
+              label={gauge.label}
+            />
+          }
           startAngle={250}
           endAngle={-70}
           dataKey="value"
-          data={gaugeData}
+          data={gauge.gaugeData}
           cx={width / 2}
           cy={height / 1.95}
           labelLine={false}
-          label={<PieLabels selectedIdx={index} />}
+          label={<PieLabels selectedIdx={0} />}
           innerRadius={60}
           outerRadius={110}
         >
