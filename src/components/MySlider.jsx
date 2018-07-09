@@ -15,7 +15,7 @@ const styles = theme => ({
 
 class MySlider extends Component {
   render() {
-    const { classes, type } = this.props;
+    const { type } = this.props;
     // console.log(type);
     const {
       setSeasonalExtreme,

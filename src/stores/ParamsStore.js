@@ -3,14 +3,14 @@ import axios from "axios";
 import { jStat } from "jStat";
 import { stations } from "../assets/stationList";
 
-import { determineQuantiles, index, arcData, closest } from "../utils/utils";
+import { determineQuantiles, index, arcData } from "../utils/utils";
 import { format, getMonth } from "date-fns/esm";
 
 export default class ParamsStore {
   constructor() {
     when(() => !this.data, () => this.loadObservedData(this.params));
     reaction(() => this.station.sid, () => this.loadObservedData(this.params));
-    reaction(() => this.data, () => console.log(this.gauge, this.avgTemp));
+    reaction(() => this.data, () => console.log(this.gauge));
   }
 
   isLoading = false;

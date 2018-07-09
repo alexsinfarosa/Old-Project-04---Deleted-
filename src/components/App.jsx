@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 // components
 import StationsMap from "./StationsMap";
 import Row from "./Row";
-import { RingLoader } from "react-spinners";
 
 const styles = theme => ({
   root: {
