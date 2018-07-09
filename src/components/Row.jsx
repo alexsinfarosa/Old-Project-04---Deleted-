@@ -49,7 +49,8 @@ class Rows extends Component {
   };
 
   render() {
-    const { classes, row, type, isSlider } = this.props;
+    const { classes, row, type } = this.props;
+    console.log(row);
 
     return (
       <div className={classes.root}>
@@ -61,7 +62,7 @@ class Rows extends Component {
             {row.map((gauge, i) => (
               <Grid item key={i}>
                 <Grid container alignItems="center" spacing={8}>
-                  {isSlider ? (
+                  {row.isSlider ? (
                     <MySlider type={gauge.type} />
                   ) : (
                     <Grid item xs={2} sm={2} />
@@ -76,7 +77,7 @@ class Rows extends Component {
                     >
                       <Gauge
                         index={gauge.idx}
-                        gaugeData={gauge.gaugeData}
+                        gaugeData={gauge.arc}
                         elem={gauge.elem}
                       />
                     </button>

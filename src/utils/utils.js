@@ -17,41 +17,13 @@ export const closest = (n, arr) => {
 };
 
 export const determineQuantiles = data => {
-  const d = without(data, NaN); // Because some values are NaN
-  // console.log(d);
+  let d = without(data, NaN);
+  d = without(d, "M");
+
   let original = jStat
     .quantiles(d, [0, 0.25, 0.5, 0.75, 1])
-    .map(x => Math.round(x));
-  // let original = [4, 4, 4, 4, 4]; // does not work. FIX IT
-  console.log(`original: ${original}`);
-
-  if (
-    original[0] === original[1] &&
-    original[1] === original[2] &&
-    original[2] === original[3] &&
-    original[3] === original[4]
-  ) {
-    console.log({ "100": original[4] });
-    return { "100": original[4] };
-  }
-
-  if (
-    original[0] === original[1] &&
-    original[2] === original[3] &&
-    original[3] === original[4]
-  ) {
-    console.log({ "0": original[0], "50": original[2] });
-    return { "0": original[0], "50": original[2] };
-  }
-
-  if (
-    original[1] === original[2] &&
-    original[2] === original[3] &&
-    original[3] === original[4]
-  ) {
-    console.log({ "0": original[0], "50": original[2] });
-    return { "0": original[0], "50": original[2] };
-  }
+    .map(x => parseFloat(x).toFixed(0));
+  // console.log(original);
 
   let q = {};
   original.forEach((value, i) => {
@@ -61,22 +33,16 @@ export const determineQuantiles = data => {
     if (i === 2) k = 50;
     if (i === 3) k = 75;
     if (i === 4) k = 100;
-    q[value] = k;
+    q[k] = parseFloat(value);
   });
-  const values = Object.keys(q);
-  const keys = Object.values(q);
-  let results = {};
-  keys.forEach((key, i) => {
-    results[key] = Number(values[i]);
-  });
-  console.log(results);
-  return results;
+
+  // console.log(q);
+  return q;
 };
 
 export const index = (threshold, quantiles) => {
-  // console.log(threshold);
-  const d = Number(threshold); // ex: 13
-  const q = quantiles; // ex: [3,11,23,66]
+  const d = threshold; // ex: 13
+  const q = Object.values(quantiles); // ex: [3,11,23,66]
 
   if (q.length === 5) {
     // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
@@ -102,7 +68,7 @@ export const index = (threshold, quantiles) => {
     // is equal to max
     // if (d === q[4]) return 9;
     // new record
-    if (d > q[4]) return 10;
+    if (d >= q[4]) return 10;
   }
 
   if (q.length === 4) {
@@ -181,22 +147,774 @@ export const arcColoring = name => {
   if (name === "Max") return "#565656";
   // if (name === "New Record") return "#292F36";
   if (name === "New") return "#BEBEBE";
+  if (name === "") return "#BEBEBE";
   if (name === "Always Observed") return "#BEBEBE";
 };
 
-export const projectionHeaderMessage = name => {
-  if (name === "Min") return "the minimum value";
-  if (name === "Below") return "below normal";
-  if (name === "25%") return "the 25% percentile";
-  if (name === "Slightly Below") return "slightly below the normal";
-  if (name === "Mean") return "the mean value";
-  if (name === "Slightly Above") return "slightly above the normal";
-  if (name === "75%") return "the 75% percentile";
-  if (name === "Above") return "above the normal";
-  if (name === "Max") return "the maximum value";
+export const arcData = (q, daysAboveThisYear, type) => {
+  const v = Object.values(q);
+
+  // 3-category ---------------------------------------
+  if (q["25"] !== q["50"] && q["50"] !== q["75"]) {
+    // case 75 === 100
+    if (
+      q["75"] === q["100"] ||
+      (q["0"] !== q["25"] &&
+        q["25"] !== q["50"] &&
+        q["50"] !== q["75"] &&
+        q["75"] !== q["100"])
+    ) {
+      return [
+        {
+          name: "New",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Below",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#0088FE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Below",
+          startArcQuantile: v[1],
+          endArcQuantile: v[2],
+          value: 4,
+          fill: "#7FB069"
+        },
+        {
+          name: "Mean",
+          startArcQuantile: v[2],
+          endArcQuantile: v[2],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Above",
+          startArcQuantile: v[2],
+          endArcQuantile: v[3],
+          value: 4,
+          fill: "#FFBB28"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Above",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#E63B2E"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    if (q["0"] === q["25"] && q["25"] > 0) {
+      return [
+        {
+          name: "New",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Below",
+          startArcQuantile: v[1],
+          endArcQuantile: v[2],
+          value: 4,
+          fill: "#7FB069"
+        },
+        {
+          name: "Mean",
+          startArcQuantile: v[2],
+          endArcQuantile: v[2],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Above",
+          startArcQuantile: v[2],
+          endArcQuantile: v[3],
+          value: 4,
+          fill: "#FFBB28"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Above",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#E63B2E"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    if (q["0"] === q["25"] && q["25"] === 0 && type !== "temperature") {
+      return [
+        {
+          name: "",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Below",
+          startArcQuantile: v[1],
+          endArcQuantile: v[2],
+          value: 4,
+          fill: "#7FB069"
+        },
+        {
+          name: "Mean",
+          startArcQuantile: v[2],
+          endArcQuantile: v[2],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Above",
+          startArcQuantile: v[2],
+          endArcQuantile: v[3],
+          value: 4,
+          fill: "#FFBB28"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Above",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#E63B2E"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    if (q["0"] === 0 && type !== "temperature") {
+      return [
+        {
+          name: "",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Below",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#0088FE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Below",
+          startArcQuantile: v[1],
+          endArcQuantile: v[2],
+          value: 4,
+          fill: "#7FB069"
+        },
+        {
+          name: "Mean",
+          startArcQuantile: v[2],
+          endArcQuantile: v[2],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Slightly Above",
+          startArcQuantile: v[2],
+          endArcQuantile: v[3],
+          value: 4,
+          fill: "#FFBB28"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Above",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#E63B2E"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+  }
+
+  // 4-category ---------------------------------------
+  if (q["25"] === q["50"] || q["50"] === q["75"]) {
+    // case 2b (min and 25% are equal but not zero)
+    if (q["0"] === q["25"] && q["25"] > 0) {
+      return [
+        {
+          name: "New",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Normal",
+          startArcQuantile: v[1],
+          endArcQuantile: v[3],
+          value: 8,
+          fill: "gold"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Above",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#E63B2E"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    // 2c: (min and 25th are equal and their value is zero)
+    if (q["0"] === q["25"] && q["25"] === 0 && type !== "temperature") {
+      return [
+        {
+          name: "",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Normal",
+          startArcQuantile: v[1],
+          endArcQuantile: v[3],
+          value: 8,
+          fill: "gold"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Above",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#E63B2E"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    // 2d (only min is zero)
+    if (
+      q["0"] === 0 &&
+      (q["25"] > 0 && q["50"] > 0 && q["75"] > 0 && q["100"] > 0) &&
+      type !== "temperature"
+    ) {
+      return [
+        {
+          name: "",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Below",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#0088FE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Normal",
+          startArcQuantile: v[1],
+          endArcQuantile: v[3],
+          value: 8,
+          fill: "gold"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Above",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#E63B2E"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    // 2e: (75th and 100Th are equal and their value is not zero)
+    if (q["75"] === q["100"] && q["100"] > 0) {
+      return [
+        {
+          name: "New",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Below",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#0088FE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Normal",
+          startArcQuantile: v[1],
+          endArcQuantile: v[3],
+          value: 8,
+          fill: "gold"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    // 2e: (75th and 100Th are equal and their value is not zero and value is not temp)
+    if (q["75"] === q["100"] && q["100"] > 0 && type !== "temperature") {
+      return [
+        {
+          name: "New",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Below",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#0088FE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Normal",
+          startArcQuantile: v[1],
+          endArcQuantile: v[3],
+          value: 8,
+          fill: "gold"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+
+    // 2e: (75th and 100Th are equal and their value is zero and value is not temp)
+    if (q["75"] === q["100"] && q["100"] === 0 && type !== "temperature") {
+      return [
+        {
+          name: "New",
+          startArcQuantile: null,
+          endArcQuantile: v[0],
+          value: 2,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Min",
+          startArcQuantile: v[0],
+          endArcQuantile: v[0],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Below",
+          startArcQuantile: v[0],
+          endArcQuantile: v[1],
+          value: 4,
+          fill: "#0088FE"
+        },
+        {
+          name: "25%",
+          startArcQuantile: v[1],
+          endArcQuantile: v[1],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Normal",
+          startArcQuantile: v[1],
+          endArcQuantile: v[3],
+          value: 8,
+          fill: "gold"
+        },
+        {
+          name: "75%",
+          startArcQuantile: v[3],
+          endArcQuantile: v[3],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "",
+          startArcQuantile: v[3],
+          endArcQuantile: v[4],
+          value: 4,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "Max",
+          startArcQuantile: v[4],
+          endArcQuantile: v[4],
+          value: 0,
+          fill: "#BEBEBE"
+        },
+        {
+          name: "New",
+          startArcQuantile: v[4],
+          endArcQuantile: null,
+          value: 2,
+          fill: "#BEBEBE"
+        }
+      ];
+    }
+  }
 };
 
-export const arcData = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
+export const arcDataOLD = (quantiles, daysAboveThisYear, idx, gaugeTitle) => {
   const keys = Object.keys(quantiles);
   const values = Object.values(quantiles);
   // console.log(keys, values);

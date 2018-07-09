@@ -10,7 +10,7 @@ export default class ParamsStore {
   constructor() {
     when(() => !this.data, () => this.loadObservedData(this.params));
     reaction(() => this.station.sid, () => this.loadObservedData(this.params));
-    when(() => this.data, () => console.log(this.asJson));
+    reaction(() => this.data, () => console.log(this.gauge, this.avgTemp));
   }
 
   isLoading = false;
@@ -31,28 +31,13 @@ export default class ParamsStore {
   snow = this.seasonalType[2].range[0];
   setSnow = d => (this.snow = d);
 
-  setSeasonalExtreme = (label, value) => {
-    console.log(label, value);
-    if (label === "Days >" || label === "Days <") {
-      this.maxt = value;
-      this.loadSeasonalExtreme(this.maxtParam, 7);
-    }
-    if (label === "Nights >" || label === "Nights <") {
-      this.mint = value;
-      this.loadSeasonalExtreme(this.mintParam, 8);
-    }
-    if (label === "Rainfall >") {
-      this.pcpn = value;
-      this.loadSeasonalExtreme(this.pcpnParam, 9);
-    }
-    if (label === "Snowfall >") {
-      this.snow = value;
-      this.loadSeasonalExtreme(this.snowParam, 10);
-    }
-  };
+  // datermines the seasonal extreeme call
+  get isSummerOrWinter() {
+    const month = getMonth(new Date()) + 1;
+    return month >= 4 && month <= 10 ? "summer" : "winter";
+  }
 
-  // rows = ["Temperature", "Precipitation", "Seasonal Extreme"];
-
+  // returns the start of the season
   get season() {
     const month = getMonth(new Date()) + 1;
     if (month >= 3 && month <= 5)
@@ -65,124 +50,206 @@ export default class ParamsStore {
       return { label: "Winter", season_start: "12-01" };
   }
 
+  // average temperature parameters
+  tempParams = [
+    {
+      name: "avgt",
+      interval: [1, 0, 0],
+      duration: "mtd",
+      reduce: "mean"
+    },
+    {
+      name: "avgt",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: `${this.season.season_start}`,
+      reduce: "mean"
+    },
+    {
+      name: "avgt",
+      interval: [1, 0, 0],
+      duration: "ytd",
+      reduce: "mean"
+    }
+  ];
+
+  // average precipitation parameters
+  pcpnParams = [
+    {
+      name: "pcpn",
+      interval: [1, 0, 0],
+      duration: "mtd",
+      reduce: "sum"
+    },
+    {
+      name: "pcpn",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: `${this.season.season_start}`,
+      reduce: "sum"
+    },
+    {
+      name: "pcpn",
+      interval: [1, 0, 0],
+      duration: "ytd",
+      reduce: "sum"
+    }
+  ];
+
+  // if it is summer (month 4 to 10) we make the call with the following params
+  summerParams = [
+    {
+      name: "maxt",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_80`
+    },
+    {
+      name: "maxt",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_90`
+    },
+    {
+      name: "maxt",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_100`
+    },
+    {
+      name: "mint",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_65`
+    },
+    {
+      name: "mint",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_70`
+    },
+    {
+      name: "mint",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_75`
+    },
+    {
+      name: "pcpn",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_1`
+    },
+    {
+      name: "pcpn",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_2`
+    },
+    {
+      name: "pcpn",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "01-01",
+      reduce: `cnt_ge_3`
+    }
+  ];
+
+  // if it is winter (month 1,2,3,11,12) we make the call with the following params
+  winterParams = [
+    {
+      name: "maxt",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_le_32`
+    },
+    {
+      name: "maxt",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_le_20`
+    },
+    {
+      name: "maxt",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_le_15`
+    },
+    {
+      name: "mint",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_le_20`
+    },
+    {
+      name: "mint",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_le_15`
+    },
+    {
+      name: "mint",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_le_10`
+    },
+    {
+      name: "snow",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_ge_2`
+    },
+    {
+      name: "snow",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_ge_4`
+    },
+    {
+      name: "snow",
+      interval: [1, 0, 0],
+      duration: "std",
+      season_start: "07-01",
+      reduce: `cnt_ge_6`
+    }
+  ];
+
+  // the call
   get params() {
+    let elems = [...this.tempParams, ...this.pcpnParams];
+    this.isSummerOrWinter === "summer"
+      ? (elems = [...elems, ...this.summerParams])
+      : (elems = [...elems, ...this.winterParams]);
+
     return {
       sid: this.station.sid,
       sdate: `POR-${format(new Date(), "MM-dd")}`,
       edate: format(new Date(), "YYYY-MM-dd"),
-      elems: [
-        {
-          name: "avgt",
-          interval: [1, 0, 0],
-          duration: "mtd",
-          reduce: "mean"
-        },
-        {
-          name: "avgt",
-          interval: [1, 0, 0],
-          duration: "std",
-          season_start: `${this.season.season_start}`,
-          reduce: "mean"
-        },
-        {
-          name: "avgt",
-          interval: [1, 0, 0],
-          duration: "ytd",
-          reduce: "mean"
-        },
-        {
-          name: "pcpn",
-          interval: [1, 0, 0],
-          duration: "mtd",
-          reduce: "sum"
-        },
-        {
-          name: "pcpn",
-          interval: [1, 0, 0],
-          duration: "std",
-          season_start: `${this.season.season_start}`,
-          reduce: "sum"
-        },
-        {
-          name: "pcpn",
-          interval: [1, 0, 0],
-          duration: "ytd",
-          reduce: "sum"
-        },
-        {
-          name: "maxt",
-          interval: [1, 0, 0],
-          duration: "std",
-          season_start: "01-01",
-          reduce: `cnt_ge_${this.maxt}`
-        },
-        {
-          name: "mint",
-          interval: [1, 0, 0],
-          duration: "std",
-          season_start: "01-01",
-          reduce: `cnt_ge_${this.mint}`
-        },
-        {
-          name: "pcpn",
-          interval: [1, 0, 0],
-          duration: "std",
-          season_start: "01-01",
-          reduce: `cnt_ge_${this.pcpn}`
-        },
-        {
-          name: "snow",
-          interval: [1, 0, 0],
-          duration: "std",
-          season_start: "01-01",
-          reduce: `cnt_ge_${this.snow}`
-        }
-      ]
+      elems
     };
   }
 
-  maxtParam = {
-    name: "maxt",
-    interval: [1, 0, 0],
-    duration: "std",
-    season_start: "01-01",
-    reduce: `cnt_ge_${this.maxt}`
-  };
-
-  mintParam = {
-    name: "mint",
-    interval: [1, 0, 0],
-    duration: "std",
-    season_start: "01-01",
-    reduce: `cnt_ge_${this.mint}`
-  };
-
-  pcpnParam = {
-    name: "pcpn",
-    interval: [1, 0, 0],
-    duration: "std",
-    season_start: "01-01",
-    reduce: `cnt_ge_${this.pcpn}`
-  };
-
-  snowParam = {
-    name: "snow",
-    interval: [1, 0, 0],
-    duration: "std",
-    season_start: "01-01",
-    reduce: `cnt_ge_${this.snow}`
-  };
-
+  // main data array
   data;
   setData = d => (this.data = d);
-  updateData = (d, idx) => {
-    this.data.map((obj, i) => {
-      return (obj[idx] = d[i][1]);
-    });
-  };
 
   loadObservedData = params => {
-    // console.log("ciccio");
     this.setData(undefined);
     this.setIsLoading(true);
     return axios
@@ -197,160 +264,9 @@ export default class ParamsStore {
       });
   };
 
-  get asJson() {
-    return {
-      maxt: this.maxt,
-      mint: this.mint,
-      pcpn: this.pcpn,
-      snow: this.snow
-    };
-  }
-
-  loadSeasonalExtreme = (param, idx) => {
-    this.setIsLoading(true);
-    let params = {
-      sid: this.station.sid,
-      sdate: `POR-${format(new Date(), "MM-dd")}`,
-      edate: format(new Date(), "YYYY-MM-dd"),
-      elems: [param]
-    };
-    return axios
-      .post(`${window.location.protocol}//data.rcc-acis.org/StnData`, params)
-      .then(res => {
-        // console.log(this.data);
-        // console.log(res.data.data);
-        this.updateData(res.data.data, idx);
-        this.setIsLoading(false);
-      })
-      .catch(err => {
-        console.log("Failed to load observed data ", err);
-      });
-  };
-
-  gaugeType = ["month", "season", "year"];
-
-  get avgTemps() {
-    let results = [];
-    if (this.data) {
-      this.gaugeType.forEach((type, i) => {
-        let p = {};
-        const daysAboveThisYearALL = this.data.slice(-1)[0];
-        const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 1}`);
-        const values = this.data.map(arr => Number(arr[i + 1]));
-        const mean = jStat.quantiles(values, [0.5]).map(x => Math.round(x))[0];
-        const dates = this.data.map(obj => obj[0]);
-        const quantiles = determineQuantiles(values);
-        const idx = index(daysAboveThisYear, Object.values(quantiles));
-
-        const gaugeData = arcData(
-          quantiles,
-          daysAboveThisYear,
-          idx,
-          gaugeTitle
-        );
-
-        const gaugeDataNoCircles = gaugeData.filter(
-          obj =>
-            obj.name !== "Min" &&
-            obj.name !== "25%" &&
-            obj.name !== "Mean" &&
-            obj.name !== "75%" &&
-            obj.name !== "Max"
-        );
-
-        const colors = gaugeDataNoCircles.map(d => d.fill);
-        console.log(colors.slice(0, -1));
-
-        let gaugeTitle = "";
-        if (type === "month") gaugeTitle = format(new Date(), "MMMM");
-        if (type === "season") gaugeTitle = this.season.label;
-        if (type === "year") gaugeTitle = "This Year";
-
-        const graphData = values.map((v, i) => {
-          let p = {};
-          let barColorIdx = closest(v, Object.values(quantiles));
-          const barColor = colors.slice(0, -1)[barColorIdx];
-
-          p["date"] = dates[i];
-          p["value"] = v;
-          p["mean"] = mean;
-          p["bar"] = Math.round(v - mean);
-          p["quantiles"] = Object.values(quantiles);
-          p["gaugeDataNoCircles"] = gaugeDataNoCircles;
-          p["barColor"] = barColor;
-          return p;
-        });
-
-        p = {
-          graphData,
-          daysAboveThisYear,
-          type,
-          gaugeTitle,
-          values,
-          quantiles,
-          idx,
-          gaugeData,
-          label: "Temperature"
-        };
-        results.push(p);
-      });
-      return results;
-    }
-  }
-
-  get avgPcpns() {
-    let results = [];
-    if (this.data) {
-      this.gaugeType.forEach((type, i) => {
-        let p = {};
-        const daysAboveThisYearALL = this.data.slice(-1)[0];
-        const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 4}`);
-        const values = this.data.map(arr => Number(arr[i + 4]));
-        const mean = jStat.quantiles(values, [0.5]).map(x => Math.round(x))[0];
-        const dates = this.data.map(obj => obj[0]);
-        const quantiles = determineQuantiles(values);
-        const graphData = values.map((v, i) => {
-          let p = {};
-          p["date"] = dates[i];
-          p["value"] = v;
-          p["mean"] = mean;
-          p["bar"] = Math.round(v - mean);
-          p["quantiles"] = Object.values(quantiles);
-          return p;
-        });
-        const idx = index(daysAboveThisYear, Object.values(quantiles));
-        let gaugeTitle = "";
-        if (type === "month") gaugeTitle = format(new Date(), "MMMM");
-        if (type === "season") gaugeTitle = this.season.label;
-        if (type === "year") gaugeTitle = "This Year";
-        const gaugeData = arcData(
-          quantiles,
-          daysAboveThisYear,
-          idx,
-          gaugeTitle
-        );
-
-        p = {
-          graphData,
-          daysAboveThisYear,
-          type,
-          gaugeTitle,
-          values,
-          quantiles,
-          idx,
-          gaugeData,
-          label: "Precipitation"
-        };
-        results.push(p);
-      });
-      return results;
-    }
-  }
-
   get seasonalType() {
-    const month = getMonth(new Date()) + 1;
-    const season = month >= 4 && month <= 10 ? "Hot" : "Cold";
-    return season === "Hot"
+    let season = this.isSummerOrWinter;
+    return season === "summer"
       ? [
           {
             label: "Days >",
@@ -531,48 +447,114 @@ export default class ParamsStore {
         ];
   }
 
-  get seasonalExtreme() {
+  get keys() {
+    let extremeKeys;
+
+    this.isSummerOrWinter === "summer"
+      ? (extremeKeys = {
+          maxt80: { label: "Days > 80", type: "temperature", isSlider: true },
+          maxt90: { label: "Days > 90", type: "temperature", isSlider: true },
+          maxt100: { label: "Days > 100", type: "temperature", isSlider: true },
+          mint65: { label: "Nights > 65", type: "temperature", isSlider: true },
+          mint70: { label: "Nights > 70", type: "temperature", isSlider: true },
+          mint75: { label: "Nights > 75", type: "temperature", isSlider: true },
+          rain1: { label: "Rainfall > 1", type: "rainfall", isSlider: true },
+          rain2: { label: "Rainfall > 2", type: "rainfall", isSlider: true },
+          rain3: { label: "Rainfall > 3", type: "rainfall", isSlider: true }
+        })
+      : (extremeKeys = {
+          maxt32: { label: "Days < 32", type: "temperature", isSlider: true },
+          maxt20: { label: "Days < 20", type: "temperature", isSlider: true },
+          maxt15: { label: "Days < 15", type: "temperature", isSlider: true },
+          mint20: { label: "Nights < 20", type: "temperature", isSlider: true },
+          mint15: { label: "Nights < 15", type: "temperature", isSlider: true },
+          mint10: { label: "Nights < 10", type: "temperature", isSlider: true },
+          snow2: { label: "Snowfall > 2", type: "snowfall", isSlider: true },
+          snow4: { label: "Snowfall > 4", type: "snowfall", isSlider: true },
+          snow6: { label: "Snowfall > 6", type: "snowfall", isSlider: true }
+        });
+
+    return {
+      tempMonth: {
+        label: format(new Date(), "MMMM"),
+        type: "temperature",
+        isSlider: false
+      },
+      tempSeason: {
+        label: this.season.label,
+        type: "temperature",
+        isSlider: false
+      },
+      tempYear: { label: "This Year", type: "temperature", isSlider: false },
+      pcpnMonth: {
+        label: format(new Date(), "MMMM"),
+        type: "precipitation",
+        isSlider: false
+      },
+      pcpnSeason: {
+        label: this.season.label,
+        type: "precipitation",
+        isSlider: false
+      },
+      pcpnYear: { label: "This Year", type: "precipitation", isSlider: false },
+      ...extremeKeys
+    };
+  }
+
+  get gauge() {
     let results = [];
     if (this.data) {
-      this.seasonalType.forEach((type, i) => {
+      Object.keys(this.keys).forEach((elem, i) => {
         let p = {};
-        const daysAboveThisYearALL = this.data.slice(-1)[0];
-        const daysAboveThisYear = daysAboveThisYearALL.get(`${i + 7}`);
-        const values = this.data.map(arr => Number(arr[i + 7]));
-        const dates = this.data.map(obj => obj[0]);
-        const graphData = values.map((v, i) => {
-          let p = {};
-          p["date"] = dates[i];
-          p["value"] = v;
-          return p;
-        });
+        const label = this.keys[elem].label;
+        const type = this.keys[elem].type;
+        const isSlider = this.keys[elem].isSlider;
+        const values = this.data.map(d => parseFloat(d[i + 1]).toFixed(1));
+        const daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(1);
         const quantiles = determineQuantiles(values);
-        const idx = index(daysAboveThisYear, Object.values(quantiles));
-        const gaugeTitle = type.label;
-        const elem = type.elem;
-
-        const gaugeData = arcData(
-          quantiles,
-          daysAboveThisYear,
-          idx,
-          gaugeTitle
-        );
+        const mean = parseFloat(jStat.quantiles(values, [0.5])[0].toFixed(1));
+        const dates = this.data.map(d => d[0]);
+        const active = index(daysAboveThisYear, quantiles);
+        const arc = arcData(quantiles, daysAboveThisYear, type);
 
         p = {
-          graphData,
+          label,
+          type,
           elem,
           daysAboveThisYear,
-          type,
-          gaugeTitle,
           values,
           quantiles,
-          idx,
-          gaugeData,
-          label: "Seasonal Extreme"
+          mean,
+          dates,
+          active,
+          arc,
+          isSlider
         };
         results.push(p);
       });
       return results;
+    }
+  }
+
+  get avgTemps() {
+    if (this.gauge) {
+      return this.gauge.filter(
+        o =>
+          o.elem === "tempMonth" ||
+          o.elem === "tempSeason" ||
+          o.elem === "tempYear"
+      );
+    }
+  }
+
+  get avgPcpns() {
+    if (this.gauge) {
+      return this.gauge.filter(
+        o =>
+          o.elem === "pcpnMonth" ||
+          o.elem === "pcpnSeason" ||
+          o.elem === "pcpnYear"
+      );
     }
   }
 }
@@ -588,16 +570,16 @@ decorate(ParamsStore, {
   setMint: action,
   pcpn: observable,
   setPcpn: action,
-  seasonalType: computed,
-  seasonalExtreme: computed,
+  snow: observable,
+  setSnow: action,
+  isSummerOrWinter: computed,
+  season: computed,
   params: computed,
   data: observable,
   setData: action,
-  asJson: computed,
+  gauge: computed,
+  seasonalType: computed,
+  keys: computed,
   avgTemps: computed,
-  avgPcpns: computed,
-  snow: observable,
-  setSnow: action,
-  setSeasonalExtreme: action,
-  updateData: action
+  avgPcpns: computed
 });
