@@ -15,11 +15,13 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "60%",
+    width: "75%",
     margin: "0 auto",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
+    padding: theme.spacing.unit * 4,
+    paddingLeft: 0,
+    paddingRight: 0
   }
 });
 
