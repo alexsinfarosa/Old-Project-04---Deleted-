@@ -540,7 +540,7 @@ export default class ParamsStore {
           // console.log(date, values[i]);
           let barColorIdx = closest(values[i], Object.values(quantiles));
           const barColor = colors.slice(0, -1)[barColorIdx + 1];
-          const bar = Math.round(values[i] - mean);
+          const bar = values[i] - mean;
           return { date, value: values[i], barColor, bar };
         });
 

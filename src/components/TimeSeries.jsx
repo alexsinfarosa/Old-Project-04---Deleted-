@@ -30,7 +30,14 @@ class TimeSeries extends Component {
       if (d.payload[0]) {
         const bar = d.payload[0].payload;
         return (
-          <div style={{ background: "#fdfafa", borderRadius: 10, padding: 5 }}>
+          <div
+            style={{
+              background: "white",
+              borderRadius: 10,
+              padding: 5,
+              border: "1px solid #b2b2b2"
+            }}
+          >
             <p style={{ fontWeight: "bold", color: "#b2b2b2" }}>
               Date: {bar.date}
             </p>

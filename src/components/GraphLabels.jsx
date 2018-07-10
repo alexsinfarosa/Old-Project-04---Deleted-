@@ -8,8 +8,8 @@ export default class GraphLabels extends Component {
         <text
           x={0}
           y={0}
-          dy={10}
-          fontSize={13}
+          dy={20}
+          fontSize={14}
           textAnchor="middle"
           fill="#666"
           transform="rotate(0)"
