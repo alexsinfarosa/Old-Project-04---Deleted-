@@ -40,16 +40,16 @@ export const determineQuantiles = data => {
 };
 
 export const index = (threshold, quantiles) => {
-  const d = threshold; // ex: 13
+  const daysAboveThisYear = threshold; // ex: 13
   const q = Object.values(quantiles); // ex: [3,11,23,66]
 
   // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
-  if (d < q[0]) return 0;
-  if (d >= q[0] && d < q[1]) return 2;
-  if (d >= q[1] && d < q[2]) return 4;
-  if (d >= q[2] && d < q[3]) return 6;
-  if (d >= q[3] && d < q[4]) return 8;
-  if (d >= q[4]) return 10;
+  if (daysAboveThisYear < q[0]) return 0;
+  if (daysAboveThisYear >= q[0] && daysAboveThisYear < q[1]) return 2;
+  if (daysAboveThisYear >= q[1] && daysAboveThisYear < q[2]) return 4;
+  if (daysAboveThisYear >= q[2] && daysAboveThisYear < q[3]) return 6;
+  if (daysAboveThisYear >= q[3] && daysAboveThisYear < q[4]) return 8;
+  if (daysAboveThisYear >= q[4]) return 10;
 };
 
 export const arcColoring = name => {
@@ -57,7 +57,7 @@ export const arcColoring = name => {
   if (name === "New") return "#BEBEBE";
   if (name === "Below") return "#0088FE";
   if (name === "Slightly Below") return "#7FB069";
-  if (name === "Normal") return "#C5B358";
+  if (name === "Normal") return "#e2b590";
   if (name === "Slightly Above") return "#FFBB28";
   if (name === "Above") return "#E63B2E";
 };

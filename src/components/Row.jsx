@@ -109,17 +109,11 @@ class Rows extends Component {
 
         {row && (
           <GaugeGraphModal
-            title={row[0].label}
+            title={type}
             onClose={this.onClose}
             isOpen={this.state.isOpen}
             gauge={<Gauge gauge={row[this.state.idx]} />}
-            timeSeries={
-              <TimeSeries
-                gaugeData={row[this.state.idx].gaugeData}
-                data={row[this.state.idx].graphData}
-                daysAboveThisYear={row[this.state.idx].daysAboveThisYear}
-              />
-            }
+            timeSeries={<TimeSeries gauge={row[this.state.idx]} />}
           />
         )}
       </div>

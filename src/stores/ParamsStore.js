@@ -273,7 +273,6 @@ export default class ParamsStore {
       ? [
           {
             type: "maxt",
-            label: "Days >",
             range: [80, 90, 100],
             elem: this.maxt,
             steps: 10,
@@ -303,7 +302,6 @@ export default class ParamsStore {
           },
           {
             type: "mint",
-            label: "Nights >",
             range: [65, 70, 75],
             elem: this.mint,
             steps: 5,
@@ -333,7 +331,6 @@ export default class ParamsStore {
           },
           {
             type: "rainfall",
-            label: "Rainfall >",
             range: [1, 2, 3],
             elem: this.rainfall,
             steps: 1,
@@ -365,7 +362,6 @@ export default class ParamsStore {
       : [
           {
             type: "maxt",
-            label: "Days <",
             range: [32, 20, 15],
             elem: this.maxt,
             steps: 5,
@@ -395,7 +391,6 @@ export default class ParamsStore {
           },
           {
             type: "mint",
-            label: "Nights <",
             range: [20, 15, 10],
             elem: this.mint,
             steps: 5,
@@ -425,7 +420,6 @@ export default class ParamsStore {
           },
           {
             type: "snowfall",
-            label: "Snowfall >",
             range: [2, 4, 6],
             elem: this.snowfall,
             steps: 2,
@@ -529,6 +523,10 @@ export default class ParamsStore {
         if (isSlider)
           sliderStyle = this.seasonalType.filter(t => t.type === type)[0];
 
+        const graphData = dates.map((date, i) => {
+          return { date, value: values[i] };
+        });
+
         p = {
           label,
           type,
@@ -541,7 +539,8 @@ export default class ParamsStore {
           active,
           gaugeData,
           isSlider,
-          sliderStyle
+          sliderStyle,
+          graphData
         };
         results.push(p);
       });

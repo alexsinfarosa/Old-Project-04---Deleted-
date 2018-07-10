@@ -27,14 +27,15 @@ const width = 1000;
 const height = 350;
 class TimeSeries extends Component {
   render() {
-    const { data } = this.props;
-    console.log(data);
+    const { gauge } = this.props;
+    console.log(gauge);
+
     return (
       <BarChart
         width={width}
         height={height}
-        data={data}
-        margin={{ top: 30, right: 40, left: 40, bottom: 30 }}
+        data={gauge.graphData}
+        margin={{ top: 30, right: 100, left: 40, bottom: 30 }}
       >
         <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="date" tick={<GraphLabels />} />
@@ -45,10 +46,10 @@ class TimeSeries extends Component {
           dataKey="name"
           height={30}
           stroke="#8884d8"
-          tickFormatter={x => getYear(data[x].date)}
+          tickFormatter={x => getYear(gauge.graphData[x].date)}
         />
         <Bar dataKey="bar" fill={"red"}>
-          {data.map((entry, index) => {
+          {gauge.graphData.map((entry, index) => {
             return <Cell key={index} fill={entry.barColor} />;
           })}
         </Bar>
