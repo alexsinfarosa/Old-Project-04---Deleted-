@@ -20,17 +20,20 @@ export default class ParamsStore {
   setStation = d => (this.station = d);
 
   maxt = this.seasonalType[0].range[0];
-  setMaxt = d => (this.maxt = d);
+  // setMaxt = d => (this.maxt = d);
 
   mint = this.seasonalType[1].range[0];
-  setMint = d => (this.mint = d);
+  // setMint = d => (this.mint = d);
 
-  pcpn = this.seasonalType[2].range[0];
-  setPcpn = d => (this.pcpn = d);
+  rainfall = this.seasonalType[2].range[0];
+  // setRainfall = d => (this.rainfall = d);
 
-  snow = this.seasonalType[2].range[0];
-  setSnow = d => (this.snow = d);
+  snowfall = this.seasonalType[2].range[0];
+  // setSnowfall = d => (this.snowfall = d);
 
+  setExtreemeValues = (type, value) => {
+    this[type] = value;
+  };
   // datermines the seasonal extreeme call
   get isSummerOrWinter() {
     const month = getMonth(new Date()) + 1;
@@ -269,6 +272,7 @@ export default class ParamsStore {
     return season === "summer"
       ? [
           {
+            type: "maxt",
             label: "Days >",
             range: [80, 90, 100],
             elem: this.maxt,
@@ -298,6 +302,7 @@ export default class ParamsStore {
             }
           },
           {
+            type: "mint",
             label: "Nights >",
             range: [65, 70, 75],
             elem: this.mint,
@@ -327,9 +332,10 @@ export default class ParamsStore {
             }
           },
           {
+            type: "rainfall",
             label: "Rainfall >",
             range: [1, 2, 3],
-            elem: this.pcpn,
+            elem: this.rainfall,
             steps: 1,
             min: 1,
             max: 3,
@@ -358,6 +364,7 @@ export default class ParamsStore {
         ]
       : [
           {
+            type: "maxt",
             label: "Days <",
             range: [32, 20, 15],
             elem: this.maxt,
@@ -387,6 +394,7 @@ export default class ParamsStore {
             }
           },
           {
+            type: "mint",
             label: "Nights <",
             range: [20, 15, 10],
             elem: this.mint,
@@ -416,9 +424,10 @@ export default class ParamsStore {
             }
           },
           {
+            type: "snowfall",
             label: "Snowfall >",
             range: [2, 4, 6],
-            elem: this.snow,
+            elem: this.snowfall,
             steps: 2,
             min: 2,
             max: 6,
@@ -452,23 +461,23 @@ export default class ParamsStore {
 
     this.isSummerOrWinter === "summer"
       ? (extremeKeys = {
-          maxt80: { label: "Days > 80", type: "temperature", isSlider: true },
-          maxt90: { label: "Days > 90", type: "temperature", isSlider: true },
-          maxt100: { label: "Days > 100", type: "temperature", isSlider: true },
-          mint65: { label: "Nights > 65", type: "temperature", isSlider: true },
-          mint70: { label: "Nights > 70", type: "temperature", isSlider: true },
-          mint75: { label: "Nights > 75", type: "temperature", isSlider: true },
+          maxt80: { label: "Days > 80", type: "maxt", isSlider: true },
+          maxt90: { label: "Days > 90", type: "maxt", isSlider: true },
+          maxt100: { label: "Days > 100", type: "maxt", isSlider: true },
+          mint65: { label: "Nights > 65", type: "mint", isSlider: true },
+          mint70: { label: "Nights > 70", type: "mint", isSlider: true },
+          mint75: { label: "Nights > 75", type: "mint", isSlider: true },
           rain1: { label: "Rainfall > 1", type: "rainfall", isSlider: true },
           rain2: { label: "Rainfall > 2", type: "rainfall", isSlider: true },
           rain3: { label: "Rainfall > 3", type: "rainfall", isSlider: true }
         })
       : (extremeKeys = {
-          maxt32: { label: "Days < 32", type: "temperature", isSlider: true },
-          maxt20: { label: "Days < 20", type: "temperature", isSlider: true },
-          maxt15: { label: "Days < 15", type: "temperature", isSlider: true },
-          mint20: { label: "Nights < 20", type: "temperature", isSlider: true },
-          mint15: { label: "Nights < 15", type: "temperature", isSlider: true },
-          mint10: { label: "Nights < 10", type: "temperature", isSlider: true },
+          maxt32: { label: "Days < 32", type: "maxt", isSlider: true },
+          maxt20: { label: "Days < 20", type: "maxt", isSlider: true },
+          maxt15: { label: "Days < 15", type: "maxt", isSlider: true },
+          mint20: { label: "Nights < 20", type: "mint", isSlider: true },
+          mint15: { label: "Nights < 15", type: "mint", isSlider: true },
+          mint10: { label: "Nights < 10", type: "mint", isSlider: true },
           snow2: { label: "Snowfall > 2", type: "snowfall", isSlider: true },
           snow4: { label: "Snowfall > 4", type: "snowfall", isSlider: true },
           snow6: { label: "Snowfall > 6", type: "snowfall", isSlider: true }
@@ -477,26 +486,26 @@ export default class ParamsStore {
     return {
       tempMonth: {
         label: format(new Date(), "MMMM"),
-        type: "temperature",
+        type: "avgTemp",
         isSlider: false
       },
       tempSeason: {
         label: this.season.label,
-        type: "temperature",
+        type: "avgTemp",
         isSlider: false
       },
-      tempYear: { label: "This Year", type: "temperature", isSlider: false },
+      tempYear: { label: "This Year", type: "avgTemp", isSlider: false },
       pcpnMonth: {
         label: format(new Date(), "MMMM"),
-        type: "precipitation",
+        type: "avgPcpn",
         isSlider: false
       },
       pcpnSeason: {
         label: this.season.label,
-        type: "precipitation",
+        type: "avgPcpn",
         isSlider: false
       },
-      pcpnYear: { label: "This Year", type: "precipitation", isSlider: false },
+      pcpnYear: { label: "This Year", type: "avgPcpn", isSlider: false },
       ...extremeKeys
     };
   }
@@ -516,6 +525,9 @@ export default class ParamsStore {
         const dates = this.data.map(d => d[0]);
         const active = index(daysAboveThisYear, quantiles);
         const gaugeData = arcData(quantiles, daysAboveThisYear, type);
+        let sliderStyle;
+        if (isSlider)
+          sliderStyle = this.seasonalType.filter(t => t.type === type)[0];
 
         p = {
           label,
@@ -528,7 +540,8 @@ export default class ParamsStore {
           dates,
           active,
           gaugeData,
-          isSlider
+          isSlider,
+          sliderStyle
         };
         results.push(p);
       });
@@ -573,9 +586,19 @@ export default class ParamsStore {
   get extremeRainSnow() {
     if (this.gauge) {
       if (this.isSummerOrWinter) {
-        return this.gauge.filter(o => o.elem === `rain${this.pcpn}`);
+        return this.gauge.filter(o => o.elem === `rain${this.rainfall}`);
       }
-      return this.gauge.filter(o => o.elem === `snow${this.snow}`);
+      return this.gauge.filter(o => o.elem === `snow${this.snowfall}`);
+    }
+  }
+
+  get seasonalExtreme() {
+    if (this.gauge) {
+      return [
+        ...this.extremeMaxtT,
+        ...this.extremeMinT,
+        ...this.extremeRainSnow
+      ];
     }
   }
 }
@@ -589,10 +612,10 @@ decorate(ParamsStore, {
   setMaxt: action,
   mint: observable,
   setMint: action,
-  pcpn: observable,
-  setPcpn: action,
-  snow: observable,
-  setSnow: action,
+  rainfall: observable,
+  setRainfall: action,
+  snowfall: observable,
+  setSnowfall: action,
   isSummerOrWinter: computed,
   season: computed,
   params: computed,
@@ -605,5 +628,6 @@ decorate(ParamsStore, {
   avgPcpns: computed,
   extremeMaxtT: computed,
   extremeMinT: computed,
-  extremeRainSnow: computed
+  extremeRainSnow: computed,
+  seasonalExtreme: computed
 });

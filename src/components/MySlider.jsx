@@ -15,20 +15,8 @@ const styles = theme => ({
 
 class MySlider extends Component {
   render() {
-    const { type } = this.props;
-    // console.log(type);
-    const {
-      setSeasonalExtreme,
-      maxt,
-      mint,
-      pcpn,
-      snow
-    } = this.props.appStore.paramsStore;
-    let value;
-    if (type.label === "Days >" || type.label === "Days <") value = maxt;
-    if (type.label === "Nights >" || type.label === "Nights <") value = mint;
-    if (type.label === "Rainfall >") value = pcpn;
-    if (type.label === "Snowfall >") value = snow;
+    const { setExtreemeValues } = this.props.appStore.paramsStore;
+    const { sliderStyle } = this.props;
 
     return (
       <Grid item xs={2} sm={2} style={{ height: 150 }}>
@@ -43,13 +31,13 @@ class MySlider extends Component {
           activeDotStyle={{ borderColor: "#843EA4" }}
           trackStyle={{ background: "#843EA4" }}
           vertical
-          min={type.min}
-          marks={type.marks}
+          min={sliderStyle.min}
+          marks={sliderStyle.marks}
           step={null}
-          max={type.max}
+          max={sliderStyle.max}
           // value={value}
-          onAfterChange={e => setSeasonalExtreme(type.label, e)}
-          defaultValue={value}
+          onAfterChange={e => setExtreemeValues(sliderStyle.type, e)}
+          defaultValue={sliderStyle.value}
         />
       </Grid>
     );

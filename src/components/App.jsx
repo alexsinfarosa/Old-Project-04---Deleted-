@@ -37,9 +37,7 @@ class App extends Component {
       station,
       avgTemps,
       avgPcpns,
-      extremeMaxtT,
-      extremeMinT,
-      extremeRainSnow
+      seasonalExtreme
     } = this.props.appStore.paramsStore;
 
     return (
@@ -93,12 +91,7 @@ class App extends Component {
         <Grid item xs={12} sm={8}>
           <Row type="TEMPERATURE" row={avgTemps} />
           <Row type="PRECIPITATION" row={avgPcpns} />
-          <Row
-            type="SEASONAL EXTREEME"
-            max={extremeMaxtT}
-            min={extremeMinT}
-            rainSnow={extremeRainSnow}
-          />
+          <Row type="SEASONAL EXTREEME" row={seasonalExtreme} />
         </Grid>
       </Grid>
     );

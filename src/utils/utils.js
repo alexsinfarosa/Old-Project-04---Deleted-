@@ -57,6 +57,7 @@ export const arcColoring = name => {
   if (name === "New") return "#BEBEBE";
   if (name === "Below") return "#0088FE";
   if (name === "Slightly Below") return "#7FB069";
+  if (name === "Normal") return "#C5B358";
   if (name === "Slightly Above") return "#FFBB28";
   if (name === "Above") return "#E63B2E";
 };

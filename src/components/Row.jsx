@@ -60,8 +60,8 @@ class Rows extends Component {
             {row.map((gauge, i) => (
               <Grid item key={i}>
                 <Grid container alignItems="center" spacing={8}>
-                  {row.isSlider ? (
-                    <MySlider type={gauge.type} />
+                  {gauge.isSlider ? (
+                    <MySlider sliderStyle={gauge.sliderStyle} />
                   ) : (
                     <Grid item xs={2} sm={2} />
                   )}
