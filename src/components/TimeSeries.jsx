@@ -38,7 +38,7 @@ class TimeSeries extends Component {
               border: "1px solid #b2b2b2"
             }}
           >
-            <p style={{ fontWeight: "bold", color: "#b2b2b2" }}>
+            <p style={{ fontWeight: "bold", color: "#949494" }}>
               Date: {bar.date}
             </p>
             <p style={{ fontWeight: "bold", color: bar.barColor }}>

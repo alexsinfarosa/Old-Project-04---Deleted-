@@ -28,7 +28,7 @@ const InnerCircle = ({
 
       <text
         x={cx}
-        y={cy + 20}
+        y={cy + 25}
         dy={8}
         textAnchor="middle"
         fill={fill}

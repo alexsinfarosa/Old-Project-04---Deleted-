@@ -3,15 +3,12 @@ import React, { Fragment } from "react";
 const PieLabels = ({
   cx,
   cy,
-  startAngle,
   midAngle,
   endAngle,
   innerRadius,
   outerRadius,
-  percent,
   index,
   payload,
-  fill,
   selectedIdx
 }) => {
   const RADIAN = Math.PI / 180;

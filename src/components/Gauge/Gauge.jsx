@@ -29,7 +29,7 @@ class Gauge extends Component {
     return (
       <PieChart width={width} height={height}>
         <Pie
-          opacity={0.5}
+          opacity={0.8}
           activeIndex={gauge.active}
           activeShape={
             <InnerCircle

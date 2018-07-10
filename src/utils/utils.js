@@ -36,16 +36,25 @@ export const determineQuantiles = data => {
 };
 
 export const index = (threshold, quantiles) => {
-  const daysAboveThisYear = threshold; // ex: 13
+  const daysAboveThisYear = parseFloat(threshold); // ex: 13
   const q = Object.values(quantiles); // ex: [3,11,23,66]
-
+  console.log(daysAboveThisYear, q);
   // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
-  if (daysAboveThisYear < q[0]) return 0;
-  if (daysAboveThisYear >= q[0] && daysAboveThisYear < q[1]) return 2;
-  if (daysAboveThisYear >= q[1] && daysAboveThisYear < q[2]) return 4;
-  if (daysAboveThisYear >= q[2] && daysAboveThisYear < q[3]) return 6;
-  if (daysAboveThisYear >= q[3] && daysAboveThisYear < q[4]) return 8;
-  if (daysAboveThisYear >= q[4]) return 10;
+  if (q[1] === q[2] || q[2] === q[3]) {
+    if (daysAboveThisYear < q[0]) return 0;
+    if (daysAboveThisYear >= q[0] && daysAboveThisYear < q[1]) return 2;
+    if (daysAboveThisYear >= q[1] && daysAboveThisYear < q[2]) return 4;
+    if (daysAboveThisYear >= q[2] && daysAboveThisYear < q[3]) return 6;
+    if (daysAboveThisYear >= q[3] && daysAboveThisYear < q[4]) return 6;
+    if (daysAboveThisYear >= q[4]) return 8;
+  } else {
+    if (daysAboveThisYear < q[0]) return 0;
+    if (daysAboveThisYear >= q[0] && daysAboveThisYear < q[1]) return 2;
+    if (daysAboveThisYear >= q[1] && daysAboveThisYear < q[2]) return 4;
+    if (daysAboveThisYear >= q[2] && daysAboveThisYear < q[3]) return 6;
+    if (daysAboveThisYear >= q[3] && daysAboveThisYear < q[4]) return 8;
+    if (daysAboveThisYear >= q[4]) return 10;
+  }
 };
 
 export const arcColoring = name => {
