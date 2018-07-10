@@ -3,7 +3,7 @@ import axios from "axios";
 import { jStat } from "jStat";
 import { stations } from "../assets/stationList";
 
-import { determineQuantiles, index, arcData } from "../utils/utils";
+import { determineQuantiles, index, arcData, closest } from "../utils/utils";
 import { format, getMonth } from "date-fns/esm";
 
 export default class ParamsStore {
@@ -523,8 +523,21 @@ export default class ParamsStore {
         if (isSlider)
           sliderStyle = this.seasonalType.filter(t => t.type === type)[0];
 
+        const gaugeDataNoCircles = gaugeData.filter(
+          obj =>
+            obj.name !== "Min" &&
+            obj.name !== "25%" &&
+            obj.name !== "Mean" &&
+            obj.name !== "75%" &&
+            obj.name !== "Max"
+        );
+
+        const colors = gaugeDataNoCircles.map(d => d.fill);
         const graphData = dates.map((date, i) => {
-          return { date, value: values[i] };
+          let barColorIdx = closest(values[i], Object.values(quantiles));
+          const barColor = colors.slice(0, -1)[barColorIdx];
+          const bar = Math.round(values[i] - mean);
+          return { date, value: values[i], barColor, bar };
         });
 
         p = {
@@ -532,10 +545,8 @@ export default class ParamsStore {
           type,
           elem,
           daysAboveThisYear,
-          values,
           quantiles,
           mean,
-          dates,
           active,
           gaugeData,
           isSlider,

@@ -2,18 +2,17 @@ import { jStat } from "jStat";
 
 const without = (arr, ...args) => arr.filter(v => !args.includes(v));
 
-// export const closest = (n, arr) => {
-//   if (arr.length === 1) return 0;
-//   return arr
-//     .map((q, i) => {
-//       if (i === 0 && n < q) return 0;
-//       if (i === arr.length - 1 && n >= q) return 0;
-//       if (i !== arr.length - 1) {
-//         if (n >= q && n < arr[i + 1]) return i + 1;
-//       }
-//     })
-//     .filter(d => d !== undefined)[0];
-// };
+export const closest = (n, arr) => {
+  return arr
+    .map((q, i) => {
+      if (i === 0 && n < q) return 0;
+      if (i === arr.length - 1 && n >= q) return 0;
+      if (i !== arr.length - 1) {
+        if (n >= q && n < arr[i + 1]) return i + 1;
+      }
+    })
+    .filter(d => d !== undefined)[0];
+};
 
 export const determineQuantiles = data => {
   let d = without(data, NaN);

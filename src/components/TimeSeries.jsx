@@ -39,7 +39,7 @@ class TimeSeries extends Component {
       >
         <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="date" tick={<GraphLabels />} />
-        <YAxis allowDecimals={false} />
+        <YAxis allowDecimals={false} domain={["dataMin - 1", "dataMax + 1"]} />
         <Tooltip label="value" />
         <ReferenceLine isFront y={0} stroke="#000" />
         <Brush
