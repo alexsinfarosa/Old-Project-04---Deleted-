@@ -514,7 +514,7 @@ export default class ParamsStore {
         const type = this.keys[elem].type;
         const isSlider = this.keys[elem].isSlider;
         const values = this.data.map(
-          d => (d[i + 1] === "T" ? "0.01" : parseFloat(d[i + 1]).toFixed(1))
+          d => (d[i + 1] === "T" ? "0.0001" : parseFloat(d[i + 1]).toFixed(1))
         );
         const daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(1);
         const quantiles = determineQuantiles(values);
@@ -536,13 +536,14 @@ export default class ParamsStore {
         );
 
         const colors = gaugeDataNoCircles.map(d => d.fill);
-        const graphData = dates.map((date, i) => {
-          // console.log(date, values[i]);
+        let graphData = dates.map((date, i) => {
           let barColorIdx = closest(values[i], Object.values(quantiles));
           const barColor = colors.slice(0, -1)[barColorIdx + 1];
-          const bar = values[i] - mean;
+          let bar = parseFloat((values[i] - mean).toFixed(1));
           return { date, value: values[i], barColor, bar };
         });
+
+        graphData = graphData.filter(d => d.value !== "NaN");
 
         p = {
           label,

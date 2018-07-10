@@ -12,7 +12,7 @@ export const closest = (n, q) => {
 };
 
 export const determineQuantiles = data => {
-  let d = without(data, NaN);
+  let d = without(data, "NaN");
   d = without(d, "M");
 
   let original = jStat
@@ -38,7 +38,7 @@ export const determineQuantiles = data => {
 export const index = (threshold, quantiles) => {
   const daysAboveThisYear = parseFloat(threshold); // ex: 13
   const q = Object.values(quantiles); // ex: [3,11,23,66]
-  console.log(daysAboveThisYear, q);
+  // console.log(daysAboveThisYear, q);
   // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
   if (q[1] === q[2] || q[2] === q[3]) {
     if (daysAboveThisYear < q[0]) return 0;
