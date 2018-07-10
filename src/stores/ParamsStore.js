@@ -507,12 +507,15 @@ export default class ParamsStore {
   get gauge() {
     let results = [];
     if (this.data) {
+      // console.log(this.data);
       Object.keys(this.keys).forEach((elem, i) => {
         let p = {};
         const label = this.keys[elem].label;
         const type = this.keys[elem].type;
         const isSlider = this.keys[elem].isSlider;
-        const values = this.data.map(d => parseFloat(d[i + 1]).toFixed(1));
+        const values = this.data.map(
+          d => (d[i + 1] === "T" ? "0.01" : parseFloat(d[i + 1]).toFixed(1))
+        );
         const daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(1);
         const quantiles = determineQuantiles(values);
         const mean = parseFloat(jStat.quantiles(values, [0.5])[0].toFixed(1));
@@ -534,8 +537,9 @@ export default class ParamsStore {
 
         const colors = gaugeDataNoCircles.map(d => d.fill);
         const graphData = dates.map((date, i) => {
+          // console.log(date, values[i]);
           let barColorIdx = closest(values[i], Object.values(quantiles));
-          const barColor = colors.slice(0, -1)[barColorIdx];
+          const barColor = colors.slice(0, -1)[barColorIdx + 1];
           const bar = Math.round(values[i] - mean);
           return { date, value: values[i], barColor, bar };
         });

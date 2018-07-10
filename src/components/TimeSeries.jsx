@@ -16,8 +16,6 @@ import {
 
 import GraphLabels from "./GraphLabels";
 
-// import { arcColoring } from "../utils/utils";
-
 const styles = theme => ({
   root: { flexGrow: 1 }
 });
@@ -27,7 +25,22 @@ const height = 350;
 class TimeSeries extends Component {
   render() {
     const { gauge } = this.props;
-    console.log(gauge);
+
+    const renderTooltip = d => {
+      if (d.payload[0]) {
+        const bar = d.payload[0].payload;
+        return (
+          <div style={{ background: "#fdfafa", borderRadius: 10, padding: 5 }}>
+            <p style={{ fontWeight: "bold", color: "#b2b2b2" }}>
+              Date: {bar.date}
+            </p>
+            <p style={{ fontWeight: "bold", color: bar.barColor }}>
+              Value: {bar.value}
+            </p>
+          </div>
+        );
+      }
+    };
 
     return (
       <BarChart
@@ -39,7 +52,7 @@ class TimeSeries extends Component {
         <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="date" tick={<GraphLabels />} />
         <YAxis allowDecimals={false} domain={["dataMin - 1", "dataMax + 1"]} />
-        <Tooltip label="value" />
+        <Tooltip content={renderTooltip} />
         <ReferenceLine isFront y={0} stroke="#000" />
         {/*<Brush
           dataKey="name"

@@ -2,16 +2,13 @@ import { jStat } from "jStat";
 
 const without = (arr, ...args) => arr.filter(v => !args.includes(v));
 
-export const closest = (n, arr) => {
-  return arr
-    .map((q, i) => {
-      if (i === 0 && n < q) return 0;
-      if (i === arr.length - 1 && n >= q) return 0;
-      if (i !== arr.length - 1) {
-        if (n >= q && n < arr[i + 1]) return i + 1;
-      }
-    })
-    .filter(d => d !== undefined)[0];
+export const closest = (n, q) => {
+  const daysAbove = parseFloat(n);
+  if (daysAbove < q[0] || (daysAbove >= q[0] && daysAbove < q[1])) return 0;
+  if (daysAbove >= q[1] && daysAbove < q[2]) return 1;
+  if (daysAbove >= q[2] && daysAbove < q[3]) return 2;
+  if (daysAbove >= q[3] && daysAbove < q[4]) return 3;
+  if (daysAbove >= q[4]) return 4;
 };
 
 export const determineQuantiles = data => {
