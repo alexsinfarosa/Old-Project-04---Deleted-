@@ -17,10 +17,10 @@ const InnerCircle = ({
       <text
         x={cx}
         y={cy}
-        dy={8}
+        dy={0}
         textAnchor="middle"
         fill={fill}
-        fontSize={14}
+        fontSize={13}
         fontWeight="bold"
       >
         {label}
@@ -28,11 +28,11 @@ const InnerCircle = ({
 
       <text
         x={cx}
-        y={cy + 25}
-        dy={8}
+        y={cy + 17}
+        dy={0}
         textAnchor="middle"
         fill={fill}
-        fontSize={16}
+        fontSize={15}
         fontWeight="bold"
       >
         {Number(daysAboveThisYear).toFixed(1)}
@@ -63,7 +63,7 @@ const InnerCircle = ({
         cy={cy}
         startAngle={startAngle}
         endAngle={endAngle}
-        innerRadius={innerRadius - 3}
+        innerRadius={innerRadius + 0}
         outerRadius={innerRadius + 1}
         fill={fill}
       />

@@ -91,7 +91,7 @@ class App extends Component {
         <Grid item xs={12} sm={8}>
           <Row type="TEMPERATURE" row={avgTemps} />
           <Row type="PRECIPITATION" row={avgPcpns} />
-          <Row type="SEASONAL EXTREEME" row={seasonalExtreme} />
+          <Row type="SEASONAL EXTREME" row={seasonalExtreme} />
         </Grid>
       </Grid>
     );

@@ -38,7 +38,7 @@ const PieLabels = ({
         textAnchor={x > cx ? "middle" : "middle"}
         dominantBaseline="central"
       >
-        {payload.endArcQuantile}
+        {payload.endArcQuantile && payload.endArcQuantile.toFixed(1)}
       </text>
 
       {(name === "Min" ||

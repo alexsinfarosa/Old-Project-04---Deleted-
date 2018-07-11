@@ -524,7 +524,7 @@ export default class ParamsStore {
         );
         const daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(1);
         const quantiles = determineQuantiles(values);
-        const mean = parseFloat(jStat.quantiles(values, [0.5])[0].toFixed(1));
+        const mean = jStat.quantiles(values, [0.5])[0].toFixed(1);
         const dates = this.data.map(d => d[0]);
         const active = index(daysAboveThisYear, quantiles);
         const gaugeData = arcData(quantiles, daysAboveThisYear, type);
@@ -542,10 +542,18 @@ export default class ParamsStore {
         );
 
         const colors = gaugeDataNoCircles.map(d => d.fill);
+        console.log(colors);
         let graphData = dates.map((date, i) => {
           let barColorIdx = closest(values[i], Object.values(quantiles));
-          const barColor = colors.slice(0, -1)[barColorIdx + 1];
-          let bar = parseFloat((values[i] - mean).toFixed(1));
+          const barColor = colors[barColorIdx];
+          // console.log(
+          //   date,
+          //   values[i],
+          //   quantiles,
+          //   barColorIdx,
+          //   colors[barColorIdx]
+          // );
+          let bar = values[i] - mean;
           return { date, value: values[i], barColor, bar };
         });
 

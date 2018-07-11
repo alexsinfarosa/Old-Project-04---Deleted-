@@ -8,10 +8,10 @@ import {
   Bar,
   ReferenceLine,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
-  Cell
+  Cell,
+  Label
 } from "recharts";
 
 import GraphLabels from "./GraphLabels";
@@ -20,7 +20,7 @@ const styles = theme => ({
   root: { flexGrow: 1 }
 });
 
-const width = 1200;
+const width = 1250;
 const height = 350;
 class TimeSeries extends Component {
   render() {
@@ -54,19 +54,14 @@ class TimeSeries extends Component {
         width={width}
         height={height}
         data={gauge.graphData}
-        margin={{ top: 30, right: 0, left: 0, bottom: 30 }}
+        margin={{ top: 30, right: 50, left: 90, bottom: 30 }}
       >
         <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="date" tick={<GraphLabels />} />
-        <YAxis allowDecimals={false} domain={["dataMin - 1", "dataMax + 1"]} />
         <Tooltip content={renderTooltip} />
-        <ReferenceLine isFront y={0} stroke="#000" />
-        {/*<Brush
-          dataKey="name"
-          height={30}
-          stroke="#8884d8"
-          tickFormatter={x => getYear(gauge.graphData[x].date)}
-        />*/}
+        <ReferenceLine isFront y={0} stroke="#000">
+          <Label value={`Mean = ${gauge.mean}`} offset={8} position="left" />
+        </ReferenceLine>
         <Bar dataKey="bar" fill={"red"}>
           {gauge.graphData.map((entry, index) => {
             return <Cell key={index} fill={entry.barColor} />;

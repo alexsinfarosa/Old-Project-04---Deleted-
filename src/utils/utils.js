@@ -4,11 +4,12 @@ const without = (arr, ...args) => arr.filter(v => !args.includes(v));
 
 export const closest = (n, q) => {
   const daysAbove = parseFloat(n);
-  if (daysAbove < q[0] || (daysAbove >= q[0] && daysAbove < q[1])) return 0;
-  if (daysAbove >= q[1] && daysAbove < q[2]) return 1;
-  if (daysAbove >= q[2] && daysAbove < q[3]) return 2;
-  if (daysAbove >= q[3] && daysAbove < q[4]) return 3;
-  if (daysAbove >= q[4]) return 4;
+  if (daysAbove < q[0]) return 0;
+  if (daysAbove >= q[0] && daysAbove < q[1]) return 1;
+  if (daysAbove >= q[1] && daysAbove < q[2]) return 2;
+  if (daysAbove >= q[2] && daysAbove < q[3]) return 3;
+  if (daysAbove >= q[3] && daysAbove < q[4]) return 4;
+  if (daysAbove >= q[4]) return 5;
 };
 
 export const determineQuantiles = data => {
@@ -17,7 +18,7 @@ export const determineQuantiles = data => {
 
   let original = jStat
     .quantiles(d, [0, 0.25, 0.5, 0.75, 1])
-    .map(x => parseFloat(x).toFixed(0));
+    .map(x => parseFloat(x));
   // console.log(original);
 
   let q = {};

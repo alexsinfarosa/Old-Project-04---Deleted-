@@ -15,7 +15,7 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "75%",
+    width: "80%",
     margin: "0 auto",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
