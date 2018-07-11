@@ -54,7 +54,7 @@ class TimeSeries extends Component {
         width={width}
         height={height}
         data={gauge.graphData}
-        margin={{ top: 30, right: 50, left: 90, bottom: 30 }}
+        margin={{ top: 30, right: 50, left: 100, bottom: 30 }}
       >
         <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="date" tick={<GraphLabels />} />

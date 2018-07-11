@@ -546,13 +546,6 @@ export default class ParamsStore {
         let graphData = dates.map((date, i) => {
           let barColorIdx = closest(values[i], Object.values(quantiles));
           const barColor = colors[barColorIdx];
-          // console.log(
-          //   date,
-          //   values[i],
-          //   quantiles,
-          //   barColorIdx,
-          //   colors[barColorIdx]
-          // );
           let bar = values[i] - mean;
           return { date, value: values[i], barColor, bar };
         });
