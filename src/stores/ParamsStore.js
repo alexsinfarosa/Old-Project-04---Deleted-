@@ -519,9 +519,20 @@ export default class ParamsStore {
         const label = this.keys[elem].label;
         const type = this.keys[elem].type;
         const isSlider = this.keys[elem].isSlider;
+        const dates = this.data.map(d => d[0]);
         const values = this.data.map(
           d => (d[i + 1] === "T" ? "0.0001" : parseFloat(d[i + 1]).toFixed(1))
         );
+
+        const original = dates
+          .map((date, i) => {
+            const value = values[i];
+            return value === "M" || value === "NaN" ? null : { date, value };
+          })
+          .filter(d => d);
+
+        const datesCleaned = original.map(obj => obj.date);
+        const valuesCleaned = original.map(obj => obj.value);
 
         let daysAboveThisYear;
         if (
@@ -530,15 +541,15 @@ export default class ParamsStore {
           type === "rainfall" ||
           type === "snowfall"
         ) {
-          daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(0);
+          daysAboveThisYear = parseFloat(valuesCleaned.slice(-1)[0]).toFixed(0);
         } else if (type === "avgPcpn") {
-          daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(2);
+          daysAboveThisYear = parseFloat(valuesCleaned.slice(-1)[0]).toFixed(2);
         } else {
-          daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(1);
+          daysAboveThisYear = parseFloat(valuesCleaned.slice(-1)[0]).toFixed(1);
         }
-        const quantiles = determineQuantiles(values);
-        const mean = jStat.quantiles(values, [0.5])[0].toFixed(1);
-        const dates = this.data.map(d => d[0]);
+
+        const quantiles = determineQuantiles(valuesCleaned);
+        const mean = jStat.quantiles(valuesCleaned, [0.5])[0].toFixed(1);
         const active = index(daysAboveThisYear, quantiles);
         const gaugeData = arcData(quantiles, type);
         let sliderStyle;
@@ -556,18 +567,25 @@ export default class ParamsStore {
 
         const colors = gaugeDataNoCircles.map(d => d.fill);
 
-        let graphData = dates.map((date, i) => {
-          let barColorIdx = closest(values[i], Object.values(quantiles));
+        let graphData = datesCleaned.map((date, i) => {
+          let barColorIdx = closest(valuesCleaned[i], Object.values(quantiles));
           const barColor = colors[barColorIdx];
-          let bar = parseFloat(values[i]) - parseFloat(mean);
-          // console.log(elem, date, parseFloat(values[i]), parseFloat(mean), bar);
-          return { date, value: values[i], mean, bar, barColor };
+          let bar = parseFloat(valuesCleaned[i]) - parseFloat(mean);
+
+          return {
+            date,
+            value: valuesCleaned[i],
+            mean,
+            bar,
+            barColor
+          };
         });
 
         graphData = graphData.filter(d => d.value !== "NaN");
 
         p = {
-          results,
+          colors,
+          original,
           label,
           type,
           elem,

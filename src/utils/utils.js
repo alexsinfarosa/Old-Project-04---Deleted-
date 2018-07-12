@@ -3,10 +3,16 @@ import { jStat } from "jStat";
 const without = (arr, ...args) => arr.filter(v => !args.includes(v));
 
 export const closest = (n, q) => {
-  // console.log(q);
   const daysAbove = parseFloat(n);
 
-  if (q[1] === q[2] || q[2] === q[3]) {
+  if (q[2] === q[3] && daysAbove === q[3]) {
+    if (daysAbove < q[0]) return 0;
+    if (daysAbove >= q[0] && daysAbove < q[1]) return 1;
+    if (daysAbove >= q[1] && daysAbove < q[2]) return 2;
+    if (daysAbove >= q[2] && daysAbove < q[3]) return 2;
+    if (daysAbove >= q[3] && daysAbove < q[4]) return 3;
+    if (daysAbove >= q[4]) return 4;
+  } else if (q[1] === q[2]) {
     if (daysAbove < q[0]) return 0;
     if (daysAbove >= q[0] && daysAbove < q[1]) return 1;
     if (daysAbove >= q[1] && daysAbove < q[2]) return 2;
