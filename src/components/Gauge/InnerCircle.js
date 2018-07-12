@@ -35,7 +35,7 @@ const InnerCircle = ({
         fontSize={15}
         fontWeight="bold"
       >
-        {Number(daysAboveThisYear).toFixed(1)}
+        {daysAboveThisYear}
       </text>
 
       <Sector

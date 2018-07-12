@@ -52,12 +52,19 @@ export const index = (threshold, quantiles) => {
   const q = Object.values(quantiles); // ex: [3,11,23,66]
   // console.log(daysAboveThisYear, q);
   // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
-  if (q[1] === q[2] || q[2] === q[3]) {
+  if (q[2] === q[3]) {
     if (daysAboveThisYear < q[0]) return 0;
     if (daysAboveThisYear >= q[0] && daysAboveThisYear < q[1]) return 2;
     if (daysAboveThisYear >= q[1] && daysAboveThisYear < q[2]) return 4;
     if (daysAboveThisYear >= q[2] && daysAboveThisYear < q[3]) return 4;
     if (daysAboveThisYear >= q[3] && daysAboveThisYear < q[4]) return 4;
+    if (daysAboveThisYear >= q[4]) return 8;
+  } else if (q[1] === q[2]) {
+    if (daysAboveThisYear < q[0]) return 0;
+    if (daysAboveThisYear >= q[0] && daysAboveThisYear < q[1]) return 2;
+    if (daysAboveThisYear >= q[1] && daysAboveThisYear < q[2]) return 4;
+    if (daysAboveThisYear >= q[2] && daysAboveThisYear < q[3]) return 6;
+    if (daysAboveThisYear >= q[3] && daysAboveThisYear < q[4]) return 6;
     if (daysAboveThisYear >= q[4]) return 8;
   } else {
     if (daysAboveThisYear < q[0]) return 0;
@@ -82,12 +89,13 @@ export const arcColoring = name => {
 export const arcData = (q, type) => {
   const v = Object.values(q);
 
-  // 3-category ---------------------------------------
+  // 4-category ---------------------------------------
   if (q["25"] !== q["50"] && q["50"] !== q["75"]) {
     // case 75 === 100
     if (
       q["75"] === q["100"] ||
       (q["0"] !== q["25"] &&
+        q["0"] > 0 &&
         q["25"] !== q["50"] &&
         q["50"] !== q["75"] &&
         q["75"] !== q["100"])
@@ -255,7 +263,7 @@ export const arcData = (q, type) => {
       ];
     }
 
-    if (q["0"] === q["25"] && q["25"] === 0 && type !== "temperature") {
+    if (q["0"] === q["25"] && q["25"] === 0 && type !== "avgTemp") {
       return [
         {
           name: "",
@@ -337,7 +345,7 @@ export const arcData = (q, type) => {
       ];
     }
 
-    if (q["0"] === 0 && type !== "temperature") {
+    if (q["0"] === 0 && type !== "avgTemp") {
       return [
         {
           name: "",
@@ -420,7 +428,7 @@ export const arcData = (q, type) => {
     }
   }
 
-  // 4-category ---------------------------------------
+  // 3-category ---------------------------------------
   if (q["25"] === q["50"] || q["50"] === q["75"]) {
     // case 2b (min and 25% are equal but not zero)
     if (q["0"] === q["25"] && q["25"] > 0) {
@@ -492,7 +500,7 @@ export const arcData = (q, type) => {
     }
 
     // 2c: (min and 25th are equal and their value is zero)
-    if (q["0"] === q["25"] && q["25"] === 0 && type !== "temperature") {
+    if (q["0"] === q["25"] && q["25"] === 0 && type !== "avgTemp") {
       return [
         {
           name: "",
@@ -564,7 +572,7 @@ export const arcData = (q, type) => {
     if (
       q["0"] === 0 &&
       (q["25"] > 0 && q["50"] > 0 && q["75"] > 0 && q["100"] > 0) &&
-      type !== "temperature"
+      type !== "avgTemp"
     ) {
       return [
         {
@@ -703,7 +711,7 @@ export const arcData = (q, type) => {
     }
 
     // 2e: (75th and 100Th are equal and their value is not zero and value is not temp)
-    if (q["75"] === q["100"] && q["100"] > 0 && type !== "temperature") {
+    if (q["75"] === q["100"] && q["100"] > 0 && type !== "avgTemp") {
       return [
         {
           name: "New",
@@ -772,7 +780,7 @@ export const arcData = (q, type) => {
     }
 
     // 2e: (75th and 100Th are equal and their value is zero and value is not temp)
-    if (q["75"] === q["100"] && q["100"] === 0 && type !== "temperature") {
+    if (q["75"] === q["100"] && q["100"] === 0 && type !== "avgTemp") {
       return [
         {
           name: "New",

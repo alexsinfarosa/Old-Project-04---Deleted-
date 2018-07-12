@@ -522,12 +522,25 @@ export default class ParamsStore {
         const values = this.data.map(
           d => (d[i + 1] === "T" ? "0.0001" : parseFloat(d[i + 1]).toFixed(1))
         );
-        const daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(1);
+
+        let daysAboveThisYear;
+        if (
+          type === "maxt" ||
+          type === "mint" ||
+          type === "rainfall" ||
+          type === "snowfall"
+        ) {
+          daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(0);
+        } else if (type === "avgPcpn") {
+          daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(2);
+        } else {
+          daysAboveThisYear = parseFloat(values.slice(-1)[0]).toFixed(1);
+        }
         const quantiles = determineQuantiles(values);
         const mean = jStat.quantiles(values, [0.5])[0].toFixed(1);
         const dates = this.data.map(d => d[0]);
         const active = index(daysAboveThisYear, quantiles);
-        const gaugeData = arcData(quantiles, daysAboveThisYear, type);
+        const gaugeData = arcData(quantiles, type);
         let sliderStyle;
         if (isSlider)
           sliderStyle = this.seasonalType.filter(t => t.type === type)[0];
@@ -542,17 +555,19 @@ export default class ParamsStore {
         );
 
         const colors = gaugeDataNoCircles.map(d => d.fill);
-        console.log(colors);
+
         let graphData = dates.map((date, i) => {
           let barColorIdx = closest(values[i], Object.values(quantiles));
           const barColor = colors[barColorIdx];
-          let bar = values[i] - mean;
-          return { date, value: values[i], barColor, bar };
+          let bar = parseFloat(values[i]) - parseFloat(mean);
+          // console.log(elem, date, parseFloat(values[i]), parseFloat(mean), bar);
+          return { date, value: values[i], mean, bar, barColor };
         });
 
         graphData = graphData.filter(d => d.value !== "NaN");
 
         p = {
+          results,
           label,
           type,
           elem,
