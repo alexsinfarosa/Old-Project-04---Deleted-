@@ -52,7 +52,7 @@ export const index = (threshold, quantiles) => {
   const q = Object.values(quantiles); // ex: [3,11,23,66]
   // console.log(daysAboveThisYear, q);
   // console.log(`d: ${d}, q = [min, .25, .5, .75, 1]: [${q}]`);
-  if (q[2] === q[3]) {
+  if (q[2] === q[3] && daysAboveThisYear === q[3]) {
     if (daysAboveThisYear < q[0]) return 0;
     if (daysAboveThisYear >= q[0] && daysAboveThisYear < q[1]) return 2;
     if (daysAboveThisYear >= q[1] && daysAboveThisYear < q[2]) return 4;
