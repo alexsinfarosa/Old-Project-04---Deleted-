@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
-
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 
@@ -53,7 +52,6 @@ class GaugeGraphModal extends Component {
             >
               {title}
             </Typography>
-
             <div>{gauge}</div>
             <div>{timeSeries}</div>
           </div>

@@ -581,7 +581,10 @@ export default class ParamsStore {
           };
         });
 
-        // graphData = graphData.filter(d => d.value !== "NaN");
+        const csvData = datesCleaned.map((date, i) => ({
+          date,
+          value: parseFloat(valuesCleaned[i])
+        }));
 
         p = {
           colors,
@@ -596,7 +599,8 @@ export default class ParamsStore {
           gaugeData,
           isSlider,
           sliderStyle,
-          graphData
+          graphData,
+          csvData
         };
         results.push(p);
       });

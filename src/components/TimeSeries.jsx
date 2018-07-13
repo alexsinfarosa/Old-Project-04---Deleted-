@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { withStyles } from "@material-ui/core/styles";
 import withRoot from "../withRoot";
-// import getYear from "date-fns/getYear";
+import { CSVLink } from "react-csv";
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+
 import {
   BarChart,
   Bar,
@@ -17,14 +20,17 @@ import {
 import GraphLabels from "./GraphLabels";
 
 const styles = theme => ({
-  root: { flexGrow: 1 }
+  root: { flexGrow: 1 },
+  csvLink: {
+    textDecoration: "none"
+  }
 });
 
 const width = 1250;
 const height = 350;
 class TimeSeries extends Component {
   render() {
-    const { gauge } = this.props;
+    const { classes, gauge } = this.props;
 
     const renderTooltip = d => {
       if (d.payload[0]) {
@@ -50,25 +56,45 @@ class TimeSeries extends Component {
     };
 
     return (
-      <BarChart
-        width={width}
-        height={height}
-        data={gauge.graphData}
-        margin={{ top: 30, right: 50, left: 100, bottom: 30 }}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
       >
-        <CartesianGrid strokeDasharray="1 1" />
-        <XAxis dataKey="date" tick={<GraphLabels />} />
-        <Tooltip content={renderTooltip} />
-        <ReferenceLine isFront y={0} stroke="#000">
-          <Label value={`Mean = ${gauge.mean}`} offset={8} position="left" />
-        </ReferenceLine>
-        <Bar dataKey="bar" fill={"red"}>
-          {gauge.graphData.map((entry, index) => {
-            return <Cell key={index} fill={entry.barColor} />;
-          })}
-        </Bar>
-        />
-      </BarChart>
+        <BarChart
+          width={width}
+          height={height}
+          data={gauge.graphData}
+          margin={{ top: 30, right: 50, left: 100, bottom: 30 }}
+        >
+          <CartesianGrid strokeDasharray="1 1" />
+          <XAxis dataKey="date" tick={<GraphLabels />} />
+          <Tooltip content={renderTooltip} />
+          <ReferenceLine isFront y={0} stroke="#000">
+            <Label value={`Mean = ${gauge.mean}`} offset={8} position="left" />
+          </ReferenceLine>
+          <Bar dataKey="bar" fill={"red"}>
+            {gauge.graphData.map((entry, index) => {
+              return <Cell key={index} fill={entry.barColor} />;
+            })}
+          </Bar>
+          />
+        </BarChart>
+        <CSVLink
+          className={classes.csvLink}
+          data={gauge.csvData}
+          filename={"time-series.csv"}
+          target="_self"
+        >
+          <Button size="small" aria-label="download">
+            <Icon style={{ marginRight: 5 }}>save_alt</Icon>
+            Download CSV File
+          </Button>
+        </CSVLink>
+      </div>
     );
   }
 }
