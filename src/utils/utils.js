@@ -9,10 +9,10 @@ export const closest = (n, q) => {
     if (daysAbove < q[0]) return 0;
     if (daysAbove >= q[0] && daysAbove < q[1]) return 1;
     if (daysAbove >= q[1] && daysAbove < q[2]) return 2;
-    if (daysAbove >= q[2] && daysAbove < q[3]) return 2;
-    if (daysAbove >= q[3] && daysAbove < q[4]) return 3;
+    if (daysAbove >= q[2] && daysAbove <= q[3]) return 2;
+    if (daysAbove > q[3] && daysAbove < q[4]) return 3;
     if (daysAbove >= q[4]) return 4;
-  } else if (q[1] === q[2]) {
+  } else if (q[1] === q[2] && daysAbove !== q[3]) {
     if (daysAbove < q[0]) return 0;
     if (daysAbove >= q[0] && daysAbove < q[1]) return 1;
     if (daysAbove >= q[1] && daysAbove < q[2]) return 2;
@@ -472,7 +472,7 @@ export const arcData = (q, type) => {
           startArcQuantile: v[1],
           endArcQuantile: v[3],
           value: 8,
-          fill: "gold"
+          fill: "#e2b590"
         },
         {
           name: "75%",
@@ -541,7 +541,7 @@ export const arcData = (q, type) => {
           startArcQuantile: v[1],
           endArcQuantile: v[3],
           value: 8,
-          fill: "gold"
+          fill: "#e2b590"
         },
         {
           name: "75%",
@@ -614,7 +614,7 @@ export const arcData = (q, type) => {
           startArcQuantile: v[1],
           endArcQuantile: v[3],
           value: 8,
-          fill: "gold"
+          fill: "#e2b590"
         },
         {
           name: "75%",
@@ -683,7 +683,7 @@ export const arcData = (q, type) => {
           startArcQuantile: v[1],
           endArcQuantile: v[3],
           value: 8,
-          fill: "gold"
+          fill: "#e2b590"
         },
         {
           name: "75%",
@@ -752,7 +752,7 @@ export const arcData = (q, type) => {
           startArcQuantile: v[1],
           endArcQuantile: v[3],
           value: 8,
-          fill: "gold"
+          fill: "#e2b590"
         },
         {
           name: "75%",
@@ -821,7 +821,7 @@ export const arcData = (q, type) => {
           startArcQuantile: v[1],
           endArcQuantile: v[3],
           value: 8,
-          fill: "gold"
+          fill: "#e2b590"
         },
         {
           name: "75%",

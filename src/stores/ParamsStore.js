@@ -581,7 +581,7 @@ export default class ParamsStore {
           };
         });
 
-        graphData = graphData.filter(d => d.value !== "NaN");
+        // graphData = graphData.filter(d => d.value !== "NaN");
 
         p = {
           colors,
