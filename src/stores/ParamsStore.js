@@ -19,13 +19,13 @@ export default class ParamsStore {
   station = stations[2];
   setStation = d => {
     this.station = d;
-    this.maxt = this.seasonalType[0].range[0];
+    this.maxt = this.seasonalType[0].range[1];
     this.mint = this.seasonalType[1].range[0];
     this.rainfall = this.seasonalType[2].range[0];
     this.snowfall = this.seasonalType[2].range[0];
   };
 
-  maxt = this.seasonalType[0].range[0];
+  maxt = this.seasonalType[0].range[1];
   // setMaxt = d => (this.maxt = d);
 
   mint = this.seasonalType[1].range[0];

@@ -17,7 +17,7 @@ class MySlider extends Component {
   render() {
     const { setExtreemeValues } = this.props.appStore.paramsStore;
     const { sliderStyle } = this.props;
-
+    console.log(sliderStyle);
     return (
       <Grid item xs={2} sm={2} style={{ height: 150 }}>
         <Slider
@@ -37,7 +37,7 @@ class MySlider extends Component {
           max={sliderStyle.max}
           // value={value}
           onAfterChange={e => setExtreemeValues(sliderStyle.type, e)}
-          defaultValue={sliderStyle.value}
+          defaultValue={sliderStyle.defaultValue}
         />
       </Grid>
     );
