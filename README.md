@@ -1,1 +1,1 @@
-### NRCC Temperature Widget
+### Old Project - Deleted!
